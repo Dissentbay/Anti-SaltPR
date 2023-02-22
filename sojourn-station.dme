@@ -3363,5 +3363,4 @@
 #include "modular_sojourn\task_master\human_helper.dm"
 #include "modular_sojourn\task_master\task_helpers.dm"
 #include "modular_sojourn\task_master\tasks.dm"
-
 // END_INCLUDE
