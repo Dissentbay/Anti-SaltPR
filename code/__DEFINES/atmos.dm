@@ -17,6 +17,7 @@
 
 #define STD_BREATH_VOLUME      12 // Liters in a normal breath.
 #define BREATH_MOLES        (ONE_ATMOSPHERE * BREATH_VOLUME / (T20C * R_IDEAL_GAS_EQUATION)) // Amount of air to take a from a tile
+#define BREATH_VOLUME       0.5 // Liters in a normal breath.
 
 #define HUMAN_HEAT_CAPACITY 280000 //J/K For 80kg person
 

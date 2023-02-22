@@ -3,16 +3,11 @@
 
 /obj/machinery/atmospherics/unary/freezer
 	name = "gas cooling system"
-<<<<<<< HEAD:code/modules/atmospherics/components/unary/cold_sink.dm
 	desc = "Cools gas when connected to a pipe network."
-=======
-	desc = "Cools gas when connected to pipe network"
->>>>>>> 2482ab802703ee93531ba3c87dd3084f5ce7f610:code/ATMOSPHERICS/components/unary/cold_sink.dm
 	icon = 'icons/obj/Cryogenic2.dmi'
 	icon_state = "freezer_0"
 	density = TRUE
 	anchored = TRUE
-<<<<<<< HEAD:code/modules/atmospherics/components/unary/cold_sink.dm
 	use_power = POWER_USE_OFF
 	idle_power_usage = 5			// 5 Watts for thermostat related circuitry
 	base_type = /obj/machinery/atmospherics/unary/freezer
@@ -23,11 +18,9 @@
 	machine_name = "gas cooling system"
 	machine_desc = "While active, this machine cools the gas in a connected pipeline to lower temperatures. Gas pressure decreases with chilling, allowing it to be compressed more easily."
 
-=======
 	use_power = NO_POWER_USE
 	idle_power_usage = 5			// 5 Watts for thermostat related circuitry
 	circuit = /obj/item/circuitboard/unary_atmos/cooler
->>>>>>> 2482ab802703ee93531ba3c87dd3084f5ce7f610:code/ATMOSPHERICS/components/unary/cold_sink.dm
 	var/heatsink_temperature = T20C	// The constant temperature reservoir into which the freezer pumps heat. Probably the hull of the station or something.
 	var/internal_volume = 600		// L
 

@@ -6,11 +6,7 @@
 	icon_state = "map_mixer"
 
 	idle_power_usage = 150		//internal circuitry, friction losses and stuff
-<<<<<<< HEAD:code/modules/atmospherics/components/omni_devices/mixer.dm
 	power_rating = 15000			// 15000 W ~ 20 HP
-=======
-	power_rating = 3700			//3700 W ~ 5 HP
->>>>>>> 2482ab802703ee93531ba3c87dd3084f5ce7f610:code/ATMOSPHERICS/components/omni_devices/mixer.dm
 
 	var/list/inputs = new()
 	var/datum/omni_port/output
@@ -275,11 +271,7 @@
 	if(non_locked < 1)
 		return
 
-<<<<<<< HEAD:code/modules/atmospherics/components/omni_devices/mixer.dm
 	var/new_con = (input(usr,"Enter a new concentration (0-[round(remain_con * 100, 0.5)])%","Concentration control", min(remain_con, old_con)*100) as num) / 100
-=======
-	var/new_con = (input(usr, "Enter a new concentration (0-[round(remain_con * 100, 0.5)])%", "Concentration control", min(remain_con, old_con)*100) as num) / 100
->>>>>>> 2482ab802703ee93531ba3c87dd3084f5ce7f610:code/ATMOSPHERICS/components/omni_devices/mixer.dm
 
 	//cap it between 0 and the max remaining concentration
 	new_con = clamp(new_con, 0, remain_con)

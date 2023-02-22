@@ -50,13 +50,8 @@
 
 	build_icons()
 
-<<<<<<< HEAD:code/modules/atmospherics/components/omni_devices/omni_base.dm
-/obj/machinery/atmospherics/omni/on_update_icon()
-	if(!is_powered())
-=======
 /obj/machinery/atmospherics/omni/update_icon()
 	if(stat & NOPOWER)
->>>>>>> 2482ab802703ee93531ba3c87dd3084f5ce7f610:code/ATMOSPHERICS/components/omni_devices/omni_base.dm
 		overlays = overlays_off
 	else if(error_check())
 		overlays = overlays_error
@@ -100,12 +95,9 @@
 			SPAN_NOTICE("\The [user] unfastens \the [src]."), \
 			SPAN_NOTICE("You have unfastened \the [src]."), \
 			"You hear a ratchet.")
-<<<<<<< HEAD:code/modules/atmospherics/components/omni_devices/omni_base.dm
 		new /obj/item/pipe(loc, src)
-=======
 		investigate_log("was unfastened by [key_name(user)]", "atmos")
 		new /obj/item/pipe(loc, make_from=src)
->>>>>>> 2482ab802703ee93531ba3c87dd3084f5ce7f610:code/ATMOSPHERICS/components/omni_devices/omni_base.dm
 		qdel(src)
 
 /obj/machinery/atmospherics/omni/interface_interact(mob/user)

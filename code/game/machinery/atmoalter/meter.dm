@@ -100,7 +100,6 @@
 
 /obj/machinery/meter/interface_interact(mob/user)
 	if (!target)
-		log_debug(append_admin_tools("\A [src] interacted with by \the [user] had no target.", user, get_turf(src)))
 		to_chat(user, SPAN_WARNING("\The [src] has no target! This might be a bug. Please report it."))
 		return TRUE
 	var/datum/gas_mixture/environment = target.return_air()

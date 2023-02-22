@@ -3,20 +3,13 @@
 
 /obj/machinery/atmospherics/unary/heater
 	name = "gas heating system"
-<<<<<<< HEAD:code/modules/atmospherics/components/unary/heat_source.dm
 	desc = "Heats gas when connected to a pipe network."
-=======
-	desc = "Heats gas when connected to a pipe network"
->>>>>>> 2482ab802703ee93531ba3c87dd3084f5ce7f610:code/ATMOSPHERICS/components/unary/heat_source.dm
 	icon = 'icons/obj/Cryogenic2.dmi'
 	icon_state = "heater_0"
 	density = TRUE
 	anchored = TRUE
-<<<<<<< HEAD:code/modules/atmospherics/components/unary/heat_source.dm
 	use_power = POWER_USE_OFF
-=======
 	use_power = NO_POWER_USE
->>>>>>> 2482ab802703ee93531ba3c87dd3084f5ce7f610:code/ATMOSPHERICS/components/unary/heat_source.dm
 	idle_power_usage = 5			//5 Watts for thermostat related circuitry
 	base_type = /obj/machinery/atmospherics/unary/heater
 	construct_state = /singleton/machine_construction/default/panel_closed
@@ -88,14 +81,9 @@
 
 	update_icon()
 
-<<<<<<< HEAD:code/modules/atmospherics/components/unary/heat_source.dm
 /obj/machinery/atmospherics/unary/heater/interface_interact(mob/user)
 	ui_interact(user)
 	return TRUE
-=======
-/obj/machinery/atmospherics/unary/heater/attack_hand(mob/user)
-	nano_ui_interact(user)
->>>>>>> 2482ab802703ee93531ba3c87dd3084f5ce7f610:code/ATMOSPHERICS/components/unary/heat_source.dm
 
 /obj/machinery/atmospherics/unary/heater/ui_interact(mob/user, ui_key = "main", datum/nanoui/ui = null, force_open = 1)
 	// this is the data which will be sent to the ui
@@ -152,12 +140,9 @@
 
 	max_power_rating = initial(max_power_rating) * cap_rating / 2
 	max_temperature = max(initial(max_temperature) - T20C, 0) * ((bin_rating * 4 + cap_rating) / 5) + T20C
-<<<<<<< HEAD:code/modules/atmospherics/components/unary/heat_source.dm
 	air_contents.volume = max(initial(internal_volume) - 200, 0) + 200 * bin_rating
-=======
 	if(air_contents)
 		air_contents.volume = max(initial(internal_volume) - 200, 0) + 200 * bin_rating
->>>>>>> 2482ab802703ee93531ba3c87dd3084f5ce7f610:code/ATMOSPHERICS/components/unary/heat_source.dm
 	set_power_level(power_setting)
 
 /obj/machinery/atmospherics/unary/heater/proc/set_power_level(new_power_setting)
