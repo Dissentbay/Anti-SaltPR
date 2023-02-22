@@ -75,6 +75,7 @@
 	var/health    = 99999 // RPG boss unless  otherwise defined
 	var/maxHealth = 99999
 	var/stat = 0
+	var/atom_flags = ATOM_FLAG_NO_TEMP_CHANGE //for future bay ports
 
 /atom/proc/update_icon()
 	update_all_transforms()
