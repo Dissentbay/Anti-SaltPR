@@ -49,9 +49,6 @@
 		add_underlay(T, node1, turn(dir, 180))
 		add_underlay(T, node2, dir)
 
-<<<<<<< HEAD:code/modules/atmospherics/components/binary_devices/passive_gate.dm
-/obj/machinery/atmospherics/binary/passive_gate/hide(i)
-=======
 /obj/machinery/atmospherics/binary/passive_gate/on
 	use_power = IDLE_POWER_USE
 	icon_state = "map_on"
@@ -63,7 +60,6 @@
 		icon_state = "[use_power ? "on" : "off"]"
 
 /obj/machinery/atmospherics/binary/passive_gate/hide(var/i)
->>>>>>> 2482ab802703ee93531ba3c87dd3084f5ce7f610:code/ATMOSPHERICS/components/binary_devices/passive_gate.dm
 	update_underlays()
 
 /obj/machinery/atmospherics/binary/passive_gate/Process()
@@ -268,12 +264,8 @@
 			SPAN_NOTICE("\The [user] unfastens \the [src]."), \
 			SPAN_NOTICE("You have unfastened \the [src]."), \
 			"You hear ratchet.")
-<<<<<<< HEAD:code/modules/atmospherics/components/binary_devices/passive_gate.dm
-		new /obj/item/pipe(loc, src)
-=======
 		investigate_log("was unfastened by [key_name(user)]", "atmos")
 		new /obj/item/pipe(loc, make_from=src)
->>>>>>> 2482ab802703ee93531ba3c87dd3084f5ce7f610:code/ATMOSPHERICS/components/binary_devices/passive_gate.dm
 		qdel(src)
 
 #undef REGULATE_NONE

@@ -46,11 +46,7 @@ GLOBAL_LIST_INIT(filter_mode_to_gas_id, list( \
 	var/max_output_pressure = MAX_OMNI_PRESSURE
 
 	idle_power_usage = 150		//internal circuitry, friction losses and stuff
-<<<<<<< HEAD:code/modules/atmospherics/components/omni_devices/filter.dm
 	power_rating = 15000			// 15000 W ~ 20 HP
-=======
-	power_rating = 7500			//7500 W ~ 10 HP
->>>>>>> 2482ab802703ee93531ba3c87dd3084f5ce7f610:code/ATMOSPHERICS/components/omni_devices/filter.dm
 
 	var/max_flow_rate = ATMOS_DEFAULT_VOLUME_FILTER
 	var/set_flow_rate = ATMOS_DEFAULT_VOLUME_FILTER

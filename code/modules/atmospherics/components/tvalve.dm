@@ -267,12 +267,6 @@
 /obj/machinery/atmospherics/tvalve/attackby(obj/item/W as obj, mob/user as mob)
 	if(!isWrench(W))
 		return ..()
-<<<<<<< HEAD:code/modules/atmospherics/components/tvalve.dm
-	var/datum/gas_mixture/int_air = return_air()
-	var/datum/gas_mixture/env_air = loc.return_air()
-	if ((int_air.return_pressure()-env_air.return_pressure()) > 2*ONE_ATMOSPHERE)
-		to_chat(user, SPAN_CLASS("warnng", "You cannot unwrench \the [src], it too exerted due to internal pressure."))
-=======
 	if (istype(src, /obj/machinery/atmospherics/tvalve/digital))
 		to_chat(user, SPAN_WARNING("You cannot unwrench \the [src], it's too complicated."))
 		return 1
@@ -280,7 +274,6 @@
 	var/datum/gas_mixture/env_air = loc.return_air()
 	if ((int_air.return_pressure()-env_air.return_pressure()) > 2*ONE_ATMOSPHERE)
 		to_chat(user, "<span class='warnng'>You cannot unwrench \the [src], it too exerted due to internal pressure.</span>")
->>>>>>> 2482ab802703ee93531ba3c87dd3084f5ce7f610:code/ATMOSPHERICS/components/tvalve.dm
 		add_fingerprint(user)
 		return 1
 	playsound(src.loc, 'sound/items/Ratchet.ogg', 50, 1)
@@ -360,7 +353,6 @@
 	icon = 'icons/atmos/digital_tvalve.dmi'
 	icon_state = "map_tvalve0"
 
-<<<<<<< HEAD:code/modules/atmospherics/components/tvalve.dm
 	build_icon = 'icons/atmos/digital_tvalve.dmi'
 	build_icon_state = "map_tvalve0"
 
@@ -380,11 +372,6 @@
 	..()
 	if(!powered())
 		icon_state = "tvalvenopower"
-=======
-	var/frequency = 0
-	var/id
-	var/datum/radio_frequency/radio_connection
->>>>>>> 2482ab802703ee93531ba3c87dd3084f5ce7f610:code/ATMOSPHERICS/components/tvalve.dm
 
 /obj/machinery/atmospherics/tvalve/digital/interface_interact(mob/user)
 	if(!CanInteract(user, DefaultTopicState()))

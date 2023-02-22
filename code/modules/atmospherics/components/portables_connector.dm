@@ -3,11 +3,7 @@
 	icon_state = "map_connector"
 
 	name = "Connector Port"
-<<<<<<< HEAD:code/modules/atmospherics/components/portables_connector.dm
 	desc = "For connecting portable devices related to atmospherics control."
-=======
-	desc = "For connecting portables devices related to atmospherics control."
->>>>>>> 2482ab802703ee93531ba3c87dd3084f5ce7f610:code/ATMOSPHERICS/components/portables_connector.dm
 
 	dir = SOUTH
 	initialize_directions = SOUTH
@@ -18,17 +14,10 @@
 
 	var/datum/pipe_network/network
 
-<<<<<<< HEAD:code/modules/atmospherics/components/portables_connector.dm
 	var/on = 0
 	use_power = POWER_USE_OFF
 	uncreated_component_parts = null
 	level = ATOM_LEVEL_UNDER_TILE
-=======
-	var/on = FALSE
-	use_power = NO_POWER_USE
-	level = BELOW_PLATING_LEVEL
-	layer = GAS_FILTER_LAYER
->>>>>>> 2482ab802703ee93531ba3c87dd3084f5ce7f610:code/ATMOSPHERICS/components/portables_connector.dm
 
 	connect_types = CONNECT_TYPE_REGULAR|CONNECT_TYPE_FUEL
 	build_icon_state = "connector"

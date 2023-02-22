@@ -215,11 +215,10 @@
 
 	return null
 
-<<<<<<< HEAD:code/modules/atmospherics/components/valve.dm
 /obj/machinery/atmospherics/valve/attackby(obj/item/W as obj, mob/user as mob)
 	if (!istype(W, /obj/item/wrench))
 		return ..()
-=======
+
 /obj/machinery/atmospherics/valve/digital		// can be controlled by AI
 	name = "digital valve"
 	desc = "A digitally controlled valve."
@@ -291,7 +290,6 @@
 	if (istype(src, /obj/machinery/atmospherics/valve/digital))
 		to_chat(user, SPAN_WARNING("You cannot unwrench \the [src], it's too complicated."))
 		return 1
->>>>>>> 2482ab802703ee93531ba3c87dd3084f5ce7f610:code/ATMOSPHERICS/components/valve.dm
 	var/datum/gas_mixture/int_air = return_air()
 	var/datum/gas_mixture/env_air = loc.return_air()
 	if ((int_air.return_pressure()-env_air.return_pressure()) > 2*ONE_ATMOSPHERE)

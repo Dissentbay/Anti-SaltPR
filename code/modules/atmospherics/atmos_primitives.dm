@@ -25,16 +25,9 @@
 //Moves gas from one gas_mixture to another and returns the amount of power needed (assuming 1 second), or -1 if no gas was pumped.
 //transfer_moles - Limits the amount of moles to transfer. The actual amount of gas moved may also be limited by available_power, if given.
 //available_power - the maximum amount of power that may be used when moving gas. If null then the transfer is not limited by power.
-<<<<<<< HEAD:code/modules/atmospherics/atmos_primitives.dm
 /proc/pump_gas(obj/machinery/M, datum/gas_mixture/source, datum/gas_mixture/sink, transfer_moles = null, available_power = null)
 	if (source.total_moles < MINIMUM_MOLES_TO_PUMP) //if we can't transfer enough gas just stop to avoid further processing
 		return -1
-=======
-/proc/pump_gas(var/obj/machinery/M, var/datum/gas_mixture/source, var/datum/gas_mixture/sink, var/transfer_moles = null, var/available_power = null)
-	if (source.total_moles < MINIMUM_MOLES_TO_PUMP) //if we cant transfer enough gas just stop to avoid further processing
-		return 0 //change it to -1 if a debug of this is needed
->>>>>>> 2482ab802703ee93531ba3c87dd3084f5ce7f610:code/ATMOSPHERICS/_atmospherics_helpers.dm
-
 	if (isnull(transfer_moles))
 		transfer_moles = source.total_moles
 	else
@@ -45,13 +38,8 @@
 	if (!isnull(available_power) && specific_power > 0)
 		transfer_moles = min(transfer_moles, available_power / specific_power)
 
-<<<<<<< HEAD:code/modules/atmospherics/atmos_primitives.dm
 	if (transfer_moles < MINIMUM_MOLES_TO_PUMP) //if we can't transfer enough gas just stop to avoid further processing
 		return -1
-=======
-	if (transfer_moles < MINIMUM_MOLES_TO_PUMP) //if we cant transfer enough gas just stop to avoid further processing
-		return 0 //change it to -1 if a debug of this is needed
->>>>>>> 2482ab802703ee93531ba3c87dd3084f5ce7f610:code/ATMOSPHERICS/_atmospherics_helpers.dm
 
 	//Update flow rate meter
 	if (istype(M, /obj/machinery/atmospherics))
@@ -79,15 +67,9 @@
 	return power_draw
 
 //Gas 'pumping' proc for the case where the gas flow is passive and driven entirely by pressure differences (but still one-way).
-<<<<<<< HEAD:code/modules/atmospherics/atmos_primitives.dm
 /proc/pump_gas_passive(obj/machinery/M, datum/gas_mixture/source, datum/gas_mixture/sink, transfer_moles = null)
 	if (source.total_moles < MINIMUM_MOLES_TO_PUMP) //if we can't transfer enough gas just stop to avoid further processing
 		return -1
-=======
-/proc/pump_gas_passive(var/obj/machinery/M, var/datum/gas_mixture/source, var/datum/gas_mixture/sink, var/transfer_moles = null)
-	if (source.total_moles < MINIMUM_MOLES_TO_PUMP) //if we cant transfer enough gas just stop to avoid further processing
-		return 0 //change it to -1 if a debug of this is needed
->>>>>>> 2482ab802703ee93531ba3c87dd3084f5ce7f610:code/ATMOSPHERICS/_atmospherics_helpers.dm
 
 	if (isnull(transfer_moles))
 		transfer_moles = source.total_moles
@@ -343,16 +325,9 @@
 
 //Similar deal as the other atmos process procs.
 //mix_sources maps input gas mixtures to mix ratios. The mix ratios MUST add up to 1.
-<<<<<<< HEAD:code/modules/atmospherics/atmos_primitives.dm
 /proc/mix_gas(obj/machinery/M, list/mix_sources, datum/gas_mixture/sink, total_transfer_moles = null, available_power = null)
 	if (!length(mix_sources))
 		return -1
-=======
-/proc/mix_gas(var/obj/machinery/M, var/list/mix_sources, var/datum/gas_mixture/sink, var/total_transfer_moles = null, var/available_power = null)
-	if (!mix_sources.len)
-		return 0 //change it to -1 if a debug of this is needed
->>>>>>> 2482ab802703ee93531ba3c87dd3084f5ce7f610:code/ATMOSPHERICS/_atmospherics_helpers.dm
-
 	var/total_specific_power = 0	//the power needed to mix one mole of gas
 	var/total_mixing_moles = null	//the total amount of gas that can be mixed, given our mix ratios
 	var/total_input_volume = 0		//for flow rate calculation
