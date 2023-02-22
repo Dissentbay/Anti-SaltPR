@@ -2,6 +2,7 @@
 	var/name
 	// The object used for the clickable stat() button.
 	var/obj/effect/statclick/statclick
+	var/statNext = 0
 
 /datum/controller/proc/Initialize()
 
@@ -17,3 +18,18 @@
 /datum/controller/proc/Recover()
 
 /datum/controller/proc/stat_entry()
+
+/datum/controller/proc/PreventUpdateStat(time)
+	if (!isnum(time))
+		time = Uptime()
+	if (time < statNext)
+		return TRUE
+	statNext = time + 1 SECONDS
+	return FALSE
+
+/datum/controller/proc/UpdateStat(text)
+	if (!statclick)
+		statclick = new (null, src)
+	if (istext(text))
+		statclick.name = text
+	stat(name, statclick)

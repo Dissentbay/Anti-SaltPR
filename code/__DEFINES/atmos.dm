@@ -5,7 +5,7 @@
 #define O2STANDARD 0.21 // Percentage.
 #define N2STANDARD 0.79
 
-#define MOLES_PLASMA_VISIBLE 0.7 // Moles in a standard cell after which plasma is visible.
+#define MOLES_PHORON_VISIBLE 0.7 // Moles in a standard cell after which phoron is visible.
 #define MOLES_O2STANDARD     (MOLES_CELLSTANDARD * O2STANDARD) // O2 standard value (21%)
 #define MOLES_N2STANDARD     (MOLES_CELLSTANDARD * N2STANDARD) // N2 standard value (79%)
 #define MOLES_O2ATMOS (MOLES_O2STANDARD*50)
@@ -15,17 +15,16 @@
 #define MIN_TOXIN_DAMAGE 1
 #define MAX_TOXIN_DAMAGE 10
 
-#define BREATH_VOLUME       0.5 // Liters in a normal breath.
+#define STD_BREATH_VOLUME      12 // Liters in a normal breath.
 #define BREATH_MOLES        (ONE_ATMOSPHERE * BREATH_VOLUME / (T20C * R_IDEAL_GAS_EQUATION)) // Amount of air to take a from a tile
-#define BREATH_PERCENTAGE   (BREATH_VOLUME / CELL_VOLUME)                                    // Amount of air needed before pass out/suffocation commences.
-#define HUMAN_NEEDED_OXYGEN (MOLES_CELLSTANDARD * BREATH_PERCENTAGE * 0.16)
+
 #define HUMAN_HEAT_CAPACITY 280000 //J/K For 80kg person
 
 #define SOUND_MINIMUM_PRESSURE 10
 
-#define PRESSURE_DAMAGE_COEFFICIENT 4 // The amount of pressure damage someone takes is equal to (pressure / HAZARD_HIGH_PRESSURE)*PRESSURE_DAMAGE_COEFFICIENT, with the maximum of MAX_PRESSURE_DAMAGE.
-#define MAX_HIGH_PRESSURE_DAMAGE 4
-#define LOW_PRESSURE_DAMAGE 0.6 // The amount of damage someone takes when in a low pressure area. (The pressure threshold is so low that it doesn't make sense to do any calculations, so it just applies this flat value).
+#define PRESSURE_DAMAGE_COEFFICIENT 4   // The amount of pressure damage someone takes is equal to (pressure / HAZARD_HIGH_PRESSURE)*PRESSURE_DAMAGE_COEFFICIENT, with the maximum of MAX_PRESSURE_DAMAGE.
+#define    MAX_HIGH_PRESSURE_DAMAGE 4   // This used to be 20... I got this much random rage for some retarded decision by polymorph?! Polymorph now lies in a pool of blood with a katana jammed in his spleen. ~Errorage --PS: The katana did less than 20 damage to him :(
+#define         LOW_PRESSURE_DAMAGE 0.6 // The amount of damage someone takes when in a low pressure area. (The pressure threshold is so low that it doesn't make sense to do any calculations, so it just applies this flat value).
 
 #define MINIMUM_PRESSURE_DIFFERENCE_TO_SUSPEND (MINIMUM_AIR_TO_SUSPEND*R_IDEAL_GAS_EQUATION*T20C)/CELL_VOLUME			// Minimum pressure difference between zones to suspend
 #define MINIMUM_AIR_RATIO_TO_SUSPEND 0.05 // Minimum ratio of air that must move to/from a tile to suspend group processing
@@ -40,24 +39,20 @@
 #define MINIMUM_TEMPERATURE_START_SUPERCONDUCTION (T20C + 200)
 
 // Must be between 0 and 1. Values closer to 1 equalize temperature faster. Should not exceed 0.4, else strange heat flow occurs.
-#define FLOOR_HEAT_TRANSFER_COEFFICIENT 0.4
-#define WALL_HEAT_TRANSFER_COEFFICIENT 0.0
-#define DOOR_HEAT_TRANSFER_COEFFICIENT 0.0
-#define SPACE_HEAT_TRANSFER_COEFFICIENT 0.2 // A hack to partly simulate radiative heat.
-#define OPEN_HEAT_TRANSFER_COEFFICIENT 0.4
+#define  FLOOR_HEAT_TRANSFER_COEFFICIENT 0.4
+#define   WALL_HEAT_TRANSFER_COEFFICIENT 0.0
+#define   DOOR_HEAT_TRANSFER_COEFFICIENT 0.0
+#define  SPACE_HEAT_TRANSFER_COEFFICIENT 0.2 // A hack to partly simulate radiative heat.
+#define   OPEN_HEAT_TRANSFER_COEFFICIENT 0.4
 #define WINDOW_HEAT_TRANSFER_COEFFICIENT 0.1 // A hack for now.
 
 // Fire damage.
 #define CARBON_LIFEFORM_FIRE_RESISTANCE (T0C + 200)
 #define CARBON_LIFEFORM_FIRE_DAMAGE     4
 
-// Plasma fire properties.
-#define PLASMA_MINIMUM_BURN_TEMPERATURE    (T0C +  126) //400 K - autoignite temperature in tanks and canisters - enclosed environments I guess
-#define PLASMA_FLASHPOINT                  (T0C +  246) //519 K - autoignite temperature in air if that ever gets implemented.
-
-// Hydrogen fire properties.
-#define HYDROGEN_MINIMUM_BURN_TEMPERATURE   (T0C + 268) // 541 K - autoignite temperature in tanks and canisters
-#define HYDROGEN_FLASHPOINT                 (T0C + 536) // 809 K - autoignite temperature in air
+// Phoron fire properties.
+#define PHORON_MINIMUM_BURN_TEMPERATURE    (T0C +  126) //400 K - autoignite temperature in tanks and canisters - enclosed environments I guess
+#define PHORON_FLASHPOINT                  (T0C +  246) //519 K - autoignite temperature in air if that ever gets implemented.
 
 //These control the mole ratio of oxidizer and fuel used in the combustion reaction
 #define FIRE_REACTION_OXIDIZER_AMOUNT	3 //should be greater than the fuel amount if fires are going to spread much
@@ -79,11 +74,12 @@
 #define XGM_GAS_FUEL        1
 #define XGM_GAS_OXIDIZER    2
 #define XGM_GAS_CONTAMINANT 4
+#define XGM_GAS_FUSION_FUEL 8
 
-#define TANK_LEAK_PRESSURE     (30.*ONE_ATMOSPHERE) // Tank starts leaking.
-#define TANK_RUPTURE_PRESSURE  (40.*ONE_ATMOSPHERE) // Tank spills all contents into atmosphere.
-#define TANK_FRAGMENT_PRESSURE (50.*ONE_ATMOSPHERE) // Boom 3x3 base explosion.
-#define TANK_FRAGMENT_SCALE    (10.*ONE_ATMOSPHERE) // +1 for each SCALE kPa above threshold. Was 2 atm.
+#define TANK_LEAK_PRESSURE     (30 * ONE_ATMOSPHERE) // Tank starts leaking.
+#define TANK_RUPTURE_PRESSURE  (40 * ONE_ATMOSPHERE) // Tank spills all contents into atmosphere.
+#define TANK_FRAGMENT_PRESSURE (50 * ONE_ATMOSPHERE) // Boom 3x3 base explosion.
+#define TANK_FRAGMENT_SCALE    (10 * ONE_ATMOSPHERE) // +1 for each SCALE kPa above threshold. Was 2 atm.
 
 #define NORMPIPERATE             30   // Pipe-insulation rate divisor.
 #define HEATPIPERATE             8    // Heat-exchange pipe insulation.
@@ -95,36 +91,39 @@
 
 // Defines how much of certain gas do the Atmospherics tanks start with. Values are in kpa per tile (assuming 20C)
 #define ATMOSTANK_NITROGEN      90000 // A lot of N2 is needed to produce air mix, that's why we keep 90MPa of it
-#define ATMOSTANK_OXYGEN        40000 // O2 is also important for airmix, but not as much as N2 as it's only 21% of it.
-#define ATMOSTANK_CO2           25000 // CO2, PH and H2 are not critically important for station, only for toxins and alternative coolants, no need to store a lot of those.
-#define ATMOSTANK_PLASMA        25000
-#define ATMOSTANK_HYDROGEN      25000
+#define ATMOSTANK_OXYGEN        50000 // O2 is also important for airmix, but not as much as N2 as it's only 21% of it.
+#define ATMOSTANK_CO2           60000 // CO2 is used for the GUP, Charon, and Torch as the primary fuel propellant, and we need lots to stick around.
+#define ATMOSTANK_PHORON        25000
+#define ATMOSTANK_PHORON_FUEL	15000
+#define ATMOSTANK_HYDROGEN      50000
+#define ATMOSTANK_HYDROGEN_FUEL 25000
 #define ATMOSTANK_NITROUSOXIDE  10000 // N2O doesn't have a real useful use, i guess it's on station just to allow refilling of sec's riot control canisters?
 
-#define ADIABATIC_EXPONENT 0.667 //Actually adiabatic exponent - 1.
+#define MAX_PUMP_PRESSURE		15000	// Maximal pressure setting for pumps and vents
+#define MAX_OMNI_PRESSURE		15000	// Maximal output(s) pressure for omni devices (filters/mixers)
 
 #define GAS_OXYGEN				"oxygen"
 #define GAS_CO2					"carbon_dioxide"
+#define GAS_CO					"carbon_monoxide"
+#define GAS_METHYL_BROMIDE		"methyl_bromide"
 #define GAS_N2O					"sleeping_agent"
 #define GAS_NITROGEN			"nitrogen"
 #define GAS_NO2					"nitrodioxide"
-#define GAS_PLASMA				"plasma"
-#define GAS_HYDROGEN            "hydrogen"
+#define GAS_NO					"nitricoxide"
+#define GAS_METHANE				"methane"
 #define GAS_ALIEN				"aliether"
+#define GAS_HYDROGEN			"hydrogen"
+#define GAS_DEUTERIUM			"deuterium"
+#define GAS_TRITIUM				"tritium"
+#define GAS_HELIUM				"helium"
+#define GAS_ARGON				"argon"
+#define GAS_KRYPTON				"krypton"
+#define GAS_NEON				"neon"
+#define GAS_XENON				"xenon"
+#define GAS_AMMONIA				"ammonia"
+#define GAS_CHLORINE			"chlorine"
+#define GAS_SULFUR				"sulfurdioxide"
 #define GAS_STEAM				"water"
-
-#define CONNECT_TYPE_REGULAR	1
-#define CONNECT_TYPE_SUPPLY		2
-#define CONNECT_TYPE_SCRUBBER	4
-#define CONNECT_TYPE_HE			8
-
-#define	PIPE_COLOR_GREY		"#e4e7ea"	//yes white is grey
-#define	PIPE_COLOR_RED		"#c1293f"
-#define	PIPE_COLOR_BLUE		"#1f92c2"
-#define	PIPE_COLOR_CYAN		"#0c9d98"
-#define	PIPE_COLOR_GREEN	"#8ad55d"
-#define	PIPE_COLOR_YELLOW	"#deb63d"
-#define	PIPE_COLOR_BLACK	"#34383d"
-#define	PIPE_COLOR_ORANGE	"#b95a00"
-
-var/global/list/pipe_colors = list("grey" = PIPE_COLOR_GREY, "red" = PIPE_COLOR_RED, "blue" = PIPE_COLOR_BLUE, "cyan" = PIPE_COLOR_CYAN, "green" = PIPE_COLOR_GREEN, "yellow" = PIPE_COLOR_YELLOW, "black" = PIPE_COLOR_BLACK)
+#define GAS_PHORON				"phoron"
+#define GAS_BORON				"boron"
+#define GAS_HEAT                "heat" //Not a real gas, used for visual effects

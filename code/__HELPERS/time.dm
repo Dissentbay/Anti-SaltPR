@@ -167,4 +167,21 @@ var/global/rollovercheck_last_timeofday = 0
 		i *= 2
 	while (world.tick_usage > min(TICK_LIMIT_TO_RUN, Master.current_ticklimit))
 
+/// Real time since the server started. Same concept as REALTIMEOFDAY.
+/proc/Uptime(from_zero)
+	var/static/days = 0
+	var/static/result = 0
+	var/static/started = world.timeofday
+	var/static/last_time = started
+	var/time = world.timeofday
+	if (time == last_time)
+		return result
+	if (time < last_time)
+		++days
+	last_time = time
+	result = time + days DAYS
+	if (from_zero)
+		result -= started
+	return result
+
 #undef DELTA_CALC

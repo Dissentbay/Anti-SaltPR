@@ -342,3 +342,7 @@
 		return "[a.loc] ([t.x],[t.y],[t.z]) ([a.loc.type])"
 	else if(a.loc)
 		return "[a.loc] (0,0,0) ([a.loc.type])"
+
+/proc/report_progress(progress_message)
+	admin_notice("<span class='["boldannounce"]'>[progress_message]</span>" , R_DEBUG)
+	to_world_log(progress_message)

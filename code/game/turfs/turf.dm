@@ -11,6 +11,7 @@
 	var/nitrogen = 0
 	var/plasma = 0
 	var/hydrogen = 0
+	var/list/initial_gas
 
 	//Properties for airtight tiles (/wall)
 	var/thermal_conductivity = 0.05

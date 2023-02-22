@@ -1,3 +1,21 @@
+/obj/proc/analyze_gases(obj/A, mob/user, mode)
+	user.visible_message(SPAN_NOTICE("\The [user] has used \an [src] on \the [A]."))
+	A.add_fingerprint(user)
+
+	var/air_contents = A.return_air()
+	if(!air_contents)
+		to_chat(user, SPAN_WARNING("Your [src] flashes a red light as it fails to analyze \the [A]."))
+		return 0
+
+	var/list/result = atmosanalyzer_scan(A, air_contents, mode)
+	print_atmos_analysis(user, result)
+	return 1
+
+/proc/print_atmos_analysis(user, list/result)
+	to_chat(user, SPAN_NOTICE("[result]"))
+
+//here comes the shitstain soj code
+
 /proc/analyze_gases(var/obj/A, var/mob/user)
 	var/air_contents = A.return_air()
 	var/list/result = atmosanalyzer_scan(A, air_contents)
@@ -31,7 +49,7 @@
 	return atmosanalyzer_scan(src, src.air_contents, user)
 
 /obj/machinery/atmospherics/pipe/atmosanalyze(var/mob/user)
-	return atmosanalyzer_scan(src, src.parent.air, user)
+	return analyze_gases(src , user)
 
 /obj/machinery/power/rad_collector/atmosanalyze(var/mob/user)
 	if(P)	return atmosanalyzer_scan(src, src.P.air_contents, user)
