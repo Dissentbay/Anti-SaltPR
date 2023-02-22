@@ -215,9 +215,83 @@
 
 	return null
 
+<<<<<<< HEAD:code/modules/atmospherics/components/valve.dm
 /obj/machinery/atmospherics/valve/attackby(obj/item/W as obj, mob/user as mob)
 	if (!istype(W, /obj/item/wrench))
 		return ..()
+=======
+/obj/machinery/atmospherics/valve/digital		// can be controlled by AI
+	name = "digital valve"
+	desc = "A digitally controlled valve."
+	icon = 'icons/atmos/digital_valve.dmi'
+
+	var/frequency = 0
+	var/id
+	var/datum/radio_frequency/radio_connection
+
+/obj/machinery/atmospherics/valve/digital/attack_ai(mob/user as mob)
+	return src.attack_hand(user)
+
+/obj/machinery/atmospherics/valve/digital/attack_hand(mob/user as mob)
+	if(!powered())
+		return
+	if(!src.allowed(user))
+		to_chat(user, SPAN_WARNING("Access denied."))
+		return
+	..()
+
+/obj/machinery/atmospherics/valve/digital/open
+	open = 1
+	icon_state = "map_valve1"
+
+/obj/machinery/atmospherics/valve/digital/power_change()
+	var/old_stat = stat
+	..()
+	if(old_stat != stat)
+		update_icon()
+
+/obj/machinery/atmospherics/valve/digital/update_icon()
+	..()
+	if(!powered())
+		icon_state = "valve[open]nopower"
+
+/obj/machinery/atmospherics/valve/digital/proc/set_frequency(new_frequency)
+	SSradio.remove_object(src, frequency)
+	frequency = new_frequency
+	if(frequency)
+		radio_connection = SSradio.add_object(src, frequency, RADIO_ATMOSIA)
+
+/obj/machinery/atmospherics/valve/digital/atmos_init()
+	..()
+	if(frequency)
+		set_frequency(frequency)
+
+/obj/machinery/atmospherics/valve/digital/receive_signal(datum/signal/signal)
+	if(!signal.data["tag"] || (signal.data["tag"] != id))
+		return 0
+
+	switch(signal.data["command"])
+		if("valve_open")
+			if(!open)
+				open()
+
+		if("valve_close")
+			if(open)
+				close()
+
+		if("valve_toggle")
+			if(open)
+				close()
+			else
+				open()
+
+/obj/machinery/atmospherics/valve/attackby(var/obj/item/I, var/mob/user as mob)
+	if(!(QUALITY_BOLT_TURNING in I.tool_qualities))
+		return ..()
+	if (istype(src, /obj/machinery/atmospherics/valve/digital))
+		to_chat(user, SPAN_WARNING("You cannot unwrench \the [src], it's too complicated."))
+		return 1
+>>>>>>> 2482ab802703ee93531ba3c87dd3084f5ce7f610:code/ATMOSPHERICS/components/valve.dm
 	var/datum/gas_mixture/int_air = return_air()
 	var/datum/gas_mixture/env_air = loc.return_air()
 	if ((int_air.return_pressure()-env_air.return_pressure()) > 2*ONE_ATMOSPHERE)
