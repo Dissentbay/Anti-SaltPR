@@ -315,7 +315,7 @@
 	var/working_cycles = 0
 	var/wearout_cycle = 800
 	var/wires_integrity = 100
-	var/wires = TRUE
+	wires = TRUE
 
 
 /obj/machinery/atmospherics/binary/biogen_chamber/Destroy()

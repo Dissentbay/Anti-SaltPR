@@ -74,6 +74,7 @@
 	// Why are areas derived from /atom instead of /datum?  They're abstracts!
 	var/health    = 99999 // RPG boss unless  otherwise defined
 	var/maxHealth = 99999
+	var/stat = 0
 
 /atom/proc/update_icon()
 	update_all_transforms()

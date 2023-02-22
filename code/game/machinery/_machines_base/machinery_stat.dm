@@ -1,6 +1,3 @@
-/// Bitflag. Machine's base status. Can include `MACHINE_STAT_BROKEN`, `MACHINE_STAT_NOPOWER`, etc.
-/obj/machinery/var/stat = 0
-
 /// Bitflag. Reason the machine is 'broken'. Can be any combination of `MACHINE_BROKEN_*`. Do not modify directly - Use `set_broken()` instead.
 /obj/machinery/var/reason_broken = 0
 

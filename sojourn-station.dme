@@ -71,6 +71,7 @@
 #include "code\__DEFINES\rust_g_overrides.dm"
 #include "code\__DEFINES\sanity.dm"
 #include "code\__DEFINES\shields.dm"
+#include "code\__DEFINES\singletons.dm"
 #include "code\__DEFINES\spaceman_dmm.dm"
 #include "code\__DEFINES\span.dm"
 #include "code\__DEFINES\species_languages.dm"

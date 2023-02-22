@@ -83,7 +83,7 @@
 	var/flash_mod = 0	//Carbon
 	var/slurring = 0	//Carbon
 	var/slowdown = 0
-	var/job = null//Living
+	var/job = null		//Living
 
 	var/additional_darksight = 0	//Added to darksight
 
