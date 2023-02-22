@@ -5,7 +5,7 @@
 	power_channel = STATIC_ENVIRON
 	var/desiredstate = 0
 	var/exposedwires = 0
-	var/wires = 3
+	wires = 3
 	/*
 	Bitflag,	1=checkID
 				2=Network Access

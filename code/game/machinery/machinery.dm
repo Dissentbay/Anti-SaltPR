@@ -177,12 +177,6 @@ Class Procs:
 /proc/is_operable(var/obj/machinery/M, var/mob/user)
 	return istype(M) && M.operable()
 
-/obj/machinery/proc/operable(var/additional_flags = 0)
-	return !inoperable(additional_flags)
-
-/obj/machinery/proc/inoperable(var/additional_flags = 0)
-	return (stat & (NOPOWER|BROKEN|additional_flags))
-
 /obj/machinery/CanUseTopic(var/mob/user)
 	if(stat & BROKEN)
 		return STATUS_CLOSE

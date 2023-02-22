@@ -53,3 +53,9 @@
 #define ADD_SORTED(list, A, cmp_proc) if(!list.len) {list.Add(A)} else {list.Insert(FindElementIndex(A, list, cmp_proc), A)}
 
 #define isopenturf(target) istype(target, /turf/simulated/open)
+
+/// Test any bits of MASK are set in FIELD
+#define GET_FLAGS(FIELD, MASK) ((FIELD) & (MASK))
+
+/// Test all bits of MASK are set in FIELD
+#define HAS_FLAGS(FIELD, MASK) (((FIELD) & (MASK)) == (MASK))

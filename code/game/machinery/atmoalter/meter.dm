@@ -5,7 +5,7 @@
 	icon_state = "meterX"
 	var/atom/target = null //A pipe for the base type
 	anchored = TRUE
-	power_channel = ENVIRON
+	power_channel = STATIC_ENVIRON
 	idle_power_usage = 15
 
 	uncreated_component_parts = list(

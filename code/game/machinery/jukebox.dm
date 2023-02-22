@@ -22,7 +22,7 @@
 	circuit = /obj/item/circuitboard/jukebox
 
 	// Vars for hacking
-	var/datum/wires/jukebox/wires
+	wires = 0
 	var/hacked = FALSE // Whether to show the hidden songs or not
 	var/freq = 0 // Currently no effect, will return in phase II of mediamanager.
 
