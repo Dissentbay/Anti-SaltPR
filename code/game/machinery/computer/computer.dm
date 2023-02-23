@@ -151,3 +151,10 @@
 	else
 		to_chat(user, "you need stay face to console")
 		return 1
+
+//bay stuff
+
+/obj/machinery/computer/on_update_icon()
+	overlays.Cut()
+	icon = initial(icon)
+	icon_state = initial(icon_state)
