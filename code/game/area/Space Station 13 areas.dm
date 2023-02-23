@@ -34,9 +34,24 @@ NOTE: there are two lists of areas in the end of this file: centcom and station 
 	var/requires_power = 1
 	var/always_unpowered = 0	//this gets overriden to 1 for space in area/New()
 
+	/// Boolean. Whether or not the `STATIC_EQUIP` power channel is enabled for the area. Updated and used by APCs.
 	var/power_equip = 1
+	/// Boolean. Whether or not the `STATIC_LIGHT` power channel is enabled for the area. Updated and used by APCs.
 	var/power_light = 1
+	/// Boolean. Whether or not the `STATIC_ENVIRON` power channel is enabled for the area. Updated and used by APCs.
 	var/power_environ = 1
+	/// Integer. Amount of constant use power drain from the `STATIC_EQUIP` power channel. Do not modify; Use `./power_use_change()` instead.
+	var/used_equip = 0
+	/// Integer. Amount of constant use power drain from the `STATIC_LIGHT` power channel. Do not modify; Use `./power_use_change()` instead.
+	var/used_light = 0
+	/// Integer. Amount of constant use power drain from the `STATIC_ENVIRON` power channel. Do not modify; Use `./power_use_change()` instead.
+	var/used_environ = 0
+	/// Integer. Amount of power to drain from the `STATIC_EQUIP` channel on the next power tick. Do not modify directly; Use `./use_power_oneoff()` instead. This is reset to `0` every power tick after processing power use.
+	var/oneoff_equip   = 0
+	/// Integer. Amount of power to drain from the `STATICLIGHT` channel on the next power tick. Do not modify directly; Use `./use_power_oneoff()` instead. This is reset to `0` every power tick after processing power use.
+	var/oneoff_light   = 0
+	/// Integer. Amount of power to drain from the `STATIC_ENVIRON` channel on the next power tick. Do not modify directly; Use `./use_power_oneoff()` instead. This is reset to `0` every power tick after processing power use.
+	var/oneoff_environ = 0
 	var/area_light_color = null		//Used by lights to create different light on different departments and locations
 
 	var/has_gravity = 1

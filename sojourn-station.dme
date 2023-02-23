@@ -591,6 +591,7 @@
 #include "code\game\antagonist\station\revolutionary\excel_faction.dm"
 #include "code\game\antagonist\station\revolutionary\excelsior.dm"
 #include "code\game\area\ai_monitored.dm"
+#include "code\game\area\area_power.dm"
 #include "code\game\area\areas.dm"
 #include "code\game\area\asteroid_areas.dm"
 #include "code\game\area\Space Station 13 areas.dm"

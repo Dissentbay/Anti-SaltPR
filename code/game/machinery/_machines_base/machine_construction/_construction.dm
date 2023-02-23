@@ -43,7 +43,7 @@
 // Fetches the components the machine is supposed to have to function fully. Not related to state validity.
 /singleton/machine_construction/proc/get_requirements(obj/machinery/machine)
 	if(needs_board)
-		var/obj/item/circuitboard//board = machine.get_component_of_type(/obj/item/circuitboard/)
+		var/obj/item/circuitboard/board = machine.get_component_of_type(/obj/item/circuitboard/)
 		if(board)
 			return board.req_components
 
