@@ -144,7 +144,7 @@
 	name = "Martyrs gift"
 	desc = "This upgrade causes a follower to cause a healing burst upon dying. It will heal for a massive amount to all humanoid creatures, even those without cruciforms. However, in process of doing so, this upgrade destroys itself."
 	icon_state = "martyr_gift"
-	matter = list(MATERIAL_BIOMATTER = 50, MATERIAL_GOLD = 5, MATERIAL_PLASTEEL = 5, MATERIAL_PLASMA = 5)
+	matter = list(MATERIAL_BIOMATTER = 50, MATERIAL_GOLD = 5, MATERIAL_PLASTEEL = 5, MATERIAL_PHORON = 5)
 	var/damage_healed = 50 //Heals everyone and every mob around it
 
 /obj/item/cruciform_upgrade/wrath_of_god

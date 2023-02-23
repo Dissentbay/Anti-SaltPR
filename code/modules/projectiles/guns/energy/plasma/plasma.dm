@@ -102,7 +102,7 @@
 	projectile_type = /obj/item/projectile/plasma/heavy/super_heavy
 	cell_type = /obj/item/cell/medium
 	charge_cost = 100
-	matter = list(MATERIAL_PLASTEEL = 10, MATERIAL_STEEL = 20, MATERIAL_SILVER = 5, MATERIAL_PLASMA = 10)
+	matter = list(MATERIAL_PLASTEEL = 10, MATERIAL_STEEL = 20, MATERIAL_SILVER = 5, MATERIAL_PHORON = 10)
 	damage_multiplier = 1
 	twohanded = FALSE
 	can_dual = TRUE

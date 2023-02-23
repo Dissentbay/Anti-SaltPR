@@ -257,7 +257,7 @@
 
 	signal.data["sigtype"] = "command"
 	signal.data["status"] = TRUE
-	radio_connection.post_signal(src, signal, radio_filter = RADIO_ATMOSIA)
+	radio_connection.post_signal(src, signal, RADIO_ATMOSIA)
 
 /obj/machinery/computer/air_control/fuel_injection
 	icon = 'icons/obj/computer.dmi'
@@ -323,7 +323,7 @@
 			"sigtype" = "command"
 		)
 
-		radio_connection.post_signal(src, signal, radio_filter = RADIO_ATMOSIA)
+		radio_connection.post_signal(src, signal, RADIO_ATMOSIA)
 
 	..()
 

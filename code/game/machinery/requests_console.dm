@@ -202,7 +202,7 @@ var/list/obj/machinery/requests_console/allConsoles = list()
 /obj/machinery/requests_console/attackby(var/obj/item/O as obj, var/mob/user as mob)
 
 	if (istype(O, /obj/item/card/id))
-		if(inoperable(MAINT)) return
+		if(inoperable(MACHINE_STAT_MAINT)) return
 		if(screen == RCS_MESSAUTH)
 			var/obj/item/card/id/T = O
 			msgVerified = text("<font color='green'><b>Verified by [T.registered_name] ([T.assignment])</b></font>")
@@ -217,7 +217,7 @@ var/list/obj/machinery/requests_console/allConsoles = list()
 				to_chat(user, SPAN_WARNING("You are not authorized to send announcements."))
 			updateUsrDialog()
 	if (istype(O, /obj/item/stamp))
-		if(inoperable(MAINT)) return
+		if(inoperable(MACHINE_STAT_MAINT)) return
 		if(screen == RCS_MESSAUTH)
 			var/obj/item/stamp/T = O
 			msgStamped = text("<font color='blue'><b>Stamped with the [T.name]</b></font>")

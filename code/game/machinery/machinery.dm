@@ -43,7 +43,7 @@ Class Variables:
          MACHINE_BROKEN_GENERIC:1 -- Machine is broken
          MACHINE_STAT_NOPOWER:2 -- No power is being supplied to machine.
          MACHINE_STAT_NOPOWER:4 -- tbd
-         MAINT:8 -- machine is currently under going maintenance.
+         MACHINE_STAT_MAINT:8 -- machine is currently under going maintenance.
          MACHINE_STAT_EMPED:16 -- temporary broken by EMP pulse
 
 Class Procs:
@@ -205,7 +205,7 @@ Class Procs:
 		return src.attack_hand(user)
 
 /obj/machinery/attack_hand(mob/user as mob)
-	if(inoperable(MAINT))
+	if(inoperable(MACHINE_STAT_MAINT))
 		return 1
 	if(user.lying || user.stat)
 		return 1

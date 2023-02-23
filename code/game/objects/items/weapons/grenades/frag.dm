@@ -59,7 +59,7 @@
 	desc = "A jury rigged medium cell filled with plasma. Throw at authorities."
 	icon_state = "frag_pipebomb"
 	item_state = "fraggrenade_pipebomb"
-	matter = list(MATERIAL_STEEL = 2, MATERIAL_PLASTEEL = 2, MATERIAL_PLASMA = 2, MATERIAL_PLASTIC = 3, MATERIAL_SILVER = 2)
+	matter = list(MATERIAL_STEEL = 2, MATERIAL_PLASTEEL = 2, MATERIAL_PHORON = 2, MATERIAL_PLASTIC = 3, MATERIAL_SILVER = 2)
 	num_fragments = 25
 	fragment_damage = 10
 	damage_step = 5

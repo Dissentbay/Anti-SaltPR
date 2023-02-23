@@ -387,7 +387,7 @@
 		list(CRAFT_MATERIAL, 4, MATERIAL_PLASTEEL), //Shore it up with some plasteel
 		list(/obj/item/tool_upgrade/productivity/rocket_engine, 1, "time" = 30),	//Attach a rocket engine
 		list(QUALITY_WELDING, 10, "time" = 30),//Weld it on
-		list(CRAFT_MATERIAL, 2, MATERIAL_PLASMA),//Fuel it up
+		list(CRAFT_MATERIAL, 2, MATERIAL_PHORON),//Fuel it up
 		list(/obj/item/tool_upgrade/augment/cell_mount, 1, "time" = 30),//Attach a cell-mount
 		list(QUALITY_SCREW_DRIVING, 10, "time" = 50), //Secure it
 		list(/obj/item/stack/cable_coil, 2, "time" = 10), //Wire it up
@@ -411,7 +411,7 @@
 		list(QUALITY_SAWING, 10),
 		list(CRAFT_MATERIAL, 2, MATERIAL_PLASTEEL),
 		list(QUALITY_WELDING, 10, "time" = 30),
-		list(CRAFT_MATERIAL, 1, MATERIAL_PLASMA),
+		list(CRAFT_MATERIAL, 1, MATERIAL_PHORON),
 		list(QUALITY_WELDING, 10, "time" = 30),
 		list(/obj/item/device/assembly/igniter, 1),
 		list(QUALITY_SCREW_DRIVING, 10, "time" = 30),

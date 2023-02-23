@@ -110,7 +110,7 @@
 	if (!tool.use_tool(user, src, WORKTIME_NORMAL, QUALITY_BOLT_TURNING, FAILCHANCE_VERY_EASY, required_stat = STAT_MEC))
 		return ..()
 	anchored = !src.anchored
-	anchored ? (src.stat &= ~MAINT) : (src.stat |= MAINT)
+	anchored ? (src.stat &= ~MACHINE_STAT_MAINT) : (src.stat |= MACHINE_STAT_MAINT)
 	if(anchored)
 		power_change()
 	else

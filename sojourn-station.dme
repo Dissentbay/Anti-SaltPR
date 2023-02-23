@@ -550,7 +550,6 @@
 #include "code\datums\wires\vending.dm"
 #include "code\datums\wires\wire_description.dm"
 #include "code\datums\wires\wires.dm"
-#include "code\defines\gases.dm"
 #include "code\defines\obj.dm"
 #include "code\defines\procs\announce.dm"
 #include "code\defines\procs\AStar.dm"

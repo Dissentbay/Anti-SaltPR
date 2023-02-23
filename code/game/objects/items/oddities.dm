@@ -631,7 +631,7 @@
 	desc = "An anomalous, experimental tool produced by the Soteria Institute to get accurate readings of local and global Bluespace entropy." // It's a lie that it stabilizes Bluespace.
 	icon_state = "si_scan"
 	item_state = "si_scan"
-	matter = list(MATERIAL_PLASTIC = 15, MATERIAL_STEEL = 10, MATERIAL_PLASMAGLASS = 2, MATERIAL_GOLD = 10, MATERIAL_SILVER = 10, MATERIAL_PLASMA = 5, MATERIAL_DIAMOND = 1)
+	matter = list(MATERIAL_PLASTIC = 15, MATERIAL_STEEL = 10, MATERIAL_PLASMAGLASS = 2, MATERIAL_GOLD = 10, MATERIAL_SILVER = 10, MATERIAL_PHORON = 5, MATERIAL_DIAMOND = 1)
 	oddity_stats = list(
 		STAT_COG = 2, //trash stats for mass-printed trash
 		STAT_MEC = 2

@@ -144,7 +144,7 @@ A more player-friendly version of the Belvoix scanner, reports basic information
 	icon_state = "dna_scanner"
 	item_state = "analyzer"
 	origin_tech = list(TECH_BIO = 10, TECH_PLASMA = 5)
-	matter = list(MATERIAL_PLASTIC = 2, MATERIAL_STEEL = 1, MATERIAL_GLASS = 1, MATERIAL_PLASMA = 1)
+	matter = list(MATERIAL_PLASTIC = 2, MATERIAL_STEEL = 1, MATERIAL_GLASS = 1, MATERIAL_PHORON = 1)
 	charge_per_use = 0
 	var/datum/genetics/genetics_holder/held_mutations
 

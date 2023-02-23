@@ -13,7 +13,7 @@
 	steps = list(
 		list(CRAFT_MATERIAL, 2, MATERIAL_GLASS, "time" = 1),
 		list(QUALITY_WELDING, 40, "time" = 5), //Insainly quick do tobeing 1 sheet a time
-		list(CRAFT_MATERIAL, 1, MATERIAL_PLASMA, "time" = 1),
+		list(CRAFT_MATERIAL, 1, MATERIAL_PHORON, "time" = 1),
 		list(QUALITY_WELDING, 40, "time" = 5),
 		list(QUALITY_SAWING, 30, "time" = 5)
 	)
@@ -285,7 +285,7 @@
 	steps = list(
 		list(CRAFT_MATERIAL, 20, MATERIAL_PLASTEEL, "time" = 15),
 		list(QUALITY_CUTTING, 30, "time" = 10),
-		list(CRAFT_MATERIAL, 4, MATERIAL_PLASMA, "time" = 15),
+		list(CRAFT_MATERIAL, 4, MATERIAL_PHORON, "time" = 15),
 		list(QUALITY_BOLT_TURNING, 40, "time" = 20),
 		list(QUALITY_HAMMERING, 10, "time" = 20),
 		list(/obj/item/stock_parts/smes_coil, 1, "time" = 5),
@@ -529,7 +529,7 @@
 		list(QUALITY_HAMMERING, 30, "time" = 40),
 		list(CRAFT_MATERIAL, 2, MATERIAL_PLASTIC, "time" = 30),
 		list(QUALITY_SCREW_DRIVING, 40, "time" = 90),
-		list(CRAFT_MATERIAL, 2, MATERIAL_PLASMA, "time" = 30),
+		list(CRAFT_MATERIAL, 2, MATERIAL_PHORON, "time" = 30),
 	)
 
 /datum/craft_recipe/guild/rubbermesh
@@ -561,7 +561,7 @@
 		list(QUALITY_HAMMERING, 30, "time" = 40),
 		list(CRAFT_MATERIAL, 2, MATERIAL_PLASTIC, "time" = 30),
 		list(QUALITY_SCREW_DRIVING, 25, "time" = 90),
-		list(CRAFT_MATERIAL, 2, MATERIAL_PLASMA, "time" = 30),
+		list(CRAFT_MATERIAL, 2, MATERIAL_PHORON, "time" = 30),
 		list(QUALITY_WELDING, 40, "time" = 40)
 	)
 

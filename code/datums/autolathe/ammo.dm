@@ -926,7 +926,7 @@
 /datum/design/autolathe/ammo/grenade/blast
 	name = "blast grenade shell"
 	build_path = /obj/item/ammo_casing/grenade/blast
-	materials = list(MATERIAL_STEEL = 2, MATERIAL_PLASMA = 0.5)
+	materials = list(MATERIAL_STEEL = 2, MATERIAL_PHORON = 0.5)
 
 /datum/design/autolathe/ammo/grenade/frag
 	name = "fragmentation grenade shell"

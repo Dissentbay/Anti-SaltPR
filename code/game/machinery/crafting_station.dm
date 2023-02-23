@@ -12,9 +12,9 @@
 	var/storage_capacity = 20 // How many of each resource could be stored. Multiplied by matter bin rating
 	var/productivity_bonus = 5 // Sum of micro-laser and manipulator ratings, increases effectiveness of ammo crafting
 	var/list/materials_stored = list()
-	var/list/materials_compatible = list (MATERIAL_PLASTEEL, MATERIAL_STEEL, MATERIAL_PLASTIC, MATERIAL_WOOD, MATERIAL_CARDBOARD, MATERIAL_PLASMA)
+	var/list/materials_compatible = list (MATERIAL_PLASTEEL, MATERIAL_STEEL, MATERIAL_PLASTIC, MATERIAL_WOOD, MATERIAL_CARDBOARD, MATERIAL_PHORON)
 	var/list/materials_ammo = list(MATERIAL_STEEL = 10, MATERIAL_CARDBOARD = 2)
-	var/list/materials_rocket = list(MATERIAL_PLASMA = 5, MATERIAL_PLASTIC = 5, MATERIAL_PLASTEEL = 5, MATERIAL_STEEL = 10)
+	var/list/materials_rocket = list(MATERIAL_PHORON = 5, MATERIAL_PLASTIC = 5, MATERIAL_PLASTEEL = 5, MATERIAL_STEEL = 10)
 	var/list/materials_lbarrel = list(MATERIAL_PLASTEEL = 8)
 	var/list/materials_sbarrel = list(MATERIAL_PLASTEEL = 4)
 	var/list/materials_lmechanism = list(MATERIAL_PLASTEEL = 10)

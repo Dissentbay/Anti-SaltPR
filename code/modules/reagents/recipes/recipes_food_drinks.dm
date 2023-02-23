@@ -851,7 +851,7 @@
 
 /datum/chemical_reaction/drinks/arcscrewdriver
 	result = "arcscrewdriver"
-	required_reagents = list("screwdrivercocktail" = 4, "carbon" = 1, "iron" = 1, MATERIAL_PLASMA = 1)
+	required_reagents = list("screwdrivercocktail" = 4, "carbon" = 1, "iron" = 1, MATERIAL_PHORON = 1)
 	result_amount = 5 //carbon iron and plasma makes plasteel materal wise
 
 /datum/chemical_reaction/drinks/whiske_rocks

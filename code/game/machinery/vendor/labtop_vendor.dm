@@ -236,7 +236,7 @@
 	nano_ui_interact(user)
 
 /obj/machinery/lapvend/nano_ui_interact(mob/user, ui_key = "main", var/datum/nanoui/ui = null, var/force_open = NANOUI_FOCUS)
-	if(stat & (MACHINE_BROKEN_GENERIC | MACHINE_STAT_NOPOWER | MAINT))
+	if(stat & (MACHINE_BROKEN_GENERIC | MACHINE_STAT_NOPOWER | MACHINE_STAT_MAINT))
 		if(ui)
 			ui.close()
 		return FALSE

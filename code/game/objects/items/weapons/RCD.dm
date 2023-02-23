@@ -14,7 +14,7 @@
 	throw_range = 5
 	w_class = ITEM_SIZE_NORMAL
 	origin_tech = list(TECH_ENGINEERING = 4, TECH_MATERIAL = 2)
-	matter = list(MATERIAL_PLASTEEL = 15, MATERIAL_PLASMA = 10, MATERIAL_URANIUM = 10)
+	matter = list(MATERIAL_PLASTEEL = 15, MATERIAL_PHORON = 10, MATERIAL_URANIUM = 10)
 	price_tag = 1000
 	var/max_stored_matter = 60
 	var/datum/effect/effect/system/spark_spread/spark_system
@@ -223,7 +223,7 @@
 				build_delay = 50 / construction_speed
 			else if(istype(T,/obj/structure/computerframe))
 				build_cost =  10 - construction_efficiency
-				build_delay = 50 / construction_speed		
+				build_delay = 50 / construction_speed
 			else
 				build_type =  ""
 	if(!build_type)

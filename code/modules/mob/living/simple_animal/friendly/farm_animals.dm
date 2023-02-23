@@ -506,7 +506,7 @@ var/global/chicken_count = 0
 				egg_type = /obj/item/stack/material/silver
 			if(MATERIAL_GOLD)
 				egg_type = /obj/item/stack/material/gold
-			if(MATERIAL_PLASMA)
+			if(MATERIAL_PHORON)
 				egg_type = /obj/item/stack/material/plasma
 			if(MATERIAL_URANIUM)
 				egg_type = /obj/item/stack/material/uranium

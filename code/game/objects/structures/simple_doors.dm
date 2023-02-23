@@ -187,7 +187,7 @@
 	..(newloc, MATERIAL_SANDSTONE)
 
 /obj/structure/simple_door/plasma/New(var/newloc,var/material_name)
-	..(newloc, MATERIAL_PLASMA)
+	..(newloc, MATERIAL_PHORON)
 
 /obj/structure/simple_door/diamond/New(var/newloc,var/material_name)
 	..(newloc, MATERIAL_DIAMOND)

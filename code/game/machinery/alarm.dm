@@ -149,12 +149,12 @@
 
 	set_frequency(frequency)
 	update_icon()
-
+/*	we are not ready yet
 /obj/machinery/alarm/get_req_access()
 	if(!locked)
 		return list()
 	return ..()
-
+*/
 /obj/machinery/alarm/Process()
 	if(inoperable() || shorted || buildstage != 2)
 		return
@@ -305,7 +305,7 @@
 	if((current_value > danger_levels[3] && danger_levels[3] > 0) || current_value < danger_levels[2])
 		return 1
 	return 0
-
+/*	not ready yet to play with mobcode overlays, soj version below this one
 /obj/machinery/alarm/on_update_icon()
 	overlays.Cut()
 	icon_state = "alarmp"
@@ -346,6 +346,50 @@
 			pixel_x = -21
 
 	set_light(0.25, 0.1, 1, 2, new_color)
+*/
+/obj/machinery/alarm/on_update_icon()
+	if(wiresexposed)
+		switch(buildstage)
+			if(2)
+				icon_state = "alarm_build2"
+			if(1)
+				icon_state = "alarm_build1"
+			if(0)
+				icon_state = "alarm_build0"
+		set_light(0)
+		return
+
+	if(stat & (MACHINE_BROKEN_GENERIC))
+		icon_state = "alarm_broken"
+		set_light(0)
+		return
+
+	if((stat & (MACHINE_STAT_NOPOWER)) || shorted)
+		icon_state = "alarm_unpowered"
+		set_light(0)
+		return
+
+	if(!alarm_area)
+		error("Alarm cant find an area - [type] - [x]:[y]:[z]")
+		return
+
+	var/icon_level = danger_level
+	if (alarm_area.atmosalm)
+		icon_level = max(icon_level, 1)	//if there's an atmos alarm but everything is okay locally, no need to go past yellow
+
+	var/new_color = null
+	switch(icon_level)
+		if (0)
+			icon_state = "alarm0"
+			new_color = COLOR_LIGHTING_GREEN_BRIGHT
+		if (1)
+			icon_state = "alarm1"
+			new_color = COLOR_LIGHTING_ORANGE_MACHINERY
+		if (2)
+			icon_state = "alarm2"
+			new_color = COLOR_LIGHTING_RED_MACHINERY
+
+	set_light(l_range = 1.5, l_power = 0.2, l_color = new_color)
 
 /obj/machinery/alarm/receive_signal(datum/signal/signal)
 	if(!signal || signal.encryption)
@@ -782,7 +826,7 @@
 			mode = text2num(href_list["mode"])
 			apply_mode()
 			return TOPIC_REFRESH
-
+/* not ready yet, soj version down below
 /obj/machinery/alarm/attackby(obj/item/W as obj, mob/user as mob)
 	switch(buildstage)
 		if(2)
@@ -849,7 +893,107 @@
 				playsound(src.loc, 'sound/items/Ratchet.ogg', 50, 1)
 				qdel(src)
 
+	return ..()  */
+
+
+/obj/machinery/alarm/attackby(obj/item/I, mob/user)
+	src.add_fingerprint(user)
+
+	var/list/usable_qualities = list()
+	if(buildstage == 2)
+		usable_qualities.Add(QUALITY_SCREW_DRIVING)
+	if(wiresexposed)
+		usable_qualities.Add(QUALITY_WIRE_CUTTING)
+	if(buildstage == 1)
+		usable_qualities.Add(QUALITY_PRYING)
+	if(buildstage == 0)
+		usable_qualities.Add(QUALITY_BOLT_TURNING)
+
+
+	var/tool_type = I.get_tool_type(user, usable_qualities, src)
+	switch(tool_type)
+
+		if(QUALITY_SCREW_DRIVING)
+			if(buildstage == 2)
+				var/used_sound = panel_open ? 'sound/machines/Custom_screwdriveropen.ogg' :  'sound/machines/Custom_screwdriverclose.ogg'
+				if(I.use_tool(user, src, WORKTIME_NEAR_INSTANT, tool_type, FAILCHANCE_VERY_EASY, instant_finish_tier = 30, forced_sound = used_sound))
+					wiresexposed = !wiresexposed
+					to_chat(user, "The wires have been [wiresexposed ? "exposed" : "unexposed"]")
+					update_icon()
+					return
+			return
+
+		if(QUALITY_WIRE_CUTTING)
+			if(wiresexposed && buildstage == 2)
+				if(I.use_tool(user, src, WORKTIME_NEAR_INSTANT, tool_type, FAILCHANCE_VERY_EASY, required_stat = STAT_MEC))
+					user.visible_message(SPAN_WARNING("[user] removed the wires from \the [src]!"), "You have removed the wires from \the [src].")
+					new/obj/item/stack/cable_coil(get_turf(user), 5)
+					buildstage = 1
+					update_icon()
+					return
+			return
+
+		if(QUALITY_PRYING)
+			if(buildstage == 1)
+				if(I.use_tool(user, src, WORKTIME_NORMAL, tool_type, FAILCHANCE_VERY_EASY, required_stat = STAT_MEC))
+					to_chat(user, "You pry out the circuit!")
+					var/obj/item/airalarm_electronics/circuit = new /obj/item/airalarm_electronics()
+					circuit.loc = user.loc
+					buildstage = 0
+					update_icon()
+					return
+			return
+
+		if(QUALITY_BOLT_TURNING)
+			if(buildstage == 0)
+				if(I.use_tool(user, src, WORKTIME_NEAR_INSTANT, tool_type, FAILCHANCE_VERY_EASY, required_stat = STAT_MEC))
+					to_chat(user, "You remove the fire alarm assembly from the wall!")
+					new /obj/item/frame/air_alarm(get_turf(user))
+					qdel(src)
+			return
+
+		if(ABORT_CHECK)
+			return
+
+	switch(buildstage)
+		if(2)
+			if (istype(I, /obj/item/card/id) || istype(I, /obj/item/modular_computer))// trying to unlock the interface with an ID card
+				toggle_lock(user)
+			return
+
+		if(1)
+			if(istype(I, /obj/item/stack/cable_coil))
+				var/obj/item/stack/cable_coil/C = I
+				if (C.use(5))
+					to_chat(user, SPAN_NOTICE("You wire \the [src]."))
+					buildstage = 2
+					update_icon()
+					Initialize()
+					return
+				else
+					to_chat(user, SPAN_WARNING("You need 5 pieces of cable to do wire \the [src]."))
+					return
+
+		if(0)
+			if(istype(I, /obj/item/airalarm_electronics))
+				to_chat(user, "You insert the circuit!")
+				qdel(I)
+				buildstage = 1
+				update_icon()
+				return
+
 	return ..()
+
+/obj/machinery/alarm/proc/toggle_lock(mob/user) //because we use old id stuff
+	if(stat & (MACHINE_STAT_NOPOWER|MACHINE_BROKEN_GENERIC))
+		to_chat(user, "It does nothing")
+		return
+	else
+		if(allowed(user) && !wires.IsIndexCut(AALARM_WIRE_IDSCAN))
+			locked = !locked
+			to_chat(user, SPAN_NOTICE("You [ locked ? "lock" : "unlock"] the Air Alarm interface."))
+		else
+			to_chat(user, SPAN_WARNING("Access denied."))
 
 /obj/machinery/alarm/examine(mob/user)
 	. = ..()
@@ -892,11 +1036,13 @@ FIRE ALARM
 	var/seclevel
 	var/static/list/overlays_cache
 
+/* i mean, sure, but only if I port alerts too
 /obj/machinery/firealarm/examine(mob/user)
 	. = ..()
 	if(loc.z in GLOB.using_map.contact_levels)
 		var/singleton/security_state/security_state = GET_SINGLETON(GLOB.using_map.security_state)
 		to_chat(user, "The current alert level is [security_state.current_security_level.name].")
+*/
 
 /obj/machinery/firealarm/Initialize()
 	. = ..()
@@ -906,7 +1052,7 @@ FIRE ALARM
 	if(!LAZYACCESS(overlays_cache, state))
 		LAZYSET(overlays_cache, state, image(icon, state))
 	return overlays_cache[state]
-
+/*
 /obj/machinery/firealarm/on_update_icon()
 	overlays.Cut()
 
@@ -954,6 +1100,41 @@ FIRE ALARM
 		if(exposed_temperature > T0C+200)
 			src.alarm()			// added check of detector status here
 	return
+*/
+
+/obj/machinery/firealarm/on_update_icon()
+	cut_overlays()
+
+	if(wiresexposed)
+		switch(buildstage)
+			if(2)
+				icon_state="fire_build2"
+			if(1)
+				icon_state="fire_build1"
+			if(0)
+				icon_state="fire_build0"
+		set_light(0)
+		return
+
+	if(stat & MACHINE_BROKEN_GENERIC)
+		icon_state = "fire_broken"
+		set_light(0)
+	else if(stat & MACHINE_STAT_NOPOWER)
+		icon_state = "fire_unpowered"
+		set_light(0)
+	else
+		var/area/area = get_area(src)
+		if(area.fire)
+			icon_state = "fire1"
+			set_light(l_range = 1.5, l_power = 0.5, l_color = COLOR_LIGHTING_RED_MACHINERY)
+		else
+			icon_state = "fire0"
+			var/decl/security_state/security_state = decls_repository.get_decl(GLOB.maps_data.security_state)
+			var/decl/security_level/sl = security_state.current_security_level
+
+			set_light(sl.light_max_bright, sl.light_inner_range, sl.light_outer_range, 2, sl.light_color_alarm)
+			src.add_overlay(image('icons/obj/monitors.dmi', sl.overlay_firealarm))
+
 
 /obj/machinery/firealarm/bullet_act()
 	return src.alarm()
@@ -962,7 +1143,7 @@ FIRE ALARM
 	if(prob(50/severity))
 		alarm(rand(30/severity, 60/severity))
 	..()
-
+/*  once machine code gets fully ported
 /obj/machinery/firealarm/attackby(obj/item/W as obj, mob/user as mob)
 	if((QUALITY_SCREW_DRIVING in W.tool_qualities) && buildstage == 2)
 		wiresexposed = !wiresexposed
@@ -1020,6 +1201,100 @@ FIRE ALARM
 
 	src.alarm()
 	return
+*/
+/obj/machinery/firealarm/attackby(obj/item/I, mob/user)
+	src.add_fingerprint(user)
+
+	var/list/usable_qualities = list()
+	if(buildstage == 2)
+		usable_qualities.Add(QUALITY_SCREW_DRIVING)
+	if(wiresexposed)
+		usable_qualities.Add(QUALITY_WIRE_CUTTING, QUALITY_PULSING)
+	if(buildstage == 1)
+		usable_qualities.Add(QUALITY_PRYING)
+	if(buildstage == 0)
+		usable_qualities.Add(QUALITY_BOLT_TURNING)
+
+
+	var/tool_type = I.get_tool_type(user, usable_qualities, src)
+	switch(tool_type)
+
+		if(QUALITY_SCREW_DRIVING)
+			if(buildstage == 2)
+				var/used_sound = panel_open ? 'sound/machines/Custom_screwdriveropen.ogg' :  'sound/machines/Custom_screwdriverclose.ogg'
+				if(I.use_tool(user, src, WORKTIME_NEAR_INSTANT, tool_type, FAILCHANCE_VERY_EASY, instant_finish_tier = 30, forced_sound = used_sound))
+					wiresexposed = !wiresexposed
+					to_chat(user, "The wires have been [wiresexposed ? "exposed" : "unexposed"]")
+					update_icon()
+					return
+			return
+
+		if(QUALITY_WIRE_CUTTING)
+			if(wiresexposed && buildstage == 2)
+				if(I.use_tool(user, src, WORKTIME_NEAR_INSTANT, tool_type, FAILCHANCE_VERY_EASY, required_stat = STAT_MEC))
+					user.visible_message(SPAN_WARNING("[user] has removed the wires from \the [src]!"), "You have removed the wires from \the [src].")
+					new/obj/item/stack/cable_coil(get_turf(user), 5)
+					buildstage = 1
+					update_icon()
+					return
+			return
+
+		if(QUALITY_PULSING)
+			if(wiresexposed)
+				if(I.use_tool(user, src, WORKTIME_NEAR_INSTANT, tool_type, FAILCHANCE_VERY_EASY, required_stat = STAT_MEC))
+					detecting = !detecting
+					user.visible_message(
+					SPAN_NOTICE("\The [user] has [detecting ? "disconnected" : "reconnected"] [src]'s detecting unit!"),
+					SPAN_NOTICE("You have [detecting ? "disconnected" : "reconnected"] [src]'s detecting unit."))
+					return
+			return
+
+		if(QUALITY_PRYING)
+			if(buildstage == 1)
+				if(I.use_tool(user, src, WORKTIME_NORMAL, tool_type, FAILCHANCE_VERY_EASY, required_stat = STAT_MEC))
+					to_chat(user, "You pry out the circuit!")
+					var/obj/item/firealarm_electronics/circuit = new /obj/item/firealarm_electronics()
+					circuit.loc = user.loc
+					buildstage = 0
+					update_icon()
+					return
+			return
+
+		if(QUALITY_BOLT_TURNING)
+			if(buildstage == 0)
+				if(I.use_tool(user, src, WORKTIME_NEAR_INSTANT, tool_type, FAILCHANCE_VERY_EASY, , required_stat = STAT_MEC))
+					to_chat(user, "You remove the fire alarm assembly from the wall!")
+					new /obj/item/frame/fire_alarm(get_turf(user))
+					qdel(src)
+			return
+
+		if(ABORT_CHECK)
+			return
+
+	switch(buildstage)
+
+		if(1)
+			if(istype(I, /obj/item/stack/cable_coil))
+				var/obj/item/stack/cable_coil/C = I
+				if (C.use(5))
+					to_chat(user, SPAN_NOTICE("You wire \the [src]."))
+					buildstage = 2
+					update_icon()
+					return
+				else
+					to_chat(user, SPAN_WARNING("You need 5 pieces of cable to do wire \the [src]."))
+					return
+
+		if(0)
+			if(istype(I, /obj/item/firealarm_electronics))
+				to_chat(user, "You insert the circuit!")
+				qdel(I)
+				buildstage = 1
+				update_icon()
+				return
+
+	src.alarm()
+	return
 
 /obj/machinery/firealarm/Process()//Note: this processing was mostly phased out due to other code, and only runs when needed
 	if(inoperable())
@@ -1043,6 +1318,7 @@ FIRE ALARM
 	interact(user)
 	return TRUE
 
+/* best to use the soj one, at least until I decide if alarms will be ported too
 /obj/machinery/firealarm/interact(mob/user)
 	user.set_machine(src)
 	var/area/A = src.loc
@@ -1082,6 +1358,23 @@ FIRE ALARM
 		show_browser(user, dat, "window=firealarm")
 		onclose(user, "firealarm")
 	return
+*/
+/obj/machinery/firealarm/interact(var/mob/user, var/ui_key = "main", var/datum/nanoui/ui = null, var/force_open = NANOUI_FOCUS, var/datum/nano_topic_state/state = GLOB.outside_state)
+	var/data[0]
+	var/decl/security_state/security_state = decls_repository.get_decl(GLOB.maps_data.security_state)
+
+	data["seclevel"] = security_state.current_security_level.name
+	data["time"] = round(src.time)
+	data["timing"] = timing
+	var/area/A = get_area(src)
+	data["active"] = A.fire
+
+	ui = SSnano.try_update_ui(user, src, ui_key, ui, data, force_open)
+	if(!ui)
+		ui = new(user, src, ui_key, "fire_alarm.tmpl", "Fire Alarm", 240, 330, state = state)
+		ui.set_initial_data(data)
+		ui.open()
+		ui.set_auto_update(1)
 
 /obj/machinery/firealarm/CanUseTopic(user)
 	if(buildstage != 2)
@@ -1143,11 +1436,34 @@ FIRE ALARM
 		pixel_y = (dir & 3)? (dir ==1 ? -21 : 21) : 0
 		update_icon()
 		frame.transfer_fingerprints_to(src)
-
+/*
 /obj/machinery/firealarm/Initialize()
 	. = ..()
 	if(z in GLOB.using_map.contact_levels)
 		update_icon()
+*/
+/obj/machinery/alarm/Initialize()		//Dissent: this is all temporary until I figure out if I need to port alerts too, if I didn't port it, you better start it
+	. = ..()
+	set_frequency(frequency)
+	if(buildstage == 2 && !master_is_operating())
+		elect_master()
+
+/area
+	var/obj/machinery/alarm/master_air_alarm
+	var/list/air_vent_names = list()
+	var/list/air_scrub_names = list()
+	var/list/air_vent_info = list()
+	var/list/air_scrub_info = list()
+
+/obj/machinery/alarm/proc/elect_master()
+	for (var/obj/machinery/alarm/AA in alarm_area)
+		if (!(AA.stat & (MACHINE_STAT_NOPOWER|MACHINE_BROKEN_GENERIC)))
+			alarm_area.master_air_alarm = AA
+			return 1
+	return 0
+
+/obj/machinery/alarm/proc/master_is_operating()
+	return alarm_area.master_air_alarm && !(alarm_area.master_air_alarm.stat & (MACHINE_STAT_NOPOWER|MACHINE_BROKEN_GENERIC))
 
 /*
 FIRE ALARM CIRCUIT

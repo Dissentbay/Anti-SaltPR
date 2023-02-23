@@ -97,7 +97,7 @@
 	name = "plasmablock"
 	desc = "A plasmablock is way more efficient to dissipate heat than classic heatsinks or waterblocks thanks to the tremendous heat-transfer capacity of liquid plasma. The fluid that is actively pumped through a radiator and cooled by fans. It greatly extends the lifespan of power tools or heat dissipation of energy weapons."
 	icon_state = "plasmablock"
-	matter = list(MATERIAL_PLASTEEL = 5, MATERIAL_PLASTIC = 2, MATERIAL_PLASMA = 1)
+	matter = list(MATERIAL_PLASTEEL = 5, MATERIAL_PLASTIC = 2, MATERIAL_PHORON = 1)
 	preloaded_reagents = list("iron" = 15, "plasticide" = 5, "plasma" = 3)
 
 /obj/item/tool_upgrade/reinforcement/plasmablock/New()
@@ -310,7 +310,7 @@
 	desc = "Applying a thin coat of this paint on a tool prevents blood stains, dirt or dust to adhere to its surface. Everyone works better and faster with clean tools. Once applied, it can't ever be stripped."
 	icon_state = "antistaining"
 	preloaded_reagents = list("oil" = 5, "aluminum" = 5, "mercury" = 5)
-	matter = list(MATERIAL_STEEL = 3, MATERIAL_PLASTIC = 2, MATERIAL_PLASMA = 3)
+	matter = list(MATERIAL_STEEL = 3, MATERIAL_PLASTIC = 2, MATERIAL_PHORON = 3)
 	can_remove = FALSE
 	price_tag = 180
 
@@ -353,7 +353,7 @@
 	name = "plasma injector"
 	desc = "If the words \"safety regulations\" do not mean anything to you, you may consider installing this fine piece of technology on your tool. It injects small amounts of plasma in the fuel mix before combustion to greatly increase its power output, making all kinds of tasks easier to perform. If you're insane, you could attach it to an energy weapon's barrel."
 	icon_state = "injector"
-	matter = list(MATERIAL_STEEL = 3, MATERIAL_PLASTIC = 2, MATERIAL_PLASMA = 2)
+	matter = list(MATERIAL_STEEL = 3, MATERIAL_PLASTIC = 2, MATERIAL_PHORON = 2)
 	preloaded_reagents = list("iron" = 15, "plasticide" = 5, "plasma" = 3)
 	price_tag = 280
 
@@ -965,7 +965,7 @@
 	name = "BSL \"Randomizer\" tool polish"
 	desc = "This unidentified tar-like stable liquid warps and bends reality around it. Applying it to a tool may have unexpected results."
 	icon_state = "randomizer"
-	matter = list(MATERIAL_PLASMA = 4, MATERIAL_URANIUM = 4)
+	matter = list(MATERIAL_PHORON = 4, MATERIAL_URANIUM = 4)
 	price_tag = 100
 
 /obj/item/tool_upgrade/augment/randomizer/New()

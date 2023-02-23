@@ -106,7 +106,7 @@
 	var/has_electronics = 0 // 0 - none, 1 - plugged in, 2 - secured by screwdriver
 	var/beenhit = 0 // used for counting how many times it has been hit, used for Aliens at the moment
 	var/longtermpower = 10
-	var/datum/wires/apc/wires
+	wires
 	var/update_state = -1
 	var/update_overlay = -1
 	var/is_critical = 0
@@ -123,7 +123,7 @@
 	var/offset_old
 
 /obj/machinery/power/apc/updateDialog()
-	if (stat & (MACHINE_BROKEN_GENERIC|MAINT))
+	if (stat & (MACHINE_BROKEN_GENERIC|MACHINE_STAT_MAINT))
 		return
 	..()
 
@@ -177,7 +177,7 @@
 		opened = 1
 		operating = FALSE
 		name = "\improper [get_area_name_litteral(area, TRUE)] APC"
-		stat |= MAINT
+		stat |= MACHINE_STAT_MAINT
 		update_icon()
 		addtimer(CALLBACK(src, .proc/update), 5)
 		set_dir(ndir)
@@ -285,7 +285,7 @@
 				to_chat(user, "There is no electronics nor connected wires.")
 
 		else
-			if (stat & MAINT)
+			if (stat & MACHINE_STAT_MAINT)
 				to_chat(user, "The cover is closed. Something wrong with it: it doesn't work.")
 			else if (hacker)
 				to_chat(user, "The cover is locked.")
@@ -359,7 +359,7 @@
 
 		if(update_state & UPDATE_BLUESCREEN)
 			set_light(l_range = 2, l_power = 0.6, l_color = "#0000FF")
-		else if(!(stat & (MACHINE_BROKEN_GENERIC|MAINT)) && update_state & UPDATE_ALLGOOD)
+		else if(!(stat & (MACHINE_BROKEN_GENERIC|MACHINE_STAT_MAINT)) && update_state & UPDATE_ALLGOOD)
 			var/color
 			switch(charging)
 				if(0)
@@ -380,7 +380,7 @@
 	if(update > 1)
 		if(overlays.len)
 			cut_overlays()
-		if(!(stat & (MACHINE_BROKEN_GENERIC|MAINT)) && update_state & UPDATE_ALLGOOD)
+		if(!(stat & (MACHINE_BROKEN_GENERIC|MACHINE_STAT_MAINT)) && update_state & UPDATE_ALLGOOD)
 			add_overlay(status_overlays_lock[locked+1])
 			add_overlay(status_overlays_charging[charging+1])
 			if(operating)
@@ -400,7 +400,7 @@
 		update_state |= UPDATE_CELL_IN
 	if(stat & MACHINE_BROKEN_GENERIC)
 		update_state |= UPDATE_BROKE
-	if(stat & MAINT)
+	if(stat & MACHINE_STAT_MAINT)
 		update_state |= UPDATE_MAINT
 	if(opened)
 		if(opened==1)
@@ -513,7 +513,7 @@
 						opened = 0
 						update_icon()
 					else if(!((stat & MACHINE_BROKEN_GENERIC) || hacker))
-						if(coverlocked && !(stat & MAINT))
+						if(coverlocked && !(stat & MACHINE_STAT_MAINT))
 							to_chat(user, SPAN_WARNING("The cover is locked and cannot be opened."))
 						else
 							opened = 1
@@ -549,11 +549,11 @@
 				if(opened)
 					if (has_electronics==1 && terminal)
 						has_electronics = 2
-						stat &= ~MAINT
+						stat &= ~MACHINE_STAT_MAINT
 						to_chat(user, "You screw the circuit electronics into place.")
 					else if (has_electronics==2)
 						has_electronics = 1
-						stat |= MAINT
+						stat |= MACHINE_STAT_MAINT
 						to_chat(user, "You unfasten the electronics.")
 					else /* has_electronics==0 */
 						to_chat(user, SPAN_WARNING("There is nothing to secure."))
@@ -605,7 +605,7 @@
 		if(cell)
 			to_chat(user, "There is a power cell already installed.")
 			return
-		if (stat & MAINT)
+		if (stat & MACHINE_STAT_MAINT)
 			to_chat(user, SPAN_WARNING("There is no connector for your power cell."))
 			return
 		if(I.w_class != ITEM_SIZE_NORMAL)
@@ -728,7 +728,7 @@
 			to_chat(user, "You must close the cover to swipe an ID card.")
 		else if(wiresexposed)
 			to_chat(user, "You must close the panel first")
-		else if(stat & (MACHINE_BROKEN_GENERIC|MAINT))
+		else if(stat & (MACHINE_BROKEN_GENERIC|MACHINE_STAT_MAINT))
 			to_chat(user, "Nothing happens.")
 		else
 			flick("apc-spark", src)
@@ -785,7 +785,7 @@
 			charging = 0
 			update_icon()
 		return
-	if(stat & (MACHINE_BROKEN_GENERIC|MAINT))
+	if(stat & (MACHINE_BROKEN_GENERIC|MACHINE_STAT_MAINT))
 		return
 	// do APC interaction
 	interact(user)
@@ -806,7 +806,7 @@
 		to_chat(user, "You must close the cover to swipe an ID card.")
 	else if(wiresexposed)
 		to_chat(user, "You must close the panel")
-	else if(stat & (MACHINE_BROKEN_GENERIC|MAINT))
+	else if(stat & (MACHINE_BROKEN_GENERIC|MACHINE_STAT_MAINT))
 		to_chat(user, "Nothing happens.")
 	else if(hacker)
 		to_chat(user, SPAN_WARNING("Access denied."))
@@ -1148,7 +1148,7 @@
 
 	else if (href_list["toggleaccess"])
 		if(issilicon(usr))
-			if(emagged || (stat & (MACHINE_BROKEN_GENERIC|MAINT)))
+			if(emagged || (stat & (MACHINE_BROKEN_GENERIC|MACHINE_STAT_MAINT)))
 				to_chat(usr, "The APC does not respond to the command.")
 			else
 				locked = !locked
@@ -1209,7 +1209,7 @@
 
 /obj/machinery/power/apc/Process()
 	SEND_SIGNAL(area, COMSIG_AREA_APC_OPERATING, operating)
-	if(stat & (MACHINE_BROKEN_GENERIC|MAINT))
+	if(stat & (MACHINE_BROKEN_GENERIC|MACHINE_STAT_MAINT))
 		return
 	if(!area.requires_power)
 		return

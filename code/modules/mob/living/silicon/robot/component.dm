@@ -347,7 +347,7 @@
 	icon = 'icons/obj/tank.dmi'
 	icon_state = "jetpack-black"
 	icon_state_broken = "jetpack-black"
-	matter = list(MATERIAL_STEEL = 10, MATERIAL_PLASMA = 10, MATERIAL_SILVER = 20)
+	matter = list(MATERIAL_STEEL = 10, MATERIAL_PHORON = 10, MATERIAL_SILVER = 20)
 
 /obj/item/robot_parts/robot_component/ion_jaunt
 	name = "ion jaunt"
@@ -355,5 +355,5 @@
 	icon_state = "ion_jaunt_stock"
 	icon_state_broken = "ion_jaunt_stock"
 	w_class = ITEM_SIZE_HUGE // Very big
-	matter_reagents = list(MATERIAL_PLASMA = 20, MATERIAL_URANIUM = 20, MATERIAL_IRON = 20) // To force people to use a stasis beaker
+	matter_reagents = list(MATERIAL_PHORON = 20, MATERIAL_URANIUM = 20, MATERIAL_IRON = 20) // To force people to use a stasis beaker
 	matter = list(MATERIAL_STEEL = 5, MATERIAL_PLASTEEL = 5, MATERIAL_PLASMAGLASS = 1, MATERIAL_DIAMOND = 1, MATERIAL_TRITIUM = 1, MATERIAL_OSMIUM = 1, MATERIAL_MHYDROGEN = 1)

@@ -67,7 +67,7 @@ var/global/list/ore_data = list()
 /ore/plasma
 	name = ORE_PLASMA
 	display_name = "plasma crystals"
-	compresses_to = MATERIAL_PLASMA
+	compresses_to = MATERIAL_PHORON
 	alloy = TRUE
 	//smelts_to = something that explodes violently on the conveyor, huhuhuhu
 	result_amount = 8

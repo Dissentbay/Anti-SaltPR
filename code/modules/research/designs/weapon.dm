@@ -242,7 +242,7 @@
 	name = "Shotgun ammo (Incendiary)"
 	desc = "Incendiary shells for a shotgun."
 	build_path = /obj/item/ammo_casing/shotgun/incendiary/prespawned
-	materials = list(MATERIAL_STEEL = 4, MATERIAL_PLASMA = 5)
+	materials = list(MATERIAL_STEEL = 4, MATERIAL_PHORON = 5)
 
 
 /datum/design/research/item/ammo/shotgun_laser

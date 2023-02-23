@@ -12,7 +12,7 @@
 	icon_state = "psi_catalyst"
 	item_state = "psi_catalyst"
 	origin_tech = list(TECH_BIO = 9, TECH_MATERIAL = 9, TECH_PLASMA = 3)
-	matter = list(MATERIAL_GLASS = 1, MATERIAL_PLASTEEL = 2, MATERIAL_PLASMA = 1, MATERIAL_DIAMOND = 1)
+	matter = list(MATERIAL_GLASS = 1, MATERIAL_PLASTEEL = 2, MATERIAL_PHORON = 1, MATERIAL_DIAMOND = 1)
 	price_tag = 0
 	var/stored_power
 

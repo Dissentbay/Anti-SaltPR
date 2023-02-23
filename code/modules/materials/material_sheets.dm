@@ -175,7 +175,7 @@
 /obj/item/stack/material/plasma
 	name = "solid plasma"
 	icon_state = "sheet-plasma" //Sprites by CeUvi#1236
-	default_type = MATERIAL_PLASMA
+	default_type = MATERIAL_PHORON
 	price_tag = 8
 	novariants = FALSE
 

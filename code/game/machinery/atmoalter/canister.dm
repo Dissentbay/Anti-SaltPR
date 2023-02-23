@@ -215,7 +215,7 @@ update_flag
 	else
 		can_label = 0
 
-	air_contents.react() //cooking up air cans - add plasma and oxygen, then heat above PLASMA_MINIMUM_BURN_TEMPERATURE
+	air_contents.react() //cooking up air cans - add plasma and oxygen, then heat above PHORON_MINIMUM_BURN_TEMPERATURE
 
 /obj/machinery/portable_atmospherics/canister/return_air()
 	return air_contents

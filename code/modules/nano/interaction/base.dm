@@ -35,3 +35,7 @@
 	if(lockcharge)
 		. = STATUS_DISABLED
 	return min(., ..())
+
+//bay stuff, becasue you can't mass replace with certainty all the time
+/datum/topic_state/proc/href_list(mob/user)
+	return list()

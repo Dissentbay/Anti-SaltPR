@@ -294,7 +294,7 @@
 	equip_cooldown = 10
 	energy_drain = 250
 	range = MECHA_MELEE|MECHA_RANGED
-	matter = list(MATERIAL_PLASTEEL = 20, MATERIAL_PLASMA = 15, MATERIAL_URANIUM = 15)
+	matter = list(MATERIAL_PLASTEEL = 20, MATERIAL_PHORON = 15, MATERIAL_URANIUM = 15)
 	price_tag = 1500
 	var/mode = 0 //0 - deconstruct, 1 - wall or floor, 2 - airlock.
 	var/disabled = 0 //malf

@@ -305,9 +305,9 @@ var/list/name_to_material
 	sheet_plural_name = "ingots"
 
 /material/plasma
-	name = MATERIAL_PLASMA
+	name = MATERIAL_PHORON
 	stack_type = /obj/item/stack/material/plasma
-	ignition_point = PLASMA_MINIMUM_BURN_TEMPERATURE
+	ignition_point = PHORON_MINIMUM_BURN_TEMPERATURE
 	icon_base = "stone"
 	icon_colour = "#FC2BC5"
 	shard_type = SHARD_SHARD
