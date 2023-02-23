@@ -999,3 +999,26 @@ its easier to just keep the beam vertical.
 	for (var/prefix in prefixes)
 		name = "[prefix] [name]"
 
+//bay stuff
+
+/atom/movable/proc/dropInto(atom/destination)
+	while(istype(destination))
+		var/atom/drop_destination = destination.onDropInto(src)
+		if(!istype(drop_destination) || drop_destination == destination)
+			return forceMove(destination)
+		destination = drop_destination
+	return forceMove(null)
+
+/**
+ * Handler for items being dropped onto or into the atom. Called by `dropInto()`.
+ *
+ * **Parameters**:
+ * - `AM` - The atom being dragged and dropped.
+ *
+ * Returns instance of `/atom` or `null`. The atom to `forceMove()` `AM` into. If `null`, assumes `src`.
+ */
+/atom/proc/onDropInto(atom/movable/AM)
+	return
+
+/atom/movable/onDropInto(atom/movable/AM)
+	return loc

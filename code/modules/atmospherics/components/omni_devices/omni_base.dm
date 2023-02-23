@@ -77,7 +77,7 @@
 	return 1
 
 /obj/machinery/atmospherics/omni/attackby(obj/item/W as obj, mob/user as mob)
-	if(!(QUALITY_BOLT_TURNING in W.tool_qualities))
+	if(QUALITY_BOLT_TURNING in W.tool_qualities)
 		return ..()
 
 	var/int_pressure = 0
@@ -96,10 +96,7 @@
 			SPAN_NOTICE("You have unfastened \the [src]."), \
 			"You hear a ratchet.")
 		new /obj/item/pipe(loc, src)
-		investigate_log("was unfastened by [key_name(user)]", "atmos")
-		new /obj/item/pipe(loc, make_from=src)
 		qdel(src)
-
 
 /obj/machinery/atmospherics/omni/interface_interact(mob/user)
 	ui_interact(user)

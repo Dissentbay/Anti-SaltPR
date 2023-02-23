@@ -225,3 +225,14 @@ GLOBAL_DATUM_INIT(sound_player, /decl/sound_player, new)
 
 /datum/sound_token/static_environment/get_environment()
 	return sound.environment
+
+//bay stuff
+
+/decl/sound_player/proc/PlayLoopingSound(atom/source, sound_id, sound, volume, range, falloff = 1, echo, frequency, prefer_mute)
+	var/sound/S = istype(sound, /sound) ? sound : new(sound)
+	S.environment = 0 // Ensures a 3D effect even if x/y offset happens to be 0 the first time it's played
+	S.volume  = volume
+	S.falloff = falloff
+	S.echo = echo
+	S.frequency = frequency
+	S.repeat = TRUE

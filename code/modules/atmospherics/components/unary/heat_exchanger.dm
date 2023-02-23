@@ -108,5 +108,5 @@
 		SPAN_NOTICE("\The [user] unfastens \the [src]."), \
 		SPAN_NOTICE("You have unfastened \the [src]."), \
 		"You hear a ratchet.")
-	new /obj/item/pipe(loc, make_from=src)
+	new /obj/item/pipe(loc, src)
 	qdel(src)

@@ -104,14 +104,13 @@
 		loc.assume_air(air_temporary)
 
 	. = ..()
-/* will have to use soj version, for now
 /obj/machinery/atmospherics/pipe/attackby(obj/item/W as obj, mob/user as mob)
 	if (istype(src, /obj/machinery/atmospherics/unary/tank))
 		return ..()
 	if (istype(src, /obj/machinery/atmospherics/pipe/vent))
 		return ..()
 
-	if(isWrench(W))
+	if(QUALITY_BOLT_TURNING in W.tool_qualities)
 		var/turf/T = src.loc
 		if (level==ATOM_LEVEL_UNDER_TILE && isturf(T) && !T.is_plating())
 			to_chat(user, SPAN_WARNING("You must remove the plating first."))
@@ -144,40 +143,6 @@
 			for (var/obj/machinery/meter/meter in T)
 				if (meter.target == src)
 					meter.dismantle()
-			qdel(src)
-*/
-/obj/machinery/atmospherics/pipe/attackby(obj/item/I, mob/user)
-	if (istype(src, /obj/machinery/atmospherics/pipe/tank))
-		return ..()
-	if (istype(src, /obj/machinery/atmospherics/pipe/vent))
-		return ..()
-
-	if(istype(I,/obj/item/device/pipe_painter))
-		return 0
-	var/turf/T = src.loc
-	if (level==1 && isturf(T) && !T.is_plating())
-		to_chat(user, SPAN_WARNING("You must remove the plating first."))
-		return 1
-
-	if(QUALITY_BOLT_TURNING in I.tool_qualities)
-		var/datum/gas_mixture/int_air = return_air()
-		var/datum/gas_mixture/env_air = loc.return_air()
-		if ((int_air.return_pressure()-env_air.return_pressure()) > 4*ONE_ATMOSPHERE)
-			to_chat(user, SPAN_WARNING("You cannot unfasten \the [src], it is under too much pressure."))
-			add_fingerprint(user)
-			return 1
-		to_chat(user, SPAN_NOTICE("You begin to unfasten \the [src]..."))
-		if(I.use_tool(user, src, WORKTIME_FAST, QUALITY_BOLT_TURNING, FAILCHANCE_EASY, required_stat = STAT_MEC))
-			user.visible_message( \
-				SPAN_NOTICE("\The [user] unfastens \the [src]."), \
-				SPAN_NOTICE("You have unfastened \the [src]."), \
-				"You hear a ratcheting.")
-			investigate_log("was unfastened by [key_name(user)]", "atmos")
-			new /obj/item/pipe(loc, make_from=src)
-			for (var/obj/machinery/meter/meter in T)
-				if (meter.target == src)
-					new /obj/item/pipe_meter(T)
-					qdel(meter)
 			qdel(src)
 
 /obj/machinery/atmospherics/get_color()
