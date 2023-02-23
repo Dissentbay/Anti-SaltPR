@@ -124,8 +124,9 @@
 #define INIT_OPEN_SPACE -150
 #define INIT_ORDER_LATELOAD -180
 #define INIT_ORDER_CHAT	-185
-#define SS_INIT_ICON_UPDATE      1 //bay iconsSS
-#define SS_INIT_MACHINES         2 //bay machineSS
+#define SS_INIT_ICON_UPDATE      1 	//bay iconsSS
+#define SS_INIT_MACHINES         2 	//bay machineSS
+#define SS_INIT_MATERIALS        15 //bay materialsSS
 
 // SS runlevels
 

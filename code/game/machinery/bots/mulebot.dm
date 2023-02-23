@@ -4,7 +4,7 @@
 // Navigates via floor navbeacons
 // Remote Controlled from QM's PDA
 
-
+/* we literally don't use it and know it's broken, maybe when we snatch the code form another codebase we can enjoy it
 /obj/machinery/bot/mulebot
 	name = "Mulebot"
 	desc = "A Multiple Utility Load Effector bot."
@@ -51,7 +51,7 @@
 						// the installed power cell
 
 	// constants for internal wiring bitflags
-	var/datum/wires/mulebot/wires = null
+	wires = null
 
 	var/bloodiness = 0		// count of bloodiness
 
@@ -893,3 +893,4 @@
 	new /obj/effect/decal/cleanable/blood/oil(src.loc)
 	unload(0)
 	qdel(src)
+*/

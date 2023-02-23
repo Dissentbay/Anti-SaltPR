@@ -89,10 +89,9 @@
 
 	SSatoms.InitializeAtoms(areas + turfs + movables, returns_created_atoms ? created_atoms : null)
 
-	// NOTE, now that Initialize and LateInitialize run correctly, do we really
-	// need these two below?
-	SSmachines.setup_template_powernets(cables)
-	SSair.setup_template_machinery(atmos_machines)
+	//those come from bay, later the whole maps module will require to be ported from there
+	SSmachines.setup_powernets_for_cables(cables)
+	SSmachines.setup_atmos_machinery(atmos_machines)
 
 	// Ensure all machines in loaded areas get notified of power status
 	for(var/I in areas)

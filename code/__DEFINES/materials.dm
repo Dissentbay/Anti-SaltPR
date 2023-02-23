@@ -7,7 +7,7 @@
 #define MATERIAL_RPLASMAGLASS "reinforced borosilicate glass"
 #define MATERIAL_SILVER "silver"
 #define MATERIAL_GOLD "gold"
-#define MATERIAL_PHORON "plasma"
+#define MATERIAL_PHORON "phoron"
 #define MATERIAL_URANIUM "uranium"
 #define MATERIAL_DIAMOND "diamond"
 #define MATERIAL_DURASTEEL "durasteel"

@@ -1,3 +1,4 @@
+/* need to port materials module and enable the materialsSS
 /obj/machinery/atmospherics/binary/oxyregenerator
 	name ="oxygen regenerator"
 	desc = "A machine for breaking bonds in carbon dioxide and releasing pure oxygen."
@@ -137,7 +138,7 @@
 			carbon_stored += co2_intake * carbon_efficiency
 			while (carbon_stored >= carbon_moles_per_piece)
 				carbon_stored -= carbon_moles_per_piece
-				var/material/M = SSmaterials.get_material_by_name(MATERIAL_GRAPHITE)
+				var/material/M = SSmaterials.get_material_by_name(ORE_CARBON)
 				M.place_sheet(get_turf(src), 1, M.name)
 			power_draw = power_rating * co2_intake
 			last_power_draw = power_draw
@@ -205,3 +206,4 @@
 	if(href_list["setPower"]) //setting power to 0 is redundant anyways
 		power_setting = clamp(text2num(href_list["setPower"]), 1, 5)
 		return 1
+*/

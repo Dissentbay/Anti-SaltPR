@@ -237,6 +237,7 @@
 #include "code\controllers\subsystems\wireless.dm"
 #include "code\controllers\subsystems\xenoarch.dm"
 #include "code\controllers\subsystems\initialization\character_setup.dm"
+#include "code\controllers\subsystems\initialization\materials.dm"
 #include "code\controllers\subsystems\movement\move_handler.dm"
 #include "code\controllers\subsystems\movement\movement.dm"
 #include "code\controllers\subsystems\movement\movement_types.dm"

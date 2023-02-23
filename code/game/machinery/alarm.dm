@@ -54,7 +54,8 @@
 	var/aidisabled = 0
 	var/shorted = 0
 
-	wires = /datum/wires/alarm
+	//wires = /datum/wires/alarm this is for bay machine
+	var/datum/wires/alarm/wires
 
 	var/mode = AALARM_MODE_SCRUBBING
 	var/screen = AALARM_SCREEN_MAIN

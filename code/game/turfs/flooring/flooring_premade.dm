@@ -365,7 +365,7 @@
 /turf/simulated/floor/reinforced/plasma
 	oxygen = 0
 	nitrogen = 0
-	plasma = ATMOSTANK_PLASMA
+	plasma = ATMOSTANK_PHORON
 
 /turf/simulated/floor/reinforced/carbon_dioxide
 	oxygen = 0
