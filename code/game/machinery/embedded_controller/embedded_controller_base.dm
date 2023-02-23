@@ -45,7 +45,7 @@ obj/machinery/embedded_controller/radio/Destroy()
 	power_channel = STATIC_ENVIRON
 	density = 0
 
-	var/id_tag
+
 	//var/radio_power_use = 50 //power used to xmit signals
 
 	var/frequency = 1379
