@@ -57,7 +57,7 @@
 	/// For mapped buildable types, set this to be the base type actually buildable.
 	var/base_type
 	/// This generic variable is to be used by mappers to give related machines a string key. In principle used by radio stock parts.
-	//var/id_tag
+	var/id_tag
 	/// What is created when the machine is dismantled.
 	var/frame_type = /obj/machinery/constructable_frame/machine_frame/deconstruct
 	/// Whether or not the machine is allowed to be dismantled/modified. Used for snowflake consoles that would break permanently if dismantled. Also prevents damage, since the machine would be irreparable in this state. Has to be defined here because machinery datums.

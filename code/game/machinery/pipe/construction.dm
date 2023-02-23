@@ -214,7 +214,7 @@ Buildable meters
 	var/build_type
 
 /obj/item/machine_chassis/attackby(obj/item/W, mob/user)
-	if(!isWrench(W))
+	if(!(QUALITY_BOLT_TURNING in I.tool_qualities))
 		return ..()
 	var/obj/machinery/machine = new build_type(get_turf(src), dir, FALSE)
 	machine.apply_component_presets()
