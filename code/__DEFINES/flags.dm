@@ -42,10 +42,10 @@ GLOBAL_LIST_INIT(bitflags, list(1, 2, 4, 8, 16, 32, 64, 128, 256, 512, 1024, 204
 #define MOVABLE_FLAG_Z_INTERACT     FLAG(1)  // Should attackby and attack_hand be relayed through ladders and open spaces?
 #define MOVABLE_FLAG_EFFECTMOVE     FLAG(2)  // Is this an effect that should move?
 
-#define OBJ_FLAG_ANCHORABLE     FLAG(0)  // This object can be stuck in place with a tool
-#define OBJ_FLAG_CONDUCTIBLE    FLAG(1)  // Conducts electricity. (metal etc.)
-#define OBJ_FLAG_ROTATABLE      FLAG(2)  // Can be rotated with alt-click
-#define OBJ_FLAG_NOFALL		    FLAG(3)  // Will prevent mobs from falling
+#define OBJ_FLAG_ANCHORABLE     BITFLAG(0)  // This object can be stuck in place with a tool
+#define OBJ_FLAG_CONDUCTIBLE    BITFLAG(1)  // Conducts electricity. (metal etc.)
+#define OBJ_FLAG_ROTATABLE      BITFLAG(2)  // Can be rotated with alt-click
+#define OBJ_FLAG_NOFALL		    BITFLAG(3)  // Will prevent mobs from falling
 
 //Flags for items (equipment)
 #define ITEM_FLAG_NO_BLUDGEON               FLAG(0)  // When an item has this it produces no "X has been hit by Y with Z" message with the default handler.

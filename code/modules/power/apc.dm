@@ -106,7 +106,7 @@
 	var/has_electronics = 0 // 0 - none, 1 - plugged in, 2 - secured by screwdriver
 	var/beenhit = 0 // used for counting how many times it has been hit, used for Aliens at the moment
 	var/longtermpower = 10
-	wires
+	var/datum/wires/apc/wires
 	var/update_state = -1
 	var/update_overlay = -1
 	var/is_critical = 0

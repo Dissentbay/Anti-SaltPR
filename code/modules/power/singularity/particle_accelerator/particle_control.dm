@@ -19,7 +19,7 @@
 	var/list/obj/structure/particle_accelerator/connected_parts
 	var/assembled = 0
 	var/parts = null
-	wires = null
+	var/datum/wires/particle_acc/control_box/wires = null
 
 /obj/machinery/particle_accelerator/control_box/New()
 	wires = new(src)

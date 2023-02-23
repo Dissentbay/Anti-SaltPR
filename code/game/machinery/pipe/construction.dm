@@ -132,7 +132,8 @@ Buildable meters
 	return 0
 
 /obj/item/pipe/attackby(obj/item/W as obj, mob/user as mob)
-	if(!isWrench(W))
+
+	if(!W.has_quality(QUALITY_BOLT_TURNING))
 		return ..()
 	if (!isturf(loc))
 		return 1
@@ -229,7 +230,7 @@ Buildable meters
 	desc = "A sensor. It detects gasses."
 	icon = 'icons/obj/stationobjs.dmi'
 	icon_state = "gsensor1"
-	w_class = ITEM_SIZE_LARGE
+	w_class = ITEM_SIZE_BULKY
 	build_type = /obj/machinery/air_sensor
 
 /obj/item/machine_chassis/pipe_meter
@@ -238,5 +239,5 @@ Buildable meters
 	icon = 'icons/obj/pipe-item.dmi'
 	icon_state = "meter"
 	item_state = "buildpipe"
-	w_class = ITEM_SIZE_LARGE
+	w_class = ITEM_SIZE_BULKY
 	build_type = /obj/machinery/meter

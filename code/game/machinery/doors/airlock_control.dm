@@ -159,7 +159,7 @@
 	anchored = 1
 	power_channel = STATIC_ENVIRON
 
-	id_tag
+	var/id_tag
 	var/master_tag
 	var/frequency = 1379
 	var/command = "cycle"

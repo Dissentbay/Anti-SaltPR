@@ -13,6 +13,7 @@
 	var/armor_penetration = 0
 	var/corporation = null
 	var/heat = 0
+	var/obj_flags		//bay var for flags on objects, why we don't use it? 'tis a mystery for Dissent at this moment
 
 /obj/proc/is_hot()
 	return heat
@@ -265,3 +266,17 @@
 /obj/proc/multiply_pve_damage(newmult)
 
 /obj/proc/add_fire_stacks(newmult)
+
+//bay addition
+
+/obj/proc/rotate(mob/user)
+	if(!CanPhysicallyInteract(user))
+		to_chat(user, SPAN_NOTICE("You can't interact with \the [src] right now!"))
+		return
+
+	if(anchored)
+		to_chat(user, SPAN_NOTICE("\The [src] is secured to the floor!"))
+		return
+
+	set_dir(turn(dir, 90))
+	update_icon()

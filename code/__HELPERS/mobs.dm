@@ -1,9 +1,9 @@
 /atom/movable/proc/get_mob()
 	return
 
-/obj/machinery/bot/mulebot/get_mob()
-	if(load && isliving(load))
-		return load
+///obj/machinery/bot/mulebot/get_mob() FUGHEABOUTIT! mulebot file got commented out,since it was broken for more than a year
+//	if(load && isliving(load))
+//		return load
 
 /obj/mecha/get_mob()
 	return occupant

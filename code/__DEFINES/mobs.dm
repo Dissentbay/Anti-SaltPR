@@ -531,3 +531,32 @@
 #define RANDOM_BLOOD_TYPE pick(4;"O-", 36;"O+", 3;"A-", 28;"A+", 1;"B-", 20;"B+", 1;"AB-", 5;"AB+")
 
 #define is_dead(M) M.stat == DEAD
+
+//bay additions
+
+//used by /proc/do_after
+#define DO_USER_CAN_MOVE     BITFLAG(0)
+#define DO_USER_CAN_TURN     BITFLAG(1)
+#define DO_USER_UNIQUE_ACT   BITFLAG(2)
+#define DO_USER_SAME_HAND    BITFLAG(3)
+#define DO_USER_SAME_ZONE    BITFLAG(4)
+#define DO_TARGET_CAN_MOVE   BITFLAG(5)
+#define DO_TARGET_CAN_TURN   BITFLAG(6)
+#define DO_TARGET_UNIQUE_ACT BITFLAG(7)
+#define DO_SHOW_PROGRESS     BITFLAG(8)
+#define DO_PUBLIC_PROGRESS   BITFLAG(9)
+#define DO_MOVE_CHECKS_TURFS BITFLAG(10)
+#define DO_FAIL_FEEDBACK     BITFLAG(11)
+#define DO_BAR_OVER_USER     BITFLAG(12) // Forces the progress bar to appear over the user instead of the target
+
+#define DO_BOTH_CAN_MOVE     (DO_USER_CAN_MOVE | DO_TARGET_CAN_MOVE)
+#define DO_BOTH_CAN_TURN     (DO_USER_CAN_TURN | DO_TARGET_CAN_TURN)
+#define DO_BOTH_UNIQUE_ACT   (DO_USER_UNIQUE_ACT | DO_TARGET_UNIQUE_ACT)
+#define DO_DEFAULT           (DO_SHOW_PROGRESS | DO_USER_SAME_HAND | DO_BOTH_CAN_TURN | DO_FAIL_FEEDBACK)
+
+// Preset do_After flags
+#define DO_PUBLIC_UNIQUE     (DO_DEFAULT | DO_PUBLIC_PROGRESS | DO_BOTH_UNIQUE_ACT) // Common flags for actions that should be public and unique
+#define DO_SURGERY           (DO_DEFAULT | DO_PUBLIC_PROGRESS) // Flags for surgery steps. No unique checks to allow multi-surgery steps.
+#define DO_MEDICAL           (DO_DEFAULT | DO_PUBLIC_PROGRESS) // Flags for medical steps. No unique checks to allow multi-bandaging steps.
+#define DO_REPAIR_CONSTRUCT  (DO_DEFAULT | DO_PUBLIC_PROGRESS | DO_TARGET_UNIQUE_ACT) // Flags for repair and construction steps.
+#define DO_EQUIP             (DO_DEFAULT | DO_PUBLIC_PROGRESS | DO_USER_UNIQUE_ACT) // Flags for equipping/unequipping mobs. Set to allow a mob to be targeted by multiple sources, but for a source to only be able to perform one action at a time.

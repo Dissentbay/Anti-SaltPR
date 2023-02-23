@@ -22,7 +22,7 @@
 		if(istype(below) && (TURF_HAS_VALID_ZONE(below) || TURF_HAS_VALID_ZONE(src)))
 			N = /turf/simulated/open
 
-	var/obj/fire/old_fire = fire
+	var/obj/hotspot/old_fire = hotspot
 	var/old_opacity = opacity
 	var/old_dynamic_lighting = dynamic_lighting
 	var/list/old_affecting_lights = affecting_lights

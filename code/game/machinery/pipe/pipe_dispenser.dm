@@ -11,7 +11,7 @@
 
 	idle_power_usage = 500
 	power_channel = EQUIP
-	use_power = POWER_USE_OFF
+	use_power = NO_POWER_USE
 
 	machine_name = "pipe dispenser"
 	machine_desc = "A semi-portable dispenser that uses compressed matter to create atmospherics pipes. Vital for repair or construction efforts."
@@ -21,7 +21,7 @@
 /obj/machinery/pipedispenser/Initialize()//for mapping purposes. Anchor them by map var edit if needed.
 	. = ..()
 	if(anchored)
-		update_use_power(POWER_USE_IDLE)
+		update_use_power(IDLE_POWER_USE)
 
 /obj/machinery/pipedispenser/proc/get_console_data(list/pipe_categories, color_options = FALSE)
 	. = list()
@@ -91,7 +91,7 @@
 						"You hear ratchet.")
 					anchored = FALSE
 					set_stat(MACHINE_STAT_MAINT, TRUE)
-					update_use_power(POWER_USE_OFF)
+					update_use_power(NO_POWER_USE)
 					if(user.machine==src)
 						close_browser(user, "window=pipedispenser")
 			else
@@ -104,7 +104,7 @@
 						"You hear ratchet.")
 					anchored = TRUE
 					set_stat(MACHINE_STAT_MAINT, FALSE)
-					update_use_power(POWER_USE_IDLE)
+					update_use_power(IDLE_POWER_USE)
 			return
 	return ..()
 

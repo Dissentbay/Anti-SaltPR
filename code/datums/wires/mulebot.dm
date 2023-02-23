@@ -1,3 +1,4 @@
+/* nope, he ain't here anymore
 /datum/wires/mulebot
 	holder_type = /obj/machinery/bot/mulebot
 	wire_count = 10
@@ -62,3 +63,4 @@ var/const/WIRE_BEACON_RX = 256	// beacon ping recv
 
 /datum/wires/mulebot/proc/BeaconRX()
 	return !(wires_status & WIRE_BEACON_RX)
+*/

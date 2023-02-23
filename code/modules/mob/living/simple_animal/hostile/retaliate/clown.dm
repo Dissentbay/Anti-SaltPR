@@ -42,7 +42,7 @@
 	var/banana_type = /obj/item/bananapeel
 	var/attack_reagent
 
-
+/* i hate this mobcode
 /mob/living/simple_animal/hostile/retaliate/clown/Life()
 	. = ..()
 	if(banana_time && banana_time < world.time)
@@ -50,7 +50,7 @@
 		var/list/adjacent =  T.GetAtmosAdjacentTurfs(1)
 		new banana_type(pick(adjacent))
 		banana_time = world.time + rand(30,60)
-
+*/
 /mob/living/simple_animal/hostile/retaliate/clown/AttackingTarget()
 	var/mob/living/targetted_mob = (target_mob?.resolve())
 

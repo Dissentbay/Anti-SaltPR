@@ -245,7 +245,7 @@
 	src.add_fingerprint(usr)
 	return
 
-/* nope, maybe later
+
 /obj/machinery/atmospherics/binary/passive_gate/attackby(obj/item/W as obj, mob/user as mob)
 	if(!(QUALITY_BOLT_TURNING in W.tool_qualities))
 		return ..()
@@ -265,31 +265,7 @@
 			SPAN_NOTICE("\The [user] unfastens \the [src]."), \
 			SPAN_NOTICE("You have unfastened \the [src]."), \
 			"You hear ratchet.")
-		investigate_log("was unfastened by [key_name(user)]", "atmos")
-		new /obj/item/pipe(loc, make_from=src)
-		qdel(src)
-*/
-
-/obj/machinery/atmospherics/binary/passive_gate/attackby(var/obj/item/I, var/mob/user)
-	if(!(QUALITY_BOLT_TURNING in I.tool_qualities))
-		return ..()
-	if (unlocked)
-		to_chat(user, SPAN_WARNING("You cannot unwrench \the [src], turn it off first."))
-		return 1
-	var/datum/gas_mixture/int_air = return_air()
-	var/datum/gas_mixture/env_air = loc.return_air()
-	if ((int_air.return_pressure()-env_air.return_pressure()) > 2*ONE_ATMOSPHERE)
-		to_chat(user, SPAN_WARNING("You cannot unwrench \the [src], it too exerted due to internal pressure."))
-		add_fingerprint(user)
-		return 1
-	to_chat(user, SPAN_NOTICE("You begin to unfasten \the [src]..."))
-	if(I.use_tool(user, src, WORKTIME_FAST, QUALITY_BOLT_TURNING, FAILCHANCE_EASY, required_stat = STAT_MEC))
-		user.visible_message( \
-			SPAN_NOTICE("\The [user] unfastens \the [src]."), \
-			SPAN_NOTICE("You have unfastened \the [src]."), \
-			"You hear ratchet.")
-		investigate_log("was unfastened by [key_name(user)]", "atmos")
-		new /obj/item/pipe(loc, make_from=src)
+		new /obj/item/pipe(loc, src)
 		qdel(src)
 
 #undef REGULATE_NONE

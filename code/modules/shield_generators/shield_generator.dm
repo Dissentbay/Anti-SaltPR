@@ -16,7 +16,7 @@
 
 	var/needs_update = FALSE //If true, will update in process
 
-	wires
+	var/datum/wires/shield_generator/wires
 	var/list/field_segments = list()	// List of all shield segments owned by this generator.
 	var/list/damaged_segments = list()	// List of shield segments that have failed and are currently regenerating.
 	var/list/event_log = list()			// List of relevant events for this shield

@@ -59,7 +59,7 @@
 
 /obj/machinery/power/proc/disconnect_terminal() // machines without a terminal will just return, no harm no fowl.
 	return
-
+/* procs commented out since they exist in bay's machine code
 // returns true if the area has power on given channel (or doesn't require power).
 // defaults to power_channel
 /obj/machinery/proc/powered(var/chan = power_channel) // defaults to power_channel
@@ -72,24 +72,24 @@
 	if(A)
 		return A.powered(chan)			// return power status of the area
 	return 0
-
+*/
 // increment the power usage stats for an area
 /obj/machinery/proc/use_power(var/amount, var/chan = power_channel) // defaults to power_channel
 	var/area/A = get_area(src)		// make sure it's in an area
 	if(A && A.powered(chan))
 		A.use_power(amount, chan)
-
+/*
 //sets the use_power var and then forces an area power update
 /obj/machinery/proc/update_use_power(var/new_use_power)
 	use_power = new_use_power
-
+*/
 /obj/machinery/proc/auto_use_power()
 	switch (use_power)
 		if (1)
 			use_power(idle_power_usage)
 		if (2)
 			use_power(active_power_usage)
-
+/*
 /obj/machinery/proc/power_change()		// called whenever the power settings of the containing area change
 										// by default, check equipment channel & set flag
 										// can override if needed
@@ -99,7 +99,7 @@
 
 		stat |= MACHINE_STAT_NOPOWER
 	return
-
+*/
 // connect the machine to a powernet if a node cable is present on the turf
 /obj/machinery/power/proc/connect_to_network()
 	var/turf/T = src.loc

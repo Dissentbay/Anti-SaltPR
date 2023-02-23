@@ -21,7 +21,7 @@ var/bomb_set
 	use_power = NO_POWER_USE
 	unacidable = 1
 	var/previous_level = ""
-	wires = null
+	var/datum/wires/nuclearbomb/wires = null
 
 	var/eris_ship_bomb = FALSE           // if TRUE (1 in map editor), then Heads will get parts of code for this bomb. Obviously used in map editor. Single mapped bomb supported.
 
