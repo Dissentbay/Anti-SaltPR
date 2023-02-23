@@ -18,7 +18,7 @@ This is /obj/machinery level code to properly manage power usage from the area.
 		return FALSE
 
 	//Don't do this. It allows machines that set use_power to 0 when off (many machines) to
-	//be turned on again and used after a power failure because they never gain the MACHINE_STAT_NOPOWER flag.
+	//be turned on again and used after a power failure because they never gain the NOPOWER flag.
 	//if(!use_power)
 	//	return 1
 
@@ -34,14 +34,14 @@ This is /obj/machinery level code to properly manage power usage from the area.
 // by default, check equipment channel & set flag can override if needed
 // This is NOT for when the machine's own status changes; update_use_power for that.
 /obj/machinery/proc/power_change()
-	if(stat_immune & MACHINE_STAT_NOPOWER)
+	if(stat_immune & NOPOWER)
 		return FALSE
 	var/oldstat = stat
-	set_stat(MACHINE_STAT_NOPOWER, TRUE)
+	set_stat(NOPOWER, TRUE)
 	for(var/thing in power_components)
 		var/obj/item/stock_parts/power/power = thing
 		if((!is_powered()) && power.can_provide_power(src))
-			set_stat(MACHINE_STAT_NOPOWER, FALSE)
+			set_stat(NOPOWER, FALSE)
 		else
 			power.not_needed(src)
 
@@ -52,9 +52,9 @@ This is /obj/machinery level code to properly manage power usage from the area.
 /// Returns the current power usage draw, based on the state of `use_power`.
 /obj/machinery/proc/get_power_usage()
 	switch(use_power)
-		if(POWER_USE_IDLE)
+		if(IDLE_POWER_USE)
 			return idle_power_usage
-		if(POWER_USE_ACTIVE)
+		if(ACTIVE_POWER_USE)
 			return active_power_usage
 		else
 			return 0
@@ -143,13 +143,13 @@ This is /obj/machinery level code to properly manage power usage from the area.
 	REPORT_POWER_CONSUMPTION_CHANGE(0, power)
 
 /// Updates the machine's `*_power_usage` to the new value and updates the machine's current power consumption state if applicable.
-/obj/machinery/proc/change_power_consumption(new_power_consumption, use_power_mode = POWER_USE_IDLE)
+/obj/machinery/proc/change_power_consumption(new_power_consumption, use_power_mode = IDLE_POWER_USE)
 	var/old_power
 	switch(use_power_mode)
-		if(POWER_USE_IDLE)
+		if(IDLE_POWER_USE)
 			old_power = idle_power_usage
 			idle_power_usage = new_power_consumption
-		if(POWER_USE_ACTIVE)
+		if(ACTIVE_POWER_USE)
 			old_power = active_power_usage
 			active_power_usage = new_power_consumption
 		else

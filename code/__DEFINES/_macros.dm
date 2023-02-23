@@ -59,3 +59,6 @@
 
 /// Test all bits of MASK are set in FIELD
 #define HAS_FLAGS(FIELD, MASK) (((FIELD) & (MASK)) == (MASK))
+
+//bay stuff
+#define crash_with(X) crash_at(X, __FILE__, __LINE__)

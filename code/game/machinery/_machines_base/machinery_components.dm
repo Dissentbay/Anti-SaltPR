@@ -4,8 +4,8 @@ GLOBAL_LIST_INIT(machine_path_to_circuit_type, cache_circuits_by_build_path())
 
 /proc/cache_circuits_by_build_path()
 	. = list()
-	for(var/board_path in subtypesof(/obj/item/stock_parts/circuitboard))
-		var/obj/item/stock_parts/circuitboard/board = board_path //fake type
+	for(var/board_path in subtypesof(/obj/item/circuitboard/))
+		var/obj/item/circuitboard//board = board_path //fake type
 		if(initial(board.buildtype_select))
 			board = new board_path()
 			for(var/path in board.get_buildable_types())
@@ -23,7 +23,7 @@ GLOBAL_LIST_INIT(machine_path_to_circuit_type, cache_circuits_by_build_path())
 		var/path_to_check = base_type || type
 		var/board_path = GLOB.machine_path_to_circuit_type[path_to_check]
 		if(board_path)
-			var/obj/item/stock_parts/circuitboard/board = install_component(board_path, refresh_parts = FALSE)
+			var/obj/item/circuitboard//board = install_component(board_path, refresh_parts = FALSE)
 			var/list/req_components = board.spawn_components || board.req_components
 			req_components = req_components.Copy()
 			if(board.additional_spawn_components)

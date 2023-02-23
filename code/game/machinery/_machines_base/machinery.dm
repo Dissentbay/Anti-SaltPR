@@ -21,13 +21,13 @@
 	/// Wire datum, if any. If you place a type path, it will be autoinitialized.
 	var/datum/wires/wires
 	/// One of `POWER_USE_*`. The power usage state of the machine. Use `update_use_power()` to modify this during runtime.
-	var/use_power = POWER_USE_IDLE
-	/// Power usage for idle machinery. Used if `use_power` is set to `POWER_USE_IDLE`. Use `change_power_consumption()` to modify this during runtime.
+	var/use_power = IDLE_POWER_USE
+	/// Power usage for idle machinery. Used if `use_power` is set to `IDLE_POWER_USE`. Use `change_power_consumption()` to modify this during runtime.
 	var/idle_power_usage = 0
-	/// Power usage for active machinery. Used if `use_power` is set to `POWER_USE_ACTIVE`. Use `change_power_consumption()` to modify this during runtime.
+	/// Power usage for active machinery. Used if `use_power` is set to `ACTIVE_POWER_USE`. Use `change_power_consumption()` to modify this during runtime.
 	var/active_power_usage = 0
-	/// Power channel the machine draws from in APCs. `EQUIP`, `ENVIRON`, or `LIGHT`. Use `update_power_channel()` to modify this during runtime.
-	var/power_channel = EQUIP
+	/// Power channel the machine draws from in APCs. `STATIC_EQUIP`, `ENVIRON`, or `LIGHT`. Use `update_power_channel()` to modify this during runtime.
+	var/power_channel = STATIC_EQUIP
 	/// Helps with bookkeeping when initializing atoms. Don't modify.
 	var/power_init_complete = FALSE
 	/// List of component instances. Expected type: `/obj/item/stock_parts.`
@@ -51,7 +51,7 @@
 	/// Value to compare with `world.time` for whether to play `clicksound` according to `CLICKSOUND_INTERVAL`.
 	var/next_clicksound = 0
 	/// The skill used for skill checks for this machine (mostly so subtypes can use different skills).
-	var/core_skill = SKILL_DEVICES
+	var/core_skill = STAT_COG //Dissent: prelude to make it not use the stats from bay, NEED TO CHANGE THIS LATER
 	/// Machines often do all operations on `Process()`. This caches the user's skill while the operations are running.
 	var/operator_skill
 	/// For mapped buildable types, set this to be the base type actually buildable.
@@ -328,7 +328,7 @@
 /// Deconstructs the machine into its base frame and ejects all of its components. Returns boolean.
 /obj/machinery/proc/dismantle()
 	playsound(loc, 'sound/items/Crowbar.ogg', 50, 1)
-	var/obj/item/stock_parts/circuitboard/circuit = get_component_of_type(/obj/item/stock_parts/circuitboard)
+	var/obj/item/circuitboard//circuit = get_component_of_type(/obj/item/circuitboard/)
 	if(circuit)
 		circuit.deconstruct(src)
 	if(ispath(frame_type, /obj/item/pipe))
@@ -426,7 +426,7 @@
 
 	var/power_channel_name
 	switch (initial(power_channel))
-		if (EQUIP)
+		if (STATIC_EQUIP)
 			power_channel_name = "Equipment"
 		if (LIGHT)
 			power_channel_name = "Lighting"

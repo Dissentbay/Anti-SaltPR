@@ -15,7 +15,7 @@
 		/singleton/public_access/public_variable/temperature
 	)
 	stock_part_presets = list(/singleton/stock_part_preset/radio/basic_transmitter/air_sensor = 1)
-	use_power = POWER_USE_IDLE
+	use_power = IDLE_POWER_USE
 
 	frame_type = /obj/item/machine_chassis/air_sensor
 	construct_state = /singleton/machine_construction/default/item_chassis

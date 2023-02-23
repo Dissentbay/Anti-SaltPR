@@ -54,7 +54,7 @@
 	base_type = /obj/machinery/atmospherics/unary/vent_scrubber
 
 /obj/machinery/atmospherics/unary/vent_scrubber/on
-	use_power = POWER_USE_IDLE
+	use_power = IDLE_POWER_USE
 	icon_state = "map_scrubber_on"
 
 /obj/machinery/atmospherics/unary/vent_scrubber/Initialize()
@@ -296,7 +296,7 @@
 	if(.)
 		machine.panic = new_value
 		if(machine.panic)
-			machine.update_use_power(POWER_USE_IDLE)
+			machine.update_use_power(IDLE_POWER_USE)
 			machine.scrubbing = SCRUBBER_SIPHON
 		else
 			machine.scrubbing = SCRUBBER_EXCHANGE

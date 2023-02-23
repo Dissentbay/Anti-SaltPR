@@ -75,18 +75,18 @@
 	base_type = /obj/machinery/atmospherics/unary/vent_pump
 
 /obj/machinery/atmospherics/unary/vent_pump/on
-	use_power = POWER_USE_IDLE
+	use_power = IDLE_POWER_USE
 	icon_state = "map_vent_out"
 
 /obj/machinery/atmospherics/unary/vent_pump/siphon
 	pump_direction = 0
 
 /obj/machinery/atmospherics/unary/vent_pump/siphon/on
-	use_power = POWER_USE_IDLE
+	use_power = IDLE_POWER_USE
 	icon_state = "map_vent_in"
 
 /obj/machinery/atmospherics/unary/vent_pump/siphon/on/atmos
-	use_power = POWER_USE_IDLE
+	use_power = IDLE_POWER_USE
 	icon_state = "map_vent_in"
 	external_pressure_bound = 0
 	external_pressure_bound_default = 0
@@ -113,7 +113,7 @@
 
 /obj/machinery/atmospherics/unary/vent_pump/high_volume
 	name = "Large Air Vent"
-	power_channel = EQUIP
+	power_channel = STATIC_EQUIP
 	power_rating = 45000
 
 /obj/machinery/atmospherics/unary/vent_pump/high_volume/Initialize()

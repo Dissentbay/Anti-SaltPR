@@ -179,7 +179,7 @@
 		return 0
 
 	if(signal.data["power"])
-		update_use_power(sanitize_integer(text2num(signal.data["power"]), NO_POWER_USE, POWER_USE_ACTIVE, use_power))
+		update_use_power(sanitize_integer(text2num(signal.data["power"]), NO_POWER_USE, ACTIVE_POWER_USE, use_power))
 		queue_icon_update()
 
 	if(signal.data["power_toggle"] || signal.data["command"] == "valve_toggle") // some atmos buttons use "valve_toggle" as a command

@@ -144,7 +144,7 @@
 /obj/machinery/portable_atmospherics/powered
 	uncreated_component_parts = null
 	stat_immune = 0
-	use_power = POWER_USE_IDLE
+	use_power = IDLE_POWER_USE
 	var/power_rating
 	var/power_losses
 	var/last_power_draw = 0
@@ -152,7 +152,7 @@
 /obj/machinery/portable_atmospherics/powered/power_change()
 	. = ..()
 	if(. && (!is_powered()))
-		update_use_power(POWER_USE_IDLE)
+		update_use_power(IDLE_POWER_USE)
 
 /obj/machinery/portable_atmospherics/powered/components_are_accessible(path)
 	return panel_open
@@ -175,5 +175,5 @@
 		loc.assume_air(air_contents)
 	. = ..()
 
-/obj/machinery/portable_atmospherics/MouseDrop_T(mob/living/M, mob/living/user)
-	do_climb(user, FALSE)
+///obj/machinery/portable_atmospherics/MouseDrop_T(mob/living/M, mob/living/user)  no climbing...yet due to mobcode being radioactive
+//	do_climb(user, FALSE)

@@ -7,11 +7,13 @@ var/global/defer_powernet_rebuild = 0      // True if net rebuild will be called
 #define DOOR_CRUSH_DAMAGE 15
 #define ALIEN_SELECT_AFK_BUFFER  1    // How many minutes that a person can be AFK before not being allowed to be an alien.
 
-// Channel numbers for power.
-#define TOTAL           1	//for total power used only
-#define STATIC_EQUIP    2
-#define STATIC_LIGHT    3
-#define STATIC_ENVIRON  4
+// Channel numbers for power. obtained from bay
+#define POWER_CHAN -1 // Use default channel
+#define STATIC_EQUIP   1
+#define STATIC_LIGHT   2
+#define STATIC_ENVIRON 3
+#define LOCAL   4 // Machines running on local power. Not tracked by area.
+#define TOTAL   5 // For total power used only.
 
 //Power use
 #define NO_POWER_USE 0
@@ -198,3 +200,9 @@ var/list/restricted_camera_networks = list(NETWORK_MERCENARY, "Secret")
 #define STAT_BUFF "Stat Buff"
 #define MATERIAL_REWARD "Materials"
 #define ENERGY_REWARD "Energy"
+
+//bay stuff
+// Machine construction state return values, for use with cannot_transition_to
+#define MCS_CHANGE   0 // Success
+#define MCS_CONTINUE 1 // Failed to change, silently
+#define MCS_BLOCK    2 // Failed to change, but action was performed

@@ -14,7 +14,7 @@
 	uncreated_component_parts = null
 
 /obj/machinery/atmospherics/binary/pump/high_power/on
-	use_power = POWER_USE_IDLE
+	use_power = IDLE_POWER_USE
 	icon_state = "map_on"
 
 /obj/machinery/atmospherics/binary/pump/high_power/on_update_icon()

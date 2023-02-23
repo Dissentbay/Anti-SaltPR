@@ -269,3 +269,13 @@
 proc/n_ceil(var/num)
 	if(isnum(num))
 		return round(num)+1
+
+
+//bay math
+
+/// Value or the nearest integer in either direction
+#define Round(value) round((value), 1)
+
+
+/// Value or the nearest multiple of divisor in either direction
+#define Roundm(value, divisor) round((value), (divisor))

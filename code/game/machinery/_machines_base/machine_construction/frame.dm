@@ -86,8 +86,8 @@
 			try_change_state(machine, /singleton/machine_construction/frame/unwrenched)
 
 /singleton/machine_construction/frame/awaiting_circuit/attackby(obj/item/I, mob/user, obj/machinery/constructable_frame/machine)
-	if(istype(I, /obj/item/stock_parts/circuitboard))
-		var/obj/item/stock_parts/circuitboard/circuit = I
+	if(istype(I, /obj/item/circuitboard/))
+		var/obj/item/circuitboard//circuit = I
 		if(circuit.board_type == machine.expected_machine_type)
 			if(!user.canUnEquip(I))
 				return FALSE

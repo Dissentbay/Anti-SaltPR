@@ -36,14 +36,14 @@
 		return
 
 	if(prob(50/severity))
-		update_use_power(use_power == POWER_USE_ACTIVE ? POWER_USE_IDLE : POWER_USE_ACTIVE)
+		update_use_power(use_power == ACTIVE_POWER_USE ? IDLE_POWER_USE : ACTIVE_POWER_USE)
 
 	..(severity)
 
 /obj/machinery/portable_atmospherics/powered/scrubber/on_update_icon()
 	overlays.Cut()
 
-	if((use_power == POWER_USE_ACTIVE) && operable())
+	if((use_power == ACTIVE_POWER_USE) && operable())
 		icon_state = "pscrubber:1"
 	else
 		icon_state = "pscrubber:0"
@@ -62,7 +62,7 @@
 /obj/machinery/portable_atmospherics/powered/scrubber/proc/process_scrubber()
 	var/power_draw = -1
 
-	if((use_power == POWER_USE_ACTIVE) && is_powered())
+	if((use_power == ACTIVE_POWER_USE) && is_powered())
 		var/datum/gas_mixture/environment
 		if(holding)
 			environment = holding.air_contents
@@ -79,7 +79,7 @@
 	else
 		power_draw = max(power_draw, power_losses)
 		if(abs(power_draw - last_power_draw) > 0.1 * last_power_draw)
-			change_power_consumption(power_draw, POWER_USE_ACTIVE)
+			change_power_consumption(power_draw, ACTIVE_POWER_USE)
 			last_power_draw = power_draw
 
 		update_connected_network()
@@ -105,7 +105,7 @@
 	data["powerDraw"] = round(last_power_draw)
 	data["cellCharge"] = cell ? cell.charge : 0
 	data["cellMaxCharge"] = cell ? cell.maxcharge : 1
-	data["on"] = (use_power == POWER_USE_ACTIVE) ? 1 : 0
+	data["on"] = (use_power == ACTIVE_POWER_USE) ? 1 : 0
 
 	data["hasHoldingTank"] = holding ? 1 : 0
 	if (holding)
@@ -121,7 +121,7 @@
 
 /obj/machinery/portable_atmospherics/powered/scrubber/OnTopic(user, href_list)
 	if(href_list["power"])
-		update_use_power(use_power == POWER_USE_ACTIVE ? POWER_USE_IDLE : POWER_USE_ACTIVE)
+		update_use_power(use_power == ACTIVE_POWER_USE ? IDLE_POWER_USE : ACTIVE_POWER_USE)
 		. = TOPIC_REFRESH
 	if (href_list["remove_tank"])
 		if(holding)
@@ -185,14 +185,14 @@
 /obj/machinery/portable_atmospherics/powered/scrubber/huge/on_update_icon()
 	overlays.Cut()
 
-	if((use_power == POWER_USE_ACTIVE) && operable())
+	if((use_power == ACTIVE_POWER_USE) && operable())
 		icon_state = "scrubber:1"
 	else
 		icon_state = "scrubber:0"
 
 /obj/machinery/portable_atmospherics/powered/scrubber/huge/attackby(obj/item/I as obj, mob/user as mob)
 	if(isWrench(I))
-		if(use_power == POWER_USE_ACTIVE)
+		if(use_power == ACTIVE_POWER_USE)
 			to_chat(user, SPAN_WARNING("Turn \the [src] off first!"))
 			return
 

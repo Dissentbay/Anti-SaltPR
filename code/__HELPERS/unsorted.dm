@@ -1439,3 +1439,8 @@ GLOBAL_DATUM_INIT(dview_mob, /mob/dview, new)
 		digit_numbers--
 		generated_code += "[generate_single_gun_number()]" // cast to string
 	return generated_code
+
+//bay stuff
+// call to generate a stack trace and print to runtime logs
+/proc/crash_at(msg, file, line)
+	CRASH("%% [file],[line] %% [msg]")

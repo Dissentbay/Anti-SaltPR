@@ -21,7 +21,7 @@ Class Variables:
    power_channel (num)
       What channel to draw from when drawing power for power mode
       Possible Values:
-         EQUIP:0 -- Equipment Channel
+         STATIC_EQUIP:0 -- Equipment Channel
          LIGHT:2 -- Lighting Channel
          ENVIRON:3 -- Environment Channel
 
@@ -63,11 +63,11 @@ Class Procs:
       Default definition uses 'use_power', 'power_channel', 'active_power_usage',
       'idle_power_usage', 'powered()', and 'use_power()' implement behavior.
 
-   powered(chan = EQUIP)         'modules/power/power.dm'
+   powered(chan = STATIC_EQUIP)         'modules/power/power.dm'
       Checks to see if area that contains the object has power available for power
       channel given in 'chan'.
 
-   use_power(amount, chan=EQUIP, autocalled)   'modules/power/power.dm'
+   use_power(amount, chan=STATIC_EQUIP, autocalled)   'modules/power/power.dm'
       Deducts 'amount' from the power channel 'chan' of the area that contains the object.
       If it's autocalled then everything is normal, if something else calls use_power we are going to
       need to recalculate the power two ticks in a row.
