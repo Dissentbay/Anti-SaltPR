@@ -55,7 +55,7 @@
 		feedback_timer = 0
 
 /obj/machinery/mech_sensor/proc/enabled()
-	return on && !(stat & NOPOWER)
+	return on && !(stat & MACHINE_STAT_NOPOWER)
 
 /obj/machinery/mech_sensor/power_change()
 	var/old_stat = stat
@@ -80,7 +80,7 @@
 		radio_connection = SSradio.add_object(src, frequency)
 
 /obj/machinery/mech_sensor/receive_signal(datum/signal/signal)
-	if(stat & NOPOWER)
+	if(stat & MACHINE_STAT_NOPOWER)
 		return
 
 	if(!signal.data["tag"] || (signal.data["tag"] != id_tag))

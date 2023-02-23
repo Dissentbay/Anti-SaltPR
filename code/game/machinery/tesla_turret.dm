@@ -124,7 +124,7 @@ GLOBAL_LIST_INIT(turret_channels, new/list(5))
 	. = ..()
 
 /obj/machinery/tesla_turret/update_icon()
-	if(stat & BROKEN)
+	if(stat & MACHINE_BROKEN_GENERIC)
 		icon_state = "coil_broken"
 		set_light(0)
 	else if(powered() && enabled)
@@ -216,10 +216,10 @@ GLOBAL_LIST_INIT(turret_channels, new/list(5))
 
 /obj/machinery/tesla_turret/power_change()
 	if(powered())
-		stat &= ~NOPOWER
+		stat &= ~MACHINE_STAT_NOPOWER
 		update_icon()
 	else
-		stat |= NOPOWER
+		stat |= MACHINE_STAT_NOPOWER
 		update_icon()
 
 
@@ -248,7 +248,7 @@ GLOBAL_LIST_INIT(turret_channels, new/list(5))
 		if(panel_open)
 			usable_qualities.Add(QUALITY_WIRE_CUTTING)
 
-		if((stat & BROKEN) || (panel_open && circuit))
+		if((stat & MACHINE_BROKEN_GENERIC) || (panel_open && circuit))
 			usable_qualities.Add(QUALITY_PRYING)
 
 		if(!enabled && !wrenching && !panel_open && (anchored || !isinspace()))
@@ -261,7 +261,7 @@ GLOBAL_LIST_INIT(turret_channels, new/list(5))
 		var/tool_type = I.get_tool_type(user, usable_qualities, src)
 		switch(tool_type)
 			if(QUALITY_PRYING)
-				if(stat & BROKEN)
+				if(stat & MACHINE_BROKEN_GENERIC)
 					//If the turret is destroyed, you can remove it with a crowbar to
 					//try and salvage its components
 					to_chat(user, SPAN_NOTICE("You begin prying the metal coverings off."))
@@ -398,7 +398,7 @@ GLOBAL_LIST_INIT(turret_channels, new/list(5))
 			return TRUE //No whacking the turret with tools on help intent
 
 
-	else if (!(I.flags & NOBLUDGEON) && I.force && !(stat & BROKEN))
+	else if (!(I.flags & NOBLUDGEON) && I.force && !(stat & MACHINE_BROKEN_GENERIC))
 		//if the turret was attacked with the intention of harming it:
 		user.do_attack_animation(src)
 		user.setClickCooldown(DEFAULT_ATTACK_COOLDOWN)
@@ -466,14 +466,14 @@ GLOBAL_LIST_INIT(turret_channels, new/list(5))
 
 /obj/machinery/tesla_turret/proc/die()	//called when the turret dies, ie, health <= 0
 	health = 0
-	stat |= BROKEN	//enables the BROKEN bit
+	stat |= MACHINE_BROKEN_GENERIC	//enables the MACHINE_BROKEN_GENERIC bit
 	spark_system.start()	//creates some sparks because they look cool
 	update_icon()
 
 /obj/machinery/tesla_turret/Process()
 	//the main machinery process
 
-	if(stat & (NOPOWER|BROKEN))
+	if(stat & (MACHINE_STAT_NOPOWER|MACHINE_BROKEN_GENERIC))
 		last_target = null
 		return
 

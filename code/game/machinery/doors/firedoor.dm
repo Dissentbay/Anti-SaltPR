@@ -270,7 +270,7 @@
 	if(user.incapacitated() || (get_dist(src, user) > 1  && !issilicon(user)))
 		to_chat(user, "You must remain able bodied and close to \the [src] in order to use it.")
 		return
-	if(density && (stat & (BROKEN|NOPOWER))) //can still close without power
+	if(density && (stat & (MACHINE_BROKEN_GENERIC|MACHINE_STAT_NOPOWER))) //can still close without power
 		to_chat(user, "\The [src] is not functioning, you'll have to force it open manually.")
 		return
 
@@ -331,7 +331,7 @@
 				if(I.use_tool(user, src, WORKTIME_FAST, tool_type, FAILCHANCE_VERY_EASY, required_stat = STAT_MEC))
 					user.visible_message(SPAN_DANGER("[user] has removed the electronics from \the [src]."),
 										"You have removed the electronics from [src].")
-					if (stat & BROKEN)
+					if (stat & MACHINE_BROKEN_GENERIC)
 						new /obj/item/circuitboard/broken(src.loc)
 					else
 						new/obj/item/airalarm_electronics(src.loc)
@@ -436,7 +436,7 @@
 		return
 
 	if(!forced)
-		if(stat & (BROKEN|NOPOWER))
+		if(stat & (MACHINE_BROKEN_GENERIC|MACHINE_STAT_NOPOWER))
 			return //needs power to close unless it was forced
 		else
 			use_power(360)
@@ -453,7 +453,7 @@
 		update_icon()
 
 	if(!forced)
-		if(stat & (BROKEN|NOPOWER))
+		if(stat & (MACHINE_BROKEN_GENERIC|MACHINE_STAT_NOPOWER))
 			return //needs power to open unless it was forced
 		else
 			use_power(360)

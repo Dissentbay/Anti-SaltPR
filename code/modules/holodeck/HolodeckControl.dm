@@ -165,7 +165,7 @@
 /obj/machinery/computer/HolodeckControl/power_change()
 	var/oldstat
 	..()
-	if (stat != oldstat && active && (stat & NOPOWER))
+	if (stat != oldstat && active && (stat & MACHINE_STAT_NOPOWER))
 		emergencyShutdown()
 
 /obj/machinery/computer/HolodeckControl/Process()

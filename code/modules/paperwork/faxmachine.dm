@@ -145,7 +145,7 @@ var/list/adminfaxes = list()	//cache for faxes that have been sent to admins
 	updateUsrDialog()
 
 /obj/machinery/photocopier/faxmachine/proc/sendfax(var/destination)
-	if(stat & (BROKEN|NOPOWER))
+	if(stat & (MACHINE_BROKEN_GENERIC|MACHINE_STAT_NOPOWER))
 		return
 
 	use_power(200)
@@ -162,7 +162,7 @@ var/list/adminfaxes = list()	//cache for faxes that have been sent to admins
 		visible_message("[src] beeps, \"Error transmitting message.\"")
 
 /obj/machinery/photocopier/faxmachine/proc/recievefax(var/obj/item/incoming)
-	if(stat & (BROKEN|NOPOWER))
+	if(stat & (MACHINE_BROKEN_GENERIC|MACHINE_STAT_NOPOWER))
 		return 0
 
 	//if(department == "Unknown")
@@ -187,7 +187,7 @@ var/list/adminfaxes = list()	//cache for faxes that have been sent to admins
 	return 1
 
 /obj/machinery/photocopier/faxmachine/proc/send_admin_fax(var/mob/sender, var/destination)
-	if(stat & (BROKEN|NOPOWER))
+	if(stat & (MACHINE_BROKEN_GENERIC|MACHINE_STAT_NOPOWER))
 		return
 
 	use_power(200)

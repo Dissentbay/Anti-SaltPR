@@ -47,7 +47,7 @@
 	return 0
 
 /obj/machinery/space_heater/emp_act(severity)
-	if(stat & (BROKEN|NOPOWER))
+	if(stat & (MACHINE_BROKEN_GENERIC|MACHINE_STAT_NOPOWER))
 		..(severity)
 		return
 	if(cell)

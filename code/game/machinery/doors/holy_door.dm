@@ -129,7 +129,7 @@
 	else
 		visible_message(SPAN_WARNING("\The [src] breaks!"))
 
-	stat |= BROKEN
+	stat |= MACHINE_BROKEN_GENERIC
 	update_icon()
 
 /obj/machinery/door/holy/update_icon()
@@ -197,7 +197,7 @@
 			if(I.use_tool(user, src, WORKTIME_FAST, tool_type, FAILCHANCE_VERY_EASY,  required_stat = list(STAT_MEC, STAT_ROB)))
 				if(locked)
 					to_chat(user, SPAN_NOTICE("The door's bolts prevent it from being forced."))
-				else if(stat & BROKEN)
+				else if(stat & MACHINE_BROKEN_GENERIC)
 					if(density)
 						open(TRUE)
 					else
@@ -238,7 +238,7 @@
 	if(!can_open(forced))
 		return FALSE
 
-	if(stat & BROKEN)
+	if(stat & MACHINE_BROKEN_GENERIC)
 		var/obj/item/tool/T = forced
 		if (istype(T) && T.item_flags & HONKING)
 			playsound(loc, WORKSOUND_HONK, 70, 1, -2)
@@ -299,7 +299,7 @@
 					operating = FALSE
 					return
 
-	if(stat & BROKEN)
+	if(stat & MACHINE_BROKEN_GENERIC)
 		var/obj/item/tool/T = forced
 		if (istype(T) && T.item_flags & HONKING)
 			playsound(loc, WORKSOUND_HONK, 70, 1, -2)

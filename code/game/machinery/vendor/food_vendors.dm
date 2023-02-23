@@ -485,7 +485,7 @@
 
 /obj/machinery/vending/drink_showcase/update_icon()
 	cut_overlays()
-	if(stat & (BROKEN|NOPOWER))
+	if(stat & (MACHINE_BROKEN_GENERIC|MACHINE_STAT_NOPOWER))
 		icon_state = icon_off
 	else
 		icon_state = icon_on
@@ -493,7 +493,7 @@
 	if(panel_open && icon_panel)
 		add_overlay(image(icon, icon_panel))
 
-	if(contents.len && !(stat & NOPOWER))
+	if(contents.len && !(stat & MACHINE_STAT_NOPOWER))
 		add_overlay(image(icon, icon_fill))
 
 /obj/machinery/vending/plant_gene

@@ -57,7 +57,7 @@
 	update_icon()
 
 /obj/machinery/antigrav/Process()
-	if(stat & NOPOWER || !on)
+	if(stat & MACHINE_STAT_NOPOWER || !on)
 		stop()
 		return
 

@@ -78,7 +78,7 @@ level 5 manipulator 15 x 3 x 2 = 90w saved greyson level
 		if(!istype(user.get_active_hand(), /obj/item/tool/multitool))
 			return
 
-	if(stat & (BROKEN|NOPOWER))
+	if(stat & (MACHINE_BROKEN_GENERIC|MACHINE_STAT_NOPOWER))
 		return
 
 	var/obj/item/tool/multitool/P = get_multitool(user)
@@ -258,7 +258,7 @@ level 5 manipulator 15 x 3 x 2 = 90w saved greyson level
 		if(!istype(usr.get_active_hand(), /obj/item/tool/multitool))
 			return
 
-	if(stat & (BROKEN|NOPOWER))
+	if(stat & (MACHINE_BROKEN_GENERIC|MACHINE_STAT_NOPOWER))
 		return
 
 	var/obj/item/tool/multitool/P = get_multitool(usr)

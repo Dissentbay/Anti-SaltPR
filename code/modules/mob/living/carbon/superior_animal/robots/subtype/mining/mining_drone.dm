@@ -154,7 +154,7 @@
 	return TRUE
 
 /mob/living/carbon/superior_animal/robot/mining/interact(mob/user as mob)
-	if((get_dist(src, user) > 1) || (stat & (BROKEN|NOPOWER)))
+	if((get_dist(src, user) > 1) || (stat & (MACHINE_BROKEN_GENERIC|MACHINE_STAT_NOPOWER)))
 		if(!isAI(user))
 			user.unset_machine()
 			user << browse(null, "window=MiningDrone")

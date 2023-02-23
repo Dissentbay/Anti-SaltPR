@@ -260,7 +260,7 @@
 
 /obj/machinery/reagentgrinder/portable/proc/grind()
 	power_change()
-	if(stat & (NOPOWER|BROKEN))
+	if(stat & (MACHINE_STAT_NOPOWER|MACHINE_BROKEN_GENERIC))
 		return
 
 	// Sanity check.
@@ -310,7 +310,7 @@
 	create_reagents(INFINITY)
 
 /obj/machinery/reagentgrinder/industrial/Process()
-	if(stat & (NOPOWER|BROKEN))
+	if(stat & (MACHINE_STAT_NOPOWER|MACHINE_BROKEN_GENERIC))
 		return
 	grind()
 

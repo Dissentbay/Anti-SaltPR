@@ -26,7 +26,7 @@ var/list/floor_light_cache = list()
 /obj/machinery/floor_light/attackby(var/obj/item/I, var/mob/user)
 
 	var/list/usable_qualities = list(QUALITY_PULSING, QUALITY_SCREW_DRIVING)
-	if((damaged || (stat & BROKEN)))
+	if((damaged || (stat & MACHINE_BROKEN_GENERIC)))
 		usable_qualities.Add(QUALITY_WELDING)
 
 	var/tool_type = I.get_tool_type(user, usable_qualities, src)
@@ -44,10 +44,10 @@ var/list/floor_light_cache = list()
 			return
 
 		if(QUALITY_WELDING)
-			if((damaged || (stat & BROKEN)))
+			if((damaged || (stat & MACHINE_BROKEN_GENERIC)))
 				if(I.use_tool(user, src, WORKTIME_FAST, tool_type, FAILCHANCE_VERY_EASY, required_stat = STAT_MEC))
 					visible_message(SPAN_NOTICE("\The [user] has repaired \the [src]."))
-					stat &= ~BROKEN
+					stat &= ~MACHINE_BROKEN_GENERIC
 					damaged = null
 					update_brightness()
 					return
@@ -70,10 +70,10 @@ var/list/floor_light_cache = list()
 /obj/machinery/floor_light/attack_hand(var/mob/user)
 
 	if(user.a_intent == I_HURT && !issmall(user))
-		if(!isnull(damaged) && !(stat & BROKEN))
+		if(!isnull(damaged) && !(stat & MACHINE_BROKEN_GENERIC))
 			visible_message(SPAN_DANGER("\The [user] smashes \the [src]!"))
 			playsound(src, "shatter", 70, 1)
-			stat |= BROKEN
+			stat |= MACHINE_BROKEN_GENERIC
 		else
 			visible_message(SPAN_DANGER("\The [user] attacks \the [src]!"))
 			playsound(src.loc, 'sound/effects/Glasshit.ogg', 75, 1)
@@ -86,11 +86,11 @@ var/list/floor_light_cache = list()
 			to_chat(user, SPAN_WARNING("\The [src] must be screwed down first."))
 			return
 
-		if(stat & BROKEN)
+		if(stat & MACHINE_BROKEN_GENERIC)
 			to_chat(user, SPAN_WARNING("\The [src] is too damaged to be functional."))
 			return
 
-		if(stat & NOPOWER)
+		if(stat & MACHINE_STAT_NOPOWER)
 			to_chat(user, SPAN_WARNING("\The [src] is unpowered."))
 			return
 
@@ -148,7 +148,7 @@ var/list/floor_light_cache = list()
 			add_overlay(floor_light_cache[cache_key])
 
 /obj/machinery/floor_light/proc/broken()
-	return (stat & (BROKEN|NOPOWER))
+	return (stat & (MACHINE_BROKEN_GENERIC|MACHINE_STAT_NOPOWER))
 
 /obj/machinery/floor_light/ex_act(severity)
 	switch(severity)
@@ -158,7 +158,7 @@ var/list/floor_light_cache = list()
 			if (prob(50))
 				qdel(src)
 			else if(prob(20))
-				stat |= BROKEN
+				stat |= MACHINE_BROKEN_GENERIC
 			else
 				if(isnull(damaged))
 					damaged = 0

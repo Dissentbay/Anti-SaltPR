@@ -58,10 +58,10 @@
 
 /obj/machinery/slotmachine/power_change()
 	..()
-	if(stat & BROKEN)
+	if(stat & MACHINE_BROKEN_GENERIC)
 		icon_state = "[icon_type]_broken"
 	else
-		if( !(stat & NOPOWER) )
+		if( !(stat & MACHINE_STAT_NOPOWER) )
 			icon_state = icon_type
 		else
 			spawn(rand(0, 15))

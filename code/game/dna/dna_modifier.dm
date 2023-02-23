@@ -278,7 +278,7 @@
 
 /*
 /obj/machinery/computer/scan_consolenew/Process() //not really used right now
-	if(stat & (NOPOWER|BROKEN))
+	if(stat & (MACHINE_STAT_NOPOWER|MACHINE_BROKEN_GENERIC))
 		return
 	if (!( src.status )) //remove this
 		return

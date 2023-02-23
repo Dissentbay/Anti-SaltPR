@@ -71,10 +71,10 @@
 
 
 	attack_hand(var/mob/user as mob)
-		if(src.stat & NOPOWER)
+		if(src.stat & MACHINE_STAT_NOPOWER)
 			to_chat(usr, "The upload computer has no power!")
 			return
-		if(src.stat & BROKEN)
+		if(src.stat & MACHINE_BROKEN_GENERIC)
 			to_chat(usr, "The upload computer is broken!")
 			return
 

@@ -95,7 +95,7 @@
 
 /obj/machinery/telesci_pad/update_icon()
 	cut_overlays()
-	if(!(stat & NOPOWER))
+	if(!(stat & MACHINE_STAT_NOPOWER))
 		overlays += "pad-powered"
 	if(panel_open)
 		overlays += "pad-panel"

@@ -41,7 +41,7 @@
 
 /obj/machinery/flasher/power_change()
 	..()
-	if ( !(stat & NOPOWER) )
+	if ( !(stat & MACHINE_STAT_NOPOWER) )
 		icon_state = "[base_state]1"
 //		src.sd_SetLuminosity(2)
 	else
@@ -104,7 +104,7 @@
 
 
 /obj/machinery/flasher/emp_act(severity)
-	if(stat & (BROKEN|NOPOWER))
+	if(stat & (MACHINE_BROKEN_GENERIC|MACHINE_STAT_NOPOWER))
 		..(severity)
 		return
 	if(prob(75/severity))

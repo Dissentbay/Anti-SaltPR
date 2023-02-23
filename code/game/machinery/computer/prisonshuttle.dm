@@ -37,7 +37,7 @@ var/prison_shuttle_timeleft = 0
 				A.circuit = M
 				A.anchored = 1
 
-				if (src.stat & BROKEN)
+				if (src.stat & MACHINE_BROKEN_GENERIC)
 					to_chat(user, SPAN_NOTICE("The broken glass falls out."))
 					new /obj/item/material/shard( src.loc )
 					A.state = 3

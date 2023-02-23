@@ -25,7 +25,7 @@
 	..()
 
 /obj/machinery/computer/Process()
-	if(stat & (NOPOWER|BROKEN))
+	if(stat & (MACHINE_STAT_NOPOWER|MACHINE_BROKEN_GENERIC))
 		return 0
 	return 1
 
@@ -58,7 +58,7 @@
 /obj/machinery/computer/bullet_act(var/obj/item/projectile/Proj)
 	if (!(Proj.testing))
 		if(prob(Proj.get_structure_damage()))
-			if(!(stat & BROKEN))
+			if(!(stat & MACHINE_BROKEN_GENERIC))
 				var/datum/effect/effect/system/smoke_spread/S = new/datum/effect/effect/system/smoke_spread()
 				S.set_up(3, 0, src)
 				S.start()
@@ -67,7 +67,7 @@
 
 /obj/machinery/computer/update_icon()
 	cut_overlays()
-	if(stat & NOPOWER)
+	if(stat & MACHINE_STAT_NOPOWER)
 		set_light(0)
 		if(icon_keyboard)
 			add_overlay(image(icon,"[icon_keyboard]_off"))
@@ -76,7 +76,7 @@
 	else
 		set_light(light_range_on, light_power_on)
 
-	if(stat & BROKEN)
+	if(stat & MACHINE_BROKEN_GENERIC)
 		add_overlay(image(icon,"[icon_state]_broken"))
 	else
 		add_overlay(image(icon,icon_screen))
@@ -88,14 +88,14 @@
 /obj/machinery/computer/power_change()
 	..()
 	update_icon()
-	if(stat & NOPOWER)
+	if(stat & MACHINE_STAT_NOPOWER)
 		set_light(0)
 	else
 		set_light(light_range_on, light_power_on)
 
 
 /obj/machinery/computer/proc/set_broken()
-	stat |= BROKEN
+	stat |= MACHINE_BROKEN_GENERIC
 	update_icon()
 
 /obj/machinery/computer/proc/decode(text)
@@ -112,7 +112,7 @@
 			A.anchored = 1
 			for (var/obj/C in src)
 				C.loc = src.loc
-			if (src.stat & BROKEN)
+			if (src.stat & MACHINE_BROKEN_GENERIC)
 				to_chat(user, SPAN_NOTICE("The broken glass falls out."))
 				new /obj/item/material/shard(src.loc)
 				A.state = 3

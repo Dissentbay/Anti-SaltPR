@@ -91,7 +91,7 @@
 
 /obj/machinery/power/solar/healthCheck()
 	if (src.health <= 0)
-		if(!(stat & BROKEN))
+		if(!(stat & MACHINE_BROKEN_GENERIC))
 			broken()
 		else
 			new /obj/item/material/shard(src.loc)
@@ -104,7 +104,7 @@
 /obj/machinery/power/solar/update_icon()
 	..()
 	cut_overlays()
-	if(stat & BROKEN)
+	if(stat & MACHINE_BROKEN_GENERIC)
 		add_overlay(image('icons/obj/power.dmi', icon_state = "solar_panel-b", layer = FLY_LAYER))
 	else
 		add_overlay(image('icons/obj/power.dmi', icon_state = "solar_panel", layer = FLY_LAYER))
@@ -128,7 +128,7 @@
 	//isn't the power recieved from the incoming light proportionnal to cos(p_angle) (Lambert's cosine law) rather than cos(p_angle)^2 ?
 
 /obj/machinery/power/solar/Process()//TODO: remove/add this from machines to save on processing as needed ~Carn PRIORITY
-	if(stat & BROKEN)
+	if(stat & MACHINE_BROKEN_GENERIC)
 		return
 	if(!control) //if there's no panel is not linked to a solar control computer, no need to proceed
 		return
@@ -144,7 +144,7 @@
 			unset_control()
 
 /obj/machinery/power/solar/proc/broken()
-	stat |= BROKEN
+	stat |= MACHINE_BROKEN_GENERIC
 	unset_control()
 	update_icon()
 	return
@@ -353,7 +353,7 @@
 
 //called by the sun controller, update the facing angle (either manually or via tracking) and rotates the panels accordingly
 /obj/machinery/power/solar_control/proc/update()
-	if(stat & (NOPOWER | BROKEN))
+	if(stat & (MACHINE_STAT_NOPOWER | MACHINE_BROKEN_GENERIC))
 		return
 
 	switch(track)
@@ -374,11 +374,11 @@
 	set_panels(cdir)
 
 /obj/machinery/power/solar_control/update_icon()
-	if(stat & BROKEN)
+	if(stat & MACHINE_BROKEN_GENERIC)
 		icon_state = "broken"
 		cut_overlays()
 		return
-	if(stat & NOPOWER)
+	if(stat & MACHINE_STAT_NOPOWER)
 		icon_state = "c_unpowered"
 		cut_overlays()
 		return
@@ -426,7 +426,7 @@
 /obj/machinery/power/solar_control/attackby(obj/item/I, mob/user)
 	if(I.get_tool_type(usr, list(QUALITY_SCREW_DRIVING), src))
 		if(I.use_tool(user, src, WORKTIME_FAST, QUALITY_SCREW_DRIVING, FAILCHANCE_NORMAL, required_stat = STAT_MEC))
-			if (src.stat & BROKEN)
+			if (src.stat & MACHINE_BROKEN_GENERIC)
 				to_chat(user, SPAN_NOTICE("The broken glass falls out."))
 				var/obj/structure/computerframe/A = new /obj/structure/computerframe( src.loc )
 				new /obj/item/material/shard( src.loc )
@@ -457,7 +457,7 @@
 	lastgen = gen
 	gen = 0
 
-	if(stat & (NOPOWER | BROKEN))
+	if(stat & (MACHINE_STAT_NOPOWER | MACHINE_BROKEN_GENERIC))
 		return
 
 	if(connected_tracker) //NOTE : handled here so that we don't add trackers to the processing list
@@ -530,7 +530,7 @@
 
 
 /obj/machinery/power/solar_control/proc/broken()
-	stat |= BROKEN
+	stat |= MACHINE_BROKEN_GENERIC
 	update_icon()
 
 

@@ -124,7 +124,7 @@ var/global/blackshield_max_energy //Maximaum combined energy of all teleporters
 	if(panel_open)
 		overlays += image("panel")
 
-	if(stat & (BROKEN|NOPOWER))
+	if(stat & (MACHINE_BROKEN_GENERIC|MACHINE_STAT_NOPOWER))
 		icon_state = "off"
 	else
 		icon_state = initial(icon_state)
@@ -140,7 +140,7 @@ var/global/blackshield_max_energy //Maximaum combined energy of all teleporters
 	SSnano.update_uis(src) // update all UIs attached to src
 
 /obj/machinery/blackshield_teleporter/Process()
-	if(stat & (BROKEN|NOPOWER))
+	if(stat & (MACHINE_BROKEN_GENERIC|MACHINE_STAT_NOPOWER))
 		return
 
 	if(blackshield_energy < (blackshield_max_energy - energy_gain))
@@ -171,7 +171,7 @@ var/global/blackshield_max_energy //Maximaum combined energy of all teleporters
   * @return nothing
   */
 /obj/machinery/blackshield_teleporter/nano_ui_interact(mob/user, ui_key = "main", datum/nanoui/ui = null, force_open = NANOUI_FOCUS)
-	if(stat & (BROKEN|NOPOWER)) return
+	if(stat & (MACHINE_BROKEN_GENERIC|MACHINE_STAT_NOPOWER)) return
 	if(user.stat || user.restrained()) return
 
 	var/list/data = nano_ui_data()
@@ -222,7 +222,7 @@ var/global/blackshield_max_energy //Maximaum combined energy of all teleporters
 
 
 /obj/machinery/blackshield_teleporter/Topic(href, href_list) //For the time being this will have to stay as exl looking.
-	if(stat & (NOPOWER|BROKEN))
+	if(stat & (MACHINE_STAT_NOPOWER|MACHINE_BROKEN_GENERIC))
 		return 0 // don't update UIs attached to this object
 
 	if(processing_order)
@@ -300,7 +300,7 @@ var/global/blackshield_max_energy //Maximaum combined energy of all teleporters
 	..()
 
 /obj/machinery/blackshield_teleporter/attack_hand(mob/user)
-	if(stat & BROKEN)
+	if(stat & MACHINE_BROKEN_GENERIC)
 		return
 	current_user = user
 	nano_ui_interact(user)

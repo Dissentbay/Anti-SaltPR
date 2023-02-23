@@ -351,7 +351,7 @@
 /obj/machinery/bulletfabricator/proc/activate()
 	if (usr.stat)
 		return
-	if (stat) //NOPOWER etc
+	if (stat) //MACHINE_STAT_NOPOWER etc
 		return
 	if(processing)
 		to_chat(usr, SPAN_NOTICE("The bullet fabricator is in the process of working."))
@@ -419,7 +419,7 @@
 		return
 
 /obj/machinery/bulletfabricator/Topic(href, href_list)
-	if(stat & BROKEN) return
+	if(stat & MACHINE_BROKEN_GENERIC) return
 	if(usr.stat || usr.restrained()) return
 	if(!in_range(src, usr)) return
 	usr.set_machine(src)

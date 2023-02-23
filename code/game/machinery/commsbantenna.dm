@@ -27,7 +27,7 @@
 
 /obj/machinery/bluespacerelay/proc/update_power()
 
-	if(stat & (BROKEN|NOPOWER|EMPED))
+	if(stat & (MACHINE_BROKEN_GENERIC|MACHINE_STAT_NOPOWER|MACHINE_STAT_EMPED))
 		on = 0
 	else
 		on = 1

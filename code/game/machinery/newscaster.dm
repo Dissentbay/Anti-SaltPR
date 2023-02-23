@@ -267,7 +267,7 @@ var/datum/feed_network/news_network = new /datum/feed_network     //The global n
 	if(isbroken) //Broken shit can't be powered.
 		return
 	..()
-	if( !(stat & NOPOWER) )
+	if( !(stat & MACHINE_STAT_NOPOWER) )
 		src.ispowered = 1
 		src.update_icon()
 	else

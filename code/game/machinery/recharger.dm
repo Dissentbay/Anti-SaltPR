@@ -112,7 +112,7 @@
 		update_icon()
 
 /obj/machinery/recharger/Process()
-	if((stat & (NOPOWER|BROKEN)) || !anchored)
+	if((stat & (MACHINE_STAT_NOPOWER|MACHINE_BROKEN_GENERIC)) || !anchored)
 		update_icon()
 		return
 
@@ -126,7 +126,7 @@
 	update_icon()
 
 /obj/machinery/recharger/emp_act(severity)
-	if(stat & (NOPOWER|BROKEN) || !anchored)
+	if(stat & (MACHINE_STAT_NOPOWER|MACHINE_BROKEN_GENERIC) || !anchored)
 		..(severity)
 		return
 
@@ -148,7 +148,7 @@
 	if(panel_open)
 		icon_state = "[icon_state]_open"
 
-	else if((stat & (NOPOWER|BROKEN)) || !anchored)
+	else if((stat & (MACHINE_STAT_NOPOWER|MACHINE_BROKEN_GENERIC)) || !anchored)
 		icon_state = "[icon_state]_off"
 	else
 		var/obj/item/cell/cell = charging?.get_cell()

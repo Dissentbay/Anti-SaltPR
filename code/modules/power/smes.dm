@@ -83,7 +83,7 @@
 						terminal = term
 						break dir_loop
 		if(!terminal)
-			stat |= BROKEN
+			stat |= MACHINE_BROKEN_GENERIC
 			return
 		terminal.master = src
 		if(!terminal.powernet)
@@ -118,7 +118,7 @@
 
 /obj/machinery/power/smes/update_icon()
 	cut_overlays()
-	if(stat & BROKEN)	return
+	if(stat & MACHINE_BROKEN_GENERIC)	return
 
 	add_overlay(image('icons/obj/power.dmi', "smes-op[outputting]"))
 
@@ -156,7 +156,7 @@
 		// else inputting = 0, as set in process()
 
 /obj/machinery/power/smes/Process()
-	if(stat & BROKEN)	return
+	if(stat & MACHINE_BROKEN_GENERIC)	return
 	if(failure_timer)	// Disabled by gridcheck.
 		failure_timer--
 		return
@@ -195,7 +195,7 @@
 // called after all power processes are finished
 // restores charge level to smes if there was excess this ptick
 /obj/machinery/power/smes/proc/restore(var/percent_load)
-	if(stat & BROKEN)
+	if(stat & MACHINE_BROKEN_GENERIC)
 		return
 
 	if(!outputting)
@@ -411,7 +411,7 @@
 /*
 /obj/machinery/power/smes/nano_ui_interact(mob/user, ui_key = "main", var/datum/nanoui/ui = null, var/force_open = NANOUI_FOCUS)
 
-	if(stat & BROKEN)
+	if(stat & MACHINE_BROKEN_GENERIC)
 		return
 
 	// this is the data which will be sent to the ui

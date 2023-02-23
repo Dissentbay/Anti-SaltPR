@@ -270,7 +270,7 @@
 				take_damage(light_emp_damage)
 				deactivate(light_emp_stun, TRUE)
 		new /obj/effect/overlay/pulse(loc)
-		if (emp_message && (stat ~! EMPED))
+		if (emp_message && (stat ~! MACHINE_STAT_EMPED))
 			visible_message(SPAN_WARNING("\the [src] [emp_message]"))
 		return TRUE
 	return FALSE
@@ -280,13 +280,13 @@
 	if (duration != 0)
 		addtimer((CALLBACK(src, .proc/reactivate, emped)), duration)
 	if (emped)
-		stat |= EMPED
+		stat |= MACHINE_STAT_EMPED
 	return TRUE
 
 /obj/entity_spawner/proc/reactivate(emped = FALSE)
 	active = TRUE
 	if (emped)
-		stat &= ~EMPED
+		stat &= ~MACHINE_STAT_EMPED
 		visible_message(SPAN_WARNING("\the [src] [emp_recover_message]"))
 	return TRUE
 

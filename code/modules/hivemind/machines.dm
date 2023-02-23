@@ -39,7 +39,7 @@
 
 /obj/machinery/hivemind_machine/update_icon()
 	cut_overlays()
-	if(stat & EMPED)
+	if(stat & MACHINE_STAT_EMPED)
 		icon_state = "[icon_state]-disabled"
 	else
 		icon_state = initial(icon_state)
@@ -64,7 +64,7 @@
 	if(SDP)
 		SDP.check_conditions()
 
-	if(hive_mind_ai && !(stat & EMPED) && !is_on_cooldown())
+	if(hive_mind_ai && !(stat & MACHINE_STAT_EMPED) && !is_on_cooldown())
 		//slow health regeneration
 		if(can_regenerate && (health != max_health) && (world.time > time_until_regen))
 			health += REGENERATION_SPEED
@@ -91,7 +91,7 @@
 	victim.mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 	if(istype(victim, /obj/machinery))
 		var/obj/machinery/target = victim
-		target.stat |= BROKEN
+		target.stat |= MACHINE_BROKEN_GENERIC
 		if(istype(victim, /obj/machinery/power/apc)) //APCs would be deleted
 			assimilated_machinery = null
 			qdel(victim)
@@ -104,7 +104,7 @@
 		assimilated_machinery.anchored 		= 	initial(assimilated_machinery.anchored)
 		if(istype(assimilated_machinery, /obj/machinery))
 			var/obj/machinery/consumed = assimilated_machinery
-			consumed.stat &= ~BROKEN
+			consumed.stat &= ~MACHINE_BROKEN_GENERIC
 
 
 
@@ -236,7 +236,7 @@
 //Amount must be a number in seconds
 /obj/machinery/hivemind_machine/proc/stun(var/amount)
 	set_light(0)
-	stat |= EMPED
+	stat |= MACHINE_STAT_EMPED
 	can_regenerate = FALSE
 	update_icon()
 	if(amount)
@@ -244,7 +244,7 @@
 
 
 /obj/machinery/hivemind_machine/proc/unstun()
-	stat &= ~EMPED
+	stat &= ~MACHINE_STAT_EMPED
 	can_regenerate = initial(can_regenerate)
 	update_icon()
 	set_light(2, 3, illumination_color)
@@ -399,7 +399,7 @@
 
 /obj/machinery/hivemind_machine/node/update_icon()
 	cut_overlays()
-	if(stat & EMPED)
+	if(stat & MACHINE_STAT_EMPED)
 		icon_state = "core-disabled"
 		add_overlay("core-smirk_disabled")
 	else

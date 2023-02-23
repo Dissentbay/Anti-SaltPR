@@ -31,7 +31,7 @@
 	if(istype(O, /obj/item/computer_hardware/hard_drive/portable/design/medical))
 		return TRUE
 	if(istype(O, /obj/item/computer_hardware/hard_drive/portable/design/surgery))
-		return TRUE	
+		return TRUE
 	return FALSE
 
 /obj/machinery/smartfridge/secure/medbay/organs/stocked
@@ -107,7 +107,7 @@
 
 /obj/machinery/vending/organfridge_aberrant/update_icon()
 	cut_overlays()
-	if(stat & (BROKEN|NOPOWER))
+	if(stat & (MACHINE_BROKEN_GENERIC|MACHINE_STAT_NOPOWER))
 		icon_state = icon_off
 	else
 		icon_state = icon_on

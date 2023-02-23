@@ -72,7 +72,7 @@
 
 
 /obj/machinery/smelter/Process()
-	if(stat & BROKEN || stat & NOPOWER)
+	if(stat & MACHINE_BROKEN_GENERIC || stat & MACHINE_STAT_NOPOWER)
 		progress = 0
 		use_power(0)
 		update_icon()
@@ -349,4 +349,4 @@
 
 	SSnano.update_uis(src)
 	return FALSE
-	
+

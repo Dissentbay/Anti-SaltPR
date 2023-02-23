@@ -135,7 +135,7 @@
 
 
 /obj/machinery/ameridian_refinery/interact(mob/user as mob)
-	if((get_dist(src, user) > 1) || (stat & (BROKEN|NOPOWER)))
+	if((get_dist(src, user) > 1) || (stat & (MACHINE_BROKEN_GENERIC|MACHINE_STAT_NOPOWER)))
 		if(!isAI(user) && !isghost(user))
 			user.unset_machine()
 			user << browse(null, "window=AMcontrol")
@@ -176,7 +176,7 @@
 		return
 
 	//Ignore input if we are broken or guy is not touching us, AI can control from a ways away
-	if(stat & (BROKEN|NOPOWER) || (get_dist(src, usr) > 1 && !isAI(usr)))
+	if(stat & (MACHINE_BROKEN_GENERIC|MACHINE_STAT_NOPOWER) || (get_dist(src, usr) > 1 && !isAI(usr)))
 		usr.unset_machine()
 		usr << browse(null, "window=AmeridianRefinery")
 		return

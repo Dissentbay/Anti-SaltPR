@@ -17,7 +17,7 @@
 
 /obj/machinery/autolathe/excelsior/update_icon()
 	..()
-	if(stat & NOPOWER)
+	if(stat & MACHINE_STAT_NOPOWER)
 		icon_state = "[initial(icon_state)]_off"
 
 /obj/machinery/autolathe/excelsior/attack_hand(mob/user)
@@ -56,13 +56,13 @@
 		return
 
 /obj/machinery/excelsior_boombox/update_icon()
-	if(!active || (stat & (BROKEN|NOPOWER)))
+	if(!active || (stat & (MACHINE_BROKEN_GENERIC|MACHINE_STAT_NOPOWER)))
 		icon_state = initial(icon_state)
 	else
 		icon_state = "boombox_on"
 
 /obj/machinery/excelsior_boombox/proc/toggle_active()
-	if(active || (stat & (BROKEN|NOPOWER)))
+	if(active || (stat & (MACHINE_BROKEN_GENERIC|MACHINE_STAT_NOPOWER)))
 		active = FALSE
 		log_and_message_admins(" - Exc Boombox turned off at \the [jumplink(src)] X:[src.x] Y:[src.y] Z:[src.z]") //So we can go to it
 	else

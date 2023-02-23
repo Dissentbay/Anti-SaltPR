@@ -123,7 +123,7 @@
 	var/offset_old
 
 /obj/machinery/power/apc/updateDialog()
-	if (stat & (BROKEN|MAINT))
+	if (stat & (MACHINE_BROKEN_GENERIC|MAINT))
 		return
 	..()
 
@@ -271,7 +271,7 @@
 /obj/machinery/power/apc/examine(mob/user)
 	if(..(user, 1))
 		to_chat(user, "A control terminal for the area electrical systems.")
-		if(stat & BROKEN)
+		if(stat & MACHINE_BROKEN_GENERIC)
 			to_chat(user, "Looks broken.")
 			return
 		if(opened)
@@ -359,7 +359,7 @@
 
 		if(update_state & UPDATE_BLUESCREEN)
 			set_light(l_range = 2, l_power = 0.6, l_color = "#0000FF")
-		else if(!(stat & (BROKEN|MAINT)) && update_state & UPDATE_ALLGOOD)
+		else if(!(stat & (MACHINE_BROKEN_GENERIC|MAINT)) && update_state & UPDATE_ALLGOOD)
 			var/color
 			switch(charging)
 				if(0)
@@ -380,7 +380,7 @@
 	if(update > 1)
 		if(overlays.len)
 			cut_overlays()
-		if(!(stat & (BROKEN|MAINT)) && update_state & UPDATE_ALLGOOD)
+		if(!(stat & (MACHINE_BROKEN_GENERIC|MAINT)) && update_state & UPDATE_ALLGOOD)
 			add_overlay(status_overlays_lock[locked+1])
 			add_overlay(status_overlays_charging[charging+1])
 			if(operating)
@@ -398,7 +398,7 @@
 
 	if(cell)
 		update_state |= UPDATE_CELL_IN
-	if(stat & BROKEN)
+	if(stat & MACHINE_BROKEN_GENERIC)
 		update_state |= UPDATE_BROKE
 	if(stat & MAINT)
 		update_state |= UPDATE_MAINT
@@ -477,7 +477,7 @@
 	add_fingerprint(user)
 
 	var/list/usable_qualities = list(QUALITY_SCREW_DRIVING)
-	if(opened || !((stat & BROKEN) || hacker))
+	if(opened || !((stat & MACHINE_BROKEN_GENERIC) || hacker))
 		usable_qualities.Add(QUALITY_PRYING)
 	if(terminal && opened && has_electronics!=2)
 		usable_qualities.Add(QUALITY_WIRE_CUTTING)
@@ -496,7 +496,7 @@
 				if(I.use_tool(user, src, WORKTIME_FAST, tool_type, FAILCHANCE_VERY_EASY, required_stat = STAT_MEC))
 					if (has_electronics==1)
 						has_electronics = 0
-						if ((stat & BROKEN))
+						if ((stat & MACHINE_BROKEN_GENERIC))
 							user.visible_message(\
 								SPAN_WARNING("[user.name] has broken the power control board inside [name]!"),\
 								SPAN_NOTICE("You broke the charred power control board and remove the remains."),
@@ -512,7 +512,7 @@
 					if (opened == 1)
 						opened = 0
 						update_icon()
-					else if(!((stat & BROKEN) || hacker))
+					else if(!((stat & MACHINE_BROKEN_GENERIC) || hacker))
 						if(coverlocked && !(stat & MAINT))
 							to_chat(user, SPAN_WARNING("The cover is locked and cannot be opened."))
 						else
@@ -570,7 +570,7 @@
 		if(QUALITY_WELDING)
 			if(opened && has_electronics==0 && !terminal)
 				if(I.use_tool(user, src, WORKTIME_FAST, tool_type, FAILCHANCE_VERY_EASY, required_stat = STAT_MEC))
-					if (emagged || (stat & BROKEN) || opened==2)
+					if (emagged || (stat & MACHINE_BROKEN_GENERIC) || opened==2)
 						new /obj/item/stack/material/steel(loc)
 						user.visible_message(\
 							SPAN_WARNING("[src] has been cut apart by [user.name] with the weldingtool."),\
@@ -650,7 +650,7 @@
 				make_terminal()
 				terminal.connect_to_network()
 
-	else if (istype(I, /obj/item/circuitboard/apc) && opened && has_electronics==0 && !((stat & BROKEN)))
+	else if (istype(I, /obj/item/circuitboard/apc) && opened && has_electronics==0 && !((stat & MACHINE_BROKEN_GENERIC)))
 		user.visible_message(SPAN_WARNING("[user.name] inserts the power control board into [src]."), \
 							"You start to insert the power control board into the frame...")
 		playsound(loc, 'sound/items/Deconstruct.ogg', 50, 1)
@@ -660,7 +660,7 @@
 				to_chat(user, SPAN_NOTICE("You place the power control board inside the frame."))
 				qdel(I)
 
-	else if (istype(I, /obj/item/circuitboard/apc) && opened && has_electronics==0 && ((stat & BROKEN)))
+	else if (istype(I, /obj/item/circuitboard/apc) && opened && has_electronics==0 && ((stat & MACHINE_BROKEN_GENERIC)))
 		to_chat(user, SPAN_WARNING("You cannot put the board inside, the frame is damaged."))
 		return
 
@@ -674,7 +674,7 @@
 		qdel(I)
 		update_icon()
 
-	else if (istype(I, /obj/item/frame/apc) && opened && ((stat & BROKEN) || hacker))
+	else if (istype(I, /obj/item/frame/apc) && opened && ((stat & MACHINE_BROKEN_GENERIC) || hacker))
 		if (has_electronics)
 			to_chat(user, SPAN_WARNING("You cannot repair this APC until you remove the electronics still inside."))
 			return
@@ -685,7 +685,7 @@
 				SPAN_NOTICE("[user.name] has replaced the damaged APC frame with new one."),\
 				"You replace the damaged APC frame with new one.")
 			qdel(I)
-			stat &= ~BROKEN
+			stat &= ~MACHINE_BROKEN_GENERIC
 			// Malf AI, removes the APC from AI's hacked APCs list.
 			if(hacker && hacker.hacked_apcs && (src in hacker.hacked_apcs))
 				hacker.hacked_apcs -= src
@@ -694,7 +694,7 @@
 				opened = 1
 			update_icon()
 	else
-		if (((stat & BROKEN) || hacker) \
+		if (((stat & MACHINE_BROKEN_GENERIC) || hacker) \
 				&& !opened \
 				&& I.force >= 5 \
 				&& I.w_class >= ITEM_SIZE_NORMAL \
@@ -728,7 +728,7 @@
 			to_chat(user, "You must close the cover to swipe an ID card.")
 		else if(wiresexposed)
 			to_chat(user, "You must close the panel first")
-		else if(stat & (BROKEN|MAINT))
+		else if(stat & (MACHINE_BROKEN_GENERIC|MAINT))
 			to_chat(user, "Nothing happens.")
 		else
 			flick("apc-spark", src)
@@ -785,7 +785,7 @@
 			charging = 0
 			update_icon()
 		return
-	if(stat & (BROKEN|MAINT))
+	if(stat & (MACHINE_BROKEN_GENERIC|MAINT))
 		return
 	// do APC interaction
 	interact(user)
@@ -806,7 +806,7 @@
 		to_chat(user, "You must close the cover to swipe an ID card.")
 	else if(wiresexposed)
 		to_chat(user, "You must close the panel")
-	else if(stat & (BROKEN|MAINT))
+	else if(stat & (MACHINE_BROKEN_GENERIC|MAINT))
 		to_chat(user, "Nothing happens.")
 	else if(hacker)
 		to_chat(user, SPAN_WARNING("Access denied."))
@@ -1148,7 +1148,7 @@
 
 	else if (href_list["toggleaccess"])
 		if(issilicon(usr))
-			if(emagged || (stat & (BROKEN|MAINT)))
+			if(emagged || (stat & (MACHINE_BROKEN_GENERIC|MAINT)))
 				to_chat(usr, "The APC does not respond to the command.")
 			else
 				locked = !locked
@@ -1209,7 +1209,7 @@
 
 /obj/machinery/power/apc/Process()
 	SEND_SIGNAL(area, COMSIG_AREA_APC_OPERATING, operating)
-	if(stat & (BROKEN|MAINT))
+	if(stat & (MACHINE_BROKEN_GENERIC|MAINT))
 		return
 	if(!area.requires_power)
 		return
@@ -1428,7 +1428,7 @@ obj/machinery/power/apc/proc/autoset(var/val, var/on)
 	visible_message(SPAN_NOTICE("[src]'s screen flickers with warnings briefly!"))
 	spawn(rand(2,5))
 		visible_message(SPAN_NOTICE("[src]'s screen suddenly explodes in rain of sparks and small debris!"))
-		stat |= BROKEN
+		stat |= MACHINE_BROKEN_GENERIC
 		operating = 0
 		update_icon()
 		update()

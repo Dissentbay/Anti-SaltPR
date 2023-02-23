@@ -61,7 +61,7 @@
 	return ..()
 
 /obj/machinery/electrolyzer/update_icon()
-	if(stat & NOPOWER)
+	if(stat & MACHINE_STAT_NOPOWER)
 		icon_state = "[initial(icon_state)]_off"
 		return
 	if(on)
@@ -77,7 +77,7 @@
 
 /obj/machinery/electrolyzer/Process()
 	..()
-	if(stat & NOPOWER)
+	if(stat & MACHINE_STAT_NOPOWER)
 		update_icon()
 		return
 	if(on && beaker && beaker.reagents.total_volume)
@@ -181,7 +181,7 @@
 		data["beaker"] = beaker.reagents.nano_ui_data()
 	if(separation_beaker)
 		data["separation_beaker"] = separation_beaker.reagents.nano_ui_data()
-	data["has_power"] = (stat & NOPOWER) ? FALSE : TRUE
+	data["has_power"] = (stat & MACHINE_STAT_NOPOWER) ? FALSE : TRUE
 	return data
 
 

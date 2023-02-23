@@ -40,11 +40,11 @@ Class Variables:
    stat (bitflag)
       Machine status bit flags.
       Possible bit flags:
-         BROKEN:1 -- Machine is broken
-         NOPOWER:2 -- No power is being supplied to machine.
-         POWEROFF:4 -- tbd
+         MACHINE_BROKEN_GENERIC:1 -- Machine is broken
+         MACHINE_STAT_NOPOWER:2 -- No power is being supplied to machine.
+         MACHINE_STAT_NOPOWER:4 -- tbd
          MAINT:8 -- machine is currently under going maintenance.
-         EMPED:16 -- temporary broken by EMP pulse
+         MACHINE_STAT_EMPED:16 -- temporary broken by EMP pulse
 
 Class Procs:
    New()                     'game/machinery/machine.dm'
@@ -178,10 +178,10 @@ Class Procs:
 	return istype(M) && M.operable()
 
 /obj/machinery/CanUseTopic(var/mob/user)
-	if(stat & BROKEN)
+	if(stat & MACHINE_BROKEN_GENERIC)
 		return STATUS_CLOSE
 
-	if(!interact_offline && (stat & NOPOWER))
+	if(!interact_offline && (stat & MACHINE_STAT_NOPOWER))
 		return STATUS_CLOSE
 
 	return ..()
@@ -419,7 +419,7 @@ Class Procs:
 	use_power = new_use_power
 
 	var/area/A = get_area(src)
-	if(!A || !anchored || stat & NOPOWER) // Unwrenched machines aren't plugged in, unpowered machines don't use power
+	if(!A || !anchored || stat & MACHINE_STAT_NOPOWER) // Unwrenched machines aren't plugged in, unpowered machines don't use power
 		return
 
 	if(use_power == IDLE_POWER_USE && idle_power_usage)

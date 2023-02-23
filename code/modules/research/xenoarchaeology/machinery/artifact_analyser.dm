@@ -31,7 +31,7 @@
 	interact(user)
 
 /obj/machinery/artifact_analyser/interact(mob/user)
-	if(stat & (NOPOWER|BROKEN) || get_dist(src, user) > 1)
+	if(stat & (MACHINE_STAT_NOPOWER|MACHINE_BROKEN_GENERIC) || get_dist(src, user) > 1)
 		user.unset_machine(src)
 		return
 

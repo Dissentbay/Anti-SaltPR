@@ -56,14 +56,14 @@ GLOBAL_LIST_EMPTY(conveyor_switches)
 // attack with item, place item on conveyor
 /obj/machinery/conveyor/attackby(obj/item/I, mob/user)
 	var/list/usable_qualities = list(QUALITY_PRYING)
-	if(!(stat & BROKEN))
+	if(!(stat & MACHINE_BROKEN_GENERIC))
 		usable_qualities.Add(QUALITY_BOLT_TURNING)
 
 	var/tool_type = I.get_tool_type(user, usable_qualities, src)
 	switch(tool_type)
 		if(QUALITY_PRYING)
 			if(I.use_tool(user, src, WORKTIME_FAST, tool_type, FAILCHANCE_EASY, required_stat = STAT_MEC))
-				if(!(stat & BROKEN))
+				if(!(stat & MACHINE_BROKEN_GENERIC))
 					var/obj/item/construct/conveyor/C = new(loc)
 					C.id = id
 					C.matter = matter
@@ -81,7 +81,7 @@ GLOBAL_LIST_EMPTY(conveyor_switches)
 		if(ABORT_CHECK)
 			return
 
-	if(stat & BROKEN)
+	if(stat & MACHINE_BROKEN_GENERIC)
 		return ..()
 
 	if(istype(I, /obj/item/construct/conveyor_switch))
@@ -206,9 +206,9 @@ GLOBAL_LIST_EMPTY(conveyor_switches)
 	(get_turf(src)).UnloadSlide(forwards, src, DELAY2GLIDESIZE(wait)) //Now handled by turfs.
 
 /obj/machinery/conveyor/proc/can_conveyor_run()
-	if(stat & BROKEN)
+	if(stat & MACHINE_BROKEN_GENERIC)
 		return FALSE
-	else if(stat & NOPOWER)
+	else if(stat & MACHINE_STAT_NOPOWER)
 		return FALSE
 	else if(!operable)
 		return FALSE
@@ -216,7 +216,7 @@ GLOBAL_LIST_EMPTY(conveyor_switches)
 
 // make the conveyor broken and propagate inoperability to any connected conveyor with the same conveyor datum
 /obj/machinery/conveyor/proc/make_broken()
-	stat |= BROKEN
+	stat |= MACHINE_BROKEN_GENERIC
 	operable = FALSE
 	update_icon()
 	var/obj/machinery/conveyor/C = locate() in get_step(src, forwards)
@@ -287,11 +287,11 @@ GLOBAL_LIST_EMPTY(conveyor_switches)
 		icon_state = "switch-off"
 	else if(position == DIRECTION_REVERSED)
 		icon_state = "switch-rev"
-		if(!(stat & NOPOWER))
+		if(!(stat & MACHINE_STAT_NOPOWER))
 			add_overlay("redlight")
 	else if(position == DIRECTION_FORWARDS)
 		icon_state = "switch-fwd"
-		if(!(stat & NOPOWER))
+		if(!(stat & MACHINE_STAT_NOPOWER))
 			add_overlay("greenlight")
 
 // attack with hand, switch position

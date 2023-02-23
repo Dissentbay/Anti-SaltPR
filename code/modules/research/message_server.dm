@@ -91,7 +91,7 @@ var/global/list/obj/machinery/message_server/message_servers = list()
 /obj/machinery/message_server/Process()
 	//if(decryptkey == "password")
 	//	decryptkey = generateKey()
-	if(active && (stat & (BROKEN|NOPOWER)))
+	if(active && (stat & (MACHINE_BROKEN_GENERIC|MACHINE_STAT_NOPOWER)))
 		active = 0
 		return
 	update_icon()
@@ -144,7 +144,7 @@ var/global/list/obj/machinery/message_server/message_servers = list()
 	return
 
 /obj/machinery/message_server/attackby(obj/item/O as obj, mob/living/user as mob)
-	if (active && !(stat & (BROKEN|NOPOWER)) && (spamfilter_limit < MESSAGE_SERVER_DEFAULT_SPAM_LIMIT*2) && \
+	if (active && !(stat & (MACHINE_BROKEN_GENERIC|MACHINE_STAT_NOPOWER)) && (spamfilter_limit < MESSAGE_SERVER_DEFAULT_SPAM_LIMIT*2) && \
 		istype(O,/obj/item/circuitboard/message_monitor))
 		spamfilter_limit += round(MESSAGE_SERVER_DEFAULT_SPAM_LIMIT / 2)
 		user.drop_item()
@@ -154,7 +154,7 @@ var/global/list/obj/machinery/message_server/message_servers = list()
 		..(O, user)
 
 /obj/machinery/message_server/update_icon()
-	if((stat & (BROKEN|NOPOWER)))
+	if((stat & (MACHINE_BROKEN_GENERIC|MACHINE_STAT_NOPOWER)))
 		icon_state = "server-nopower"
 	else if (!active)
 		icon_state = "server-off"

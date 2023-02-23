@@ -51,7 +51,7 @@ GLOBAL_LIST_EMPTY(wedge_icon_cache)
 	damage_smoke = TRUE
 
 /obj/machinery/door/airlock/attack_generic(mob/user, damage)
-	if(stat & (BROKEN|NOPOWER))
+	if(stat & (MACHINE_BROKEN_GENERIC|MACHINE_STAT_NOPOWER))
 		if(damage >= 10)
 			if(density)
 				visible_message(SPAN_DANGER("\The [user] forces \the [src] open!"))
@@ -494,7 +494,7 @@ There are 9 wires.
 	return ((aiControlDisabled==1) && (!hackProof) && (!isAllPowerLoss()));
 
 /obj/machinery/door/airlock/proc/arePowerSystemsOn()
-	if (stat & (NOPOWER|BROKEN))
+	if (stat & (MACHINE_STAT_NOPOWER|MACHINE_BROKEN_GENERIC))
 		return FALSE
 	return (main_power_lost_until==0 || backup_power_lost_until==0)
 
@@ -502,7 +502,7 @@ There are 9 wires.
 	return !(isWireCut(AIRLOCK_WIRE_IDSCAN) || aiDisabledIdScanner)
 
 /obj/machinery/door/airlock/proc/isAllPowerLoss()
-	if(stat & (NOPOWER|BROKEN))
+	if(stat & (MACHINE_STAT_NOPOWER|MACHINE_BROKEN_GENERIC))
 		return TRUE
 	if(mainPowerCablesCut() && backupPowerCablesCut())
 		return TRUE
@@ -709,18 +709,18 @@ There are 9 wires.
 			cut_overlays()
 			if(p_open)
 				add_overlay(image(icon, "panel_open"))
-			if (!(stat & NOPOWER))
-				if(stat & BROKEN)
+			if (!(stat & MACHINE_STAT_NOPOWER))
+				if(stat & MACHINE_BROKEN_GENERIC)
 					add_overlay(image(icon, "sparks_broken"))
 				else if (health < maxHealth * 3/4)
 					add_overlay(image(icon, "sparks_damaged"))
 			if(welded)
 				add_overlay(image(icon, "welded"))
-		else if (health < maxHealth * 3/4 && !(stat & NOPOWER))
+		else if (health < maxHealth * 3/4 && !(stat & MACHINE_STAT_NOPOWER))
 			add_overlay(image(icon, "sparks_damaged"))
 	else
 		icon_state = "door_open"
-		if((stat & BROKEN) && !(stat & NOPOWER))
+		if((stat & MACHINE_BROKEN_GENERIC) && !(stat & MACHINE_STAT_NOPOWER))
 			add_overlay(image(icon, "sparks_open"))
 	if(wedged_item)
 		generate_wedge_overlay()
@@ -1050,7 +1050,7 @@ There are 9 wires.
 		if(QUALITY_PRYING)
 			if(!repairing)
 				if(I.use_tool(user, src, WORKTIME_FAST, tool_type, FAILCHANCE_VERY_EASY,  required_stat = list(STAT_MEC, STAT_ROB)))
-					if(p_open && (operating < 0 || (!operating && welded && !arePowerSystemsOn() && density && (!locked || (stat & BROKEN)))) )
+					if(p_open && (operating < 0 || (!operating && welded && !arePowerSystemsOn() && density && (!locked || (stat & MACHINE_BROKEN_GENERIC)))) )
 						to_chat(user, SPAN_NOTICE("You removed the airlock electronics!"))
 
 						var/obj/structure/door_assembly/da = new assembly_type(loc)
@@ -1066,7 +1066,7 @@ There are 9 wires.
 						da.created_name = name
 						da.update_state()
 
-						if(operating == -1 || (stat & BROKEN))
+						if(operating == -1 || (stat & MACHINE_BROKEN_GENERIC))
 							new /obj/item/circuitboard/broken(loc)
 							operating = FALSE
 						else
@@ -1096,7 +1096,7 @@ There are 9 wires.
 			var/used_sound = p_open ? 'sound/machines/Custom_screwdriveropen.ogg' :  'sound/machines/Custom_screwdriverclose.ogg'
 			if(I.use_tool(user, src, WORKTIME_NEAR_INSTANT, tool_type, FAILCHANCE_VERY_EASY, required_stat = STAT_MEC, instant_finish_tier = 30, forced_sound = used_sound))
 				if (p_open)
-					if (stat & BROKEN)
+					if (stat & MACHINE_BROKEN_GENERIC)
 						to_chat(usr, SPAN_WARNING("The panel is broken and cannot be closed."))
 					else
 						p_open = FALSE
@@ -1118,7 +1118,7 @@ There are 9 wires.
 			return
 
 		if(QUALITY_HAMMERING)
-			if(stat & NOPOWER && locked)
+			if(stat & MACHINE_STAT_NOPOWER && locked)
 				to_chat(user, SPAN_NOTICE("You start hammering the bolts into the unlocked position"))
 				// long time and high chance to fail.
 				if(I.use_tool(user, src, WORKTIME_LONG, tool_type, FAILCHANCE_VERY_HARD, required_stat = STAT_MEC))
@@ -1150,7 +1150,7 @@ There are 9 wires.
 
 /obj/machinery/door/airlock/set_broken()
 	p_open = TRUE
-	stat |= BROKEN
+	stat |= MACHINE_BROKEN_GENERIC
 
 	//If the door has been violently smashed open
 	if (health <= 0)
@@ -1458,7 +1458,7 @@ There are 9 wires.
 
 /obj/machinery/door/airlock/power_change() //putting this is obj/machinery/door itself makes non-airlock doors turn invisible for some reason
 	..()
-	if(stat & NOPOWER)
+	if(stat & MACHINE_STAT_NOPOWER)
 		// If we lost power, disable electrification
 		// Keeping door lights on, runs on internal battery or something.
 		electrified_until = 0

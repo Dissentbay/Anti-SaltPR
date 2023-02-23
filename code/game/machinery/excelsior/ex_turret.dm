@@ -142,7 +142,7 @@
 /obj/machinery/porta_turret/excelsior/update_icon()
 	cut_overlays()
 
-	if(!(stat & BROKEN))
+	if(!(stat & MACHINE_BROKEN_GENERIC))
 		add_overlay(image("turret_gun"))
 
 /obj/machinery/porta_turret/excelsior/launch_projectile()
@@ -238,7 +238,7 @@
 
 /obj/machinery/porta_turret/artificer/attackby(obj/item/I, mob/user)
 	if (user.a_intent == I_HELP)
-		if(stat & BROKEN)
+		if(stat & MACHINE_BROKEN_GENERIC)
 			if(QUALITY_PRYING in I.tool_qualities)
 				//If the turret is destroyed, you can remove it with a crowbar to
 				//try and salvage its components
@@ -395,7 +395,7 @@
 /obj/machinery/porta_turret/artificer/update_icon()
 	cut_overlays()
 
-	if(!(stat & BROKEN))
+	if(!(stat & MACHINE_BROKEN_GENERIC))
 		add_overlay(image("turret_gun_art"))
 
 /obj/machinery/porta_turret/artificer/launch_projectile()
@@ -411,7 +411,7 @@
 
 /obj/machinery/porta_turret/artificer/opifex/attackby(obj/item/I, mob/user)
 	if (user.a_intent != I_HURT)
-		if(stat & BROKEN)
+		if(stat & MACHINE_BROKEN_GENERIC)
 			if(QUALITY_PRYING in I.tool_qualities)
 				//If the turret is destroyed, you can remove it with a crowbar to
 				//try and salvage its components
@@ -494,7 +494,7 @@
 /obj/machinery/porta_turret/artificer/opifex/update_icon()
 	cut_overlays()
 
-	if(!(stat & BROKEN))
+	if(!(stat & MACHINE_BROKEN_GENERIC))
 		add_overlay(image("turret_gun_opi"))
 
 #undef TURRET_PRIORITY_TARGET

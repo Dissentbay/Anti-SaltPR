@@ -37,10 +37,10 @@
 	return ..()
 
 /obj/machinery/centrifuge/update_icon()
-	if(stat & BROKEN)
+	if(stat & MACHINE_BROKEN_GENERIC)
 		icon_state = "[initial(icon_state)]_broken"
 		return
-	if(stat & NOPOWER)
+	if(stat & MACHINE_STAT_NOPOWER)
 		icon_state = "[initial(icon_state)]_off"
 		return
 	if(on)
@@ -58,7 +58,7 @@
 
 /obj/machinery/centrifuge/Process()
 	..()
-	if(stat & NOPOWER)
+	if(stat & MACHINE_STAT_NOPOWER)
 		return
 	if(on)
 		if(mode == MODE_SEPARATING)

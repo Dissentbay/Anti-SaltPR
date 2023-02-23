@@ -51,7 +51,7 @@
 	build_icons()
 
 /obj/machinery/atmospherics/omni/update_icon()
-	if(stat & NOPOWER)
+	if(stat & MACHINE_STAT_NOPOWER)
 		overlays = overlays_off
 	else if(error_check())
 		overlays = overlays_error

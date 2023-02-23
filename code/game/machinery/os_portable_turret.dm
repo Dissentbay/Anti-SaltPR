@@ -65,7 +65,7 @@
 //		return
 
 	if(health <= 0)
-		stat |= BROKEN
+		stat |= MACHINE_BROKEN_GENERIC
 		update_icon()
 		return
 
@@ -174,7 +174,7 @@
 
 /obj/machinery/power/os_turret/update_icon()
 	underlays.Cut()
-	if(stat & BROKEN)
+	if(stat & MACHINE_BROKEN_GENERIC)
 		icon_state = "[initial(icon_state)]_broken"
 		underlays += image(icon, "osframe_broken")
 	else
@@ -182,7 +182,7 @@
 
 /obj/machinery/power/os_turret/emp_act()
 	..()
-	stat |= EMPED
+	stat |= MACHINE_STAT_EMPED
 	emp_timer_id = addtimer(CALLBACK(src, .proc/emp_off), emp_cooldown, TIMER_STOPPABLE)
 
 /obj/machinery/power/os_turret/bullet_act(obj/item/projectile/proj)
@@ -218,7 +218,7 @@
 
 	// If the turret is friendly, you can unanchor it. If not, you bash it.
 	if(should_target_players)
-		if(!(I.flags & NOBLUDGEON) && I.force && !(stat & BROKEN))
+		if(!(I.flags & NOBLUDGEON) && I.force && !(stat & MACHINE_BROKEN_GENERIC))
 			// If the turret was attacked with the intention of harming it:
 			user.do_attack_animation(src)
 			user.setClickCooldown(DEFAULT_ATTACK_COOLDOWN)
@@ -258,7 +258,7 @@
 /obj/machinery/power/os_turret/proc/take_damage(amount)
 	health = max(health - amount, 0)
 	if(health <= 0)
-		stat |= BROKEN
+		stat |= MACHINE_BROKEN_GENERIC
 		update_icon()
 	else if(prob(50))
 		do_sparks(1, 0, loc)
@@ -317,7 +317,7 @@
 	cooldown_timer_id = null
 
 /obj/machinery/power/os_turret/proc/emp_off()
-	stat &= ~EMPED
+	stat &= ~MACHINE_STAT_EMPED
 	emp_timer_id = null
 
 #undef TURRET_PRIORITY_TARGET

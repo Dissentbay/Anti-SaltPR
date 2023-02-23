@@ -128,7 +128,7 @@
 
 
 	Process()
-		if(stat & NOPOWER)
+		if(stat & MACHINE_STAT_NOPOWER)
 			on = 0
 
 		// Sanity checks:
@@ -247,7 +247,7 @@
 		return src.attack_hand(user)
 
 	attack_hand(mob/user as mob)
-		if(stat & (BROKEN|NOPOWER))
+		if(stat & (MACHINE_BROKEN_GENERIC|MACHINE_STAT_NOPOWER))
 			return
 		user.set_machine(src)
 		var/dat = "<B>Magnetic Control Console</B><BR><BR>"
@@ -342,7 +342,7 @@
 
 		while(moving && rpath.len >= 1)
 
-			if(stat & (BROKEN|NOPOWER))
+			if(stat & (MACHINE_BROKEN_GENERIC|MACHINE_STAT_NOPOWER))
 				break
 
 			looping = 1

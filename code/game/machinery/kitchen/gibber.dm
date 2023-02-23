@@ -57,7 +57,7 @@
 	cut_overlays()
 	if (dirty)
 		add_overlay(image('icons/obj/kitchen.dmi', "grbloody"))
-	if(stat & (NOPOWER|BROKEN))
+	if(stat & (MACHINE_STAT_NOPOWER|MACHINE_BROKEN_GENERIC))
 		return
 	if (!occupant)
 		add_overlay(image('icons/obj/kitchen.dmi', "grjam"))
@@ -70,7 +70,7 @@
 	go_out()
 
 /obj/machinery/gibber/attack_hand(mob/user)
-	if(stat & (NOPOWER|BROKEN))
+	if(stat & (MACHINE_STAT_NOPOWER|MACHINE_BROKEN_GENERIC))
 		return
 	if(operating)
 		to_chat(user, SPAN_DANGER("The gibber is locked and running, wait for it to finish."))
@@ -185,7 +185,7 @@
 	visible_message(SPAN_DANGER("You hear a loud squelchy grinding sound."))
 	playsound(loc, 'sound/machines/juicer.ogg', 50, 1)
 	operating = TRUE
-	
+
 
 	var/slab_name = occupant.name
 	var/slab_count = 0
@@ -250,13 +250,13 @@
 			if(ishuman(occupant))
 				src.occupant.ghostize()
 
-		
+
 			ishuman(occupant) ? occupant.gib(3, TRUE) : occupant.gib()
 
 			var/mob/living/to_delete = occupant
 			occupant = null
 			qdel(to_delete)
-			
+
 
 			playsound(src.loc, 'sound/effects/splat.ogg', 50, 1)
 			operating = FALSE

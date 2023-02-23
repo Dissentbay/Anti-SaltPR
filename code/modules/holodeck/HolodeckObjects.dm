@@ -326,7 +326,7 @@
 
 /obj/machinery/readybutton/attack_hand(mob/user as mob)
 
-	if(user.stat || stat & (NOPOWER|BROKEN))
+	if(user.stat || stat & (MACHINE_STAT_NOPOWER|MACHINE_BROKEN_GENERIC))
 		to_chat(user, "This device is not powered.")
 		return
 

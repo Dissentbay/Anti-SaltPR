@@ -19,7 +19,7 @@
 	active_power_usage = 500
 
 /obj/machinery/mindswapper/update_icon()
-	if(stat & (NOPOWER|BROKEN))
+	if(stat & (MACHINE_STAT_NOPOWER|MACHINE_BROKEN_GENERIC))
 		return
 	if (operating)
 		icon_state = "mindswap_on"
@@ -27,7 +27,7 @@
 		icon_state = "mindswap_off"
 
 /obj/machinery/mindswapper/attack_hand(mob/user as mob)
-	if(stat & (NOPOWER|BROKEN))
+	if(stat & (MACHINE_STAT_NOPOWER|MACHINE_BROKEN_GENERIC))
 		return
 	if(operating)
 		to_chat(user, SPAN_DANGER("The mind swapping process has been launched, there is no going back now."))

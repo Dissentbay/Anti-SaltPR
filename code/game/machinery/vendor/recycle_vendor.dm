@@ -52,13 +52,13 @@
 /obj/machinery/recycle_vendor/update_icon()
 	SSnano.update_uis(src)
 	overlays.Cut()
-	if(stat & BROKEN)
+	if(stat & MACHINE_BROKEN_GENERIC)
 		icon_state = "recycle_broken"
 		return
 
 	icon_state = "recycle"
 
-	if(stat & NOPOWER || !anchored)
+	if(stat & MACHINE_STAT_NOPOWER || !anchored)
 		return
 
 	overlays += sales_paused || !materials_allowed.len	? "recycle_screen_red"			: "recycle_screen_green"
@@ -207,7 +207,7 @@
 
 
 /obj/machinery/recycle_vendor/Process()
-	if(stat & (BROKEN|NOPOWER))
+	if(stat & (MACHINE_BROKEN_GENERIC|MACHINE_STAT_NOPOWER))
 		return
 
 	if(!BITTEST(wire_flags, WIRE_SPEAKER) && prob(1)) // Flag is set when value is not default

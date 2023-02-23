@@ -51,7 +51,7 @@
 /obj/machinery/media/jukebox/Initialize()
 	. = ..()
 	if(GLOB.all_jukebox_tracks.len < 1)
-		stat |= BROKEN // No tracks configured this round!
+		stat |= MACHINE_BROKEN_GENERIC // No tracks configured this round!
 	else
 		// Ootherwise load from the global list!
 		for(var/datum/track/T in GLOB.all_jukebox_tracks)
@@ -170,18 +170,18 @@
 
 /obj/machinery/media/jukebox/power_change()
 	if(!powered(power_channel) || !anchored)
-		stat |= NOPOWER
+		stat |= MACHINE_STAT_NOPOWER
 	else
-		stat &= ~NOPOWER
+		stat &= ~MACHINE_STAT_NOPOWER
 
-	if(stat & (NOPOWER|BROKEN) && playing)
+	if(stat & (MACHINE_STAT_NOPOWER|MACHINE_BROKEN_GENERIC) && playing)
 		StopPlaying()
 	update_icon()
 
 /obj/machinery/media/jukebox/update_icon()
 	cut_overlays()
-	if(stat & (NOPOWER|BROKEN) || !anchored)
-		if(stat & BROKEN)
+	if(stat & (MACHINE_STAT_NOPOWER|MACHINE_BROKEN_GENERIC) || !anchored)
+		if(stat & MACHINE_BROKEN_GENERIC)
 			icon_state = "[state_base]-broken"
 		else
 			icon_state = "[state_base]-nopower"

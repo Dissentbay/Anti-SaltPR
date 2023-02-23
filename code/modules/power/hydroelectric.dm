@@ -149,11 +149,11 @@
 					malfturbines = malfturbines + 1
 
 /obj/machinery/power/hydroelectric_control/update_icon()
-	if(stat & BROKEN)
+	if(stat & MACHINE_BROKEN_GENERIC)
 		icon_state = "broken"
 		cut_overlays()
 		return
-	if(stat & NOPOWER)
+	if(stat & MACHINE_STAT_NOPOWER)
 		icon_state = "c_unpowered"
 		cut_overlays()
 		return
@@ -163,7 +163,7 @@
 	return
 
 /obj/machinery/power/hydroelectric_control/Process()
-	if(stat & BROKEN)
+	if(stat & MACHINE_BROKEN_GENERIC)
 		return
 	lastgen = gen
 	gen = 0
@@ -192,7 +192,7 @@
 
 /obj/machinery/power/hydroelectric_control/nano_ui_interact(mob/user, ui_key = "hydroelectric", datum/nanoui/ui=null, force_open=NANOUI_FOCUS, var/datum/nano_topic_state/state = GLOB.default_state)
 
-	if(stat & BROKEN)
+	if(stat & MACHINE_BROKEN_GENERIC)
 		return
 
 	if(!user)

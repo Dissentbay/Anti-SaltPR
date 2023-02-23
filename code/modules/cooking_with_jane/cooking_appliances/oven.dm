@@ -48,7 +48,7 @@
 	if(switches)
 		use_power(power_cost)
 
-	if(!(stat & NOPOWER))
+	if(!(stat & MACHINE_STAT_NOPOWER))
 		decide_action()
 
 

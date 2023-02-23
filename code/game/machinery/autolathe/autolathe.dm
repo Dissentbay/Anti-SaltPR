@@ -760,7 +760,7 @@
 	if(panel_open)
 		add_overlay(image(icon, "[icon_state]_panel"))
 
-	if(stat & NOPOWER)
+	if(stat & MACHINE_STAT_NOPOWER)
 		icon_state = "[initial(icon_state)]_off"
 
 	if(working) // if paused, work animation looks awkward.
@@ -822,13 +822,13 @@
 
 /obj/machinery/autolathe/power_change()
 	..()
-	if(stat & NOPOWER)
+	if(stat & MACHINE_STAT_NOPOWER)
 		working = FALSE
 	update_icon()
 	SSnano.update_uis(src)
 
 /obj/machinery/autolathe/Process()
-	if(stat & NOPOWER)
+	if(stat & MACHINE_STAT_NOPOWER)
 		return
 
 	if(current_file)

@@ -11,7 +11,7 @@
 	hitsound = 'sound/effects/Glasshit.ogg'
 
 /obj/machinery/door/blast/shutters/glass/is_block_dir(target_dir, border_only, atom/target)
-	if((stat&BROKEN) || !have_glass)
+	if((stat&MACHINE_BROKEN_GENERIC) || !have_glass)
 		return FALSE
 	else
 		return ..(target_dir, FALSE, target)
@@ -19,7 +19,7 @@
 /obj/machinery/door/blast/shutters/glass/attackby(obj/item/I, mob/user, params)
 	if(density)
 		if(QUALITY_WELDING in I.tool_qualities)
-			if((stat&BROKEN) && have_glass)
+			if((stat&MACHINE_BROKEN_GENERIC) && have_glass)
 				if(I.use_tool(user, src, WORKTIME_FAST, QUALITY_WELDING, FAILCHANCE_EASY, required_stat = STAT_MEC))
 					have_glass = FALSE
 					update_icon()
@@ -40,7 +40,7 @@
 					if(do_after(user, 10, src))
 						if (density && G.use(2))
 							health = maxHealth
-							stat &= ~BROKEN
+							stat &= ~MACHINE_BROKEN_GENERIC
 							have_glass = TRUE
 							update_icon()
 							return
@@ -65,7 +65,7 @@
 
 
 /obj/machinery/door/blast/shutters/glass/set_broken()
-	stat |= BROKEN
+	stat |= MACHINE_BROKEN_GENERIC
 	qdel(src)
 
 /obj/machinery/door/blast/shutters/glass/Destroy()
@@ -79,7 +79,7 @@
 		icon_state = "closed"
 		if(!have_glass)
 			icon_state += "_empty"
-		else if(stat&BROKEN)
+		else if(stat&MACHINE_BROKEN_GENERIC)
 			icon_state += "-broken"
 		else if(health < maxHealth)
 			var/ratio = health / maxHealth
@@ -96,7 +96,7 @@
 	if(!have_glass)
 		flick("opening-empty", src)
 
-	else if(stat&BROKEN)
+	else if(stat&MACHINE_BROKEN_GENERIC)
 		flick("opening-broken", src)
 
 	else
@@ -120,7 +120,7 @@
 		flick("closing-empty", src)
 		icon_state = "closed-empty"
 
-	else if(stat&BROKEN)
+	else if(stat&MACHINE_BROKEN_GENERIC)
 		flick("closing-broken", src)
 		icon_state = "closed-broken"
 

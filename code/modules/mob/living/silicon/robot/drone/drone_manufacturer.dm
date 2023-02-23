@@ -34,7 +34,7 @@
 
 /obj/machinery/drone_fabricator/power_change()
 	..()
-	if (stat & NOPOWER)
+	if (stat & MACHINE_STAT_NOPOWER)
 		icon_state = "drone_fab_nopower"
 
 /obj/machinery/drone_fabricator/Process()
@@ -42,7 +42,7 @@
 	if(SSticker.current_state < GAME_STATE_PLAYING)
 		return
 
-	if(stat & NOPOWER || !produce_drones)
+	if(stat & MACHINE_STAT_NOPOWER || !produce_drones)
 		if(icon_state != "drone_fab_nopower") icon_state = "drone_fab_nopower"
 		return
 
@@ -64,7 +64,7 @@
 
 /obj/machinery/drone_fabricator/proc/create_drone(var/client/player)
 
-	if(stat & NOPOWER)
+	if(stat & MACHINE_STAT_NOPOWER)
 		return
 
 	if(!produce_drones || !config.allow_drone_spawn || count_drones() >= config.max_maint_drones)
@@ -117,7 +117,7 @@
 
 		var/list/all_fabricators = list()
 		for(var/obj/machinery/drone_fabricator/DF in GLOB.machines)
-			if((DF.stat & NOPOWER) || !DF.produce_drones || DF.drone_progress < 100)
+			if((DF.stat & MACHINE_STAT_NOPOWER) || !DF.produce_drones || DF.drone_progress < 100)
 				continue
 			all_fabricators[DF.fabricator_tag] = DF
 
@@ -130,7 +130,7 @@
 			return
 		fabricator = all_fabricators[choice]
 
-	if(user && fabricator && !((fabricator.stat & NOPOWER) || !fabricator.produce_drones || fabricator.drone_progress < 100))
+	if(user && fabricator && !((fabricator.stat & MACHINE_STAT_NOPOWER) || !fabricator.produce_drones || fabricator.drone_progress < 100))
 		fabricator.create_drone(user.client)
 		return 1
 	return

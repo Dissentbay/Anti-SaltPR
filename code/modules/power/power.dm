@@ -64,7 +64,7 @@
 // defaults to power_channel
 /obj/machinery/proc/powered(var/chan = power_channel) // defaults to power_channel
 	//Don't do this. It allows machines that set use_power to 0 when off (many machines) to
-	//be turned on again and used after a power failure because they never gain the NOPOWER flag.
+	//be turned on again and used after a power failure because they never gain the MACHINE_STAT_NOPOWER flag.
 	//if(!use_power)
 	//	return 1
 
@@ -94,10 +94,10 @@
 										// by default, check equipment channel & set flag
 										// can override if needed
 	if(powered(power_channel))
-		stat &= ~NOPOWER
+		stat &= ~MACHINE_STAT_NOPOWER
 	else
 
-		stat |= NOPOWER
+		stat |= MACHINE_STAT_NOPOWER
 	return
 
 // connect the machine to a powernet if a node cable is present on the turf

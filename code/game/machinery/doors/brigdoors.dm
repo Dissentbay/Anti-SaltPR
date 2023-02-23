@@ -57,7 +57,7 @@
 			targets += C
 
 	if(targets.len==0)
-		stat |= BROKEN
+		stat |= MACHINE_BROKEN_GENERIC
 	update_icon()
 
 
@@ -66,7 +66,7 @@
 // update the door_timer window and the icon
 /obj/machinery/door_timer/Process()
 
-	if(stat & (NOPOWER|BROKEN))	return
+	if(stat & (MACHINE_STAT_NOPOWER|MACHINE_BROKEN_GENERIC))	return
 	if(src.timing)
 
 		// poorly done midnight rollover
@@ -101,7 +101,7 @@
 
 // Closes and locks doors, power check
 /obj/machinery/door_timer/proc/timer_start()
-	if(stat & (NOPOWER|BROKEN))	return 0
+	if(stat & (MACHINE_STAT_NOPOWER|MACHINE_BROKEN_GENERIC))	return 0
 
 	// Set releasetime
 	releasetime = world.timeofday + timetoset
@@ -122,7 +122,7 @@
 
 // Opens and unlocks doors, power check
 /obj/machinery/door_timer/proc/timer_end()
-	if(stat & (NOPOWER|BROKEN))	return 0
+	if(stat & (MACHINE_STAT_NOPOWER|MACHINE_BROKEN_GENERIC))	return 0
 
 	// Reset releasetime
 	releasetime = 0
@@ -301,14 +301,14 @@
 
 
 //icon update function
-// if NOPOWER, display blank
-// if BROKEN, display blue screen of death icon AI uses
+// if MACHINE_STAT_NOPOWER, display blank
+// if MACHINE_BROKEN_GENERIC, display blue screen of death icon AI uses
 // if timing=true, run update display function
 /obj/machinery/door_timer/update_icon()
-	if(stat & (NOPOWER))
+	if(stat & (MACHINE_STAT_NOPOWER))
 		icon_state = "frame"
 		return
-	if(stat & (BROKEN))
+	if(stat & (MACHINE_BROKEN_GENERIC))
 		set_picture("ai_bsod")
 		return
 	if(src.timing)

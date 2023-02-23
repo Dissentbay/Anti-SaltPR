@@ -67,7 +67,7 @@
 	return
 
 /obj/machinery/door/unpowered/simple/inoperable(additional_flags = 0)
-	return (stat & (BROKEN|additional_flags))
+	return (stat & (MACHINE_BROKEN_GENERIC|additional_flags))
 
 /obj/machinery/door/unpowered/simple/close(forced = 0)
 	if(!can_close(forced))
@@ -117,7 +117,7 @@
 		return
 
 	if(istype(I, /obj/item/stack/material) && I.get_material_name() == src.get_material_name())
-		if(stat & BROKEN)
+		if(stat & MACHINE_BROKEN_GENERIC)
 			to_chat(user, SPAN_NOTICE("It looks like \the [src] is pretty busted. It's going to need more than just patching up now."))
 			return
 		if(health >= maxHealth)

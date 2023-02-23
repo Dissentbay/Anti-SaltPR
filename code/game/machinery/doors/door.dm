@@ -273,7 +273,7 @@
 				return
 
 	if(istype(I, /obj/item/stack/material) && I.get_material_name() == get_material_name())
-		if(stat & BROKEN)
+		if(stat & MACHINE_BROKEN_GENERIC)
 			to_chat(user, SPAN_NOTICE("It looks like \the [src] is pretty busted. It's going to need more than just patching up now."))
 			return
 		if(health >= maxHealth)
@@ -388,7 +388,7 @@
 
 
 /obj/machinery/door/proc/set_broken()
-	stat |= BROKEN
+	stat |= MACHINE_BROKEN_GENERIC
 
 	if (health <= 0)
 		visible_message("<span class = 'warning'>\The [name] breaks open!</span>")
@@ -441,7 +441,7 @@
 			if(density)
 				flick("door_spark", src)
 		if("deny")
-			if(density && !(stat & (NOPOWER|BROKEN)))
+			if(density && !(stat & (MACHINE_STAT_NOPOWER|MACHINE_BROKEN_GENERIC)))
 				flick("door_deny", src)
 				playsound(loc, 'sound/machines/Custom_deny.ogg', 50, 0)
 	return

@@ -99,7 +99,7 @@
 	return ..()
 
 /obj/machinery/turretid/attackby(obj/item/W, mob/user)
-	if(stat & BROKEN)
+	if(stat & MACHINE_BROKEN_GENERIC)
 		return
 
 	if(istype(W, /obj/item/card/id)||istype(W, /obj/item/modular_computer))
@@ -210,7 +210,7 @@
 
 /obj/machinery/turretid/update_icon()
 	..()
-	if(stat & NOPOWER)
+	if(stat & MACHINE_STAT_NOPOWER)
 		icon_state = "control_off"
 		set_light(0)
 	else if (enabled)

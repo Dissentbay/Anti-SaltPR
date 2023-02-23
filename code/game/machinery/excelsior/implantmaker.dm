@@ -74,7 +74,7 @@
 
 
 /obj/machinery/complant_maker/Process()
-	if(stat & NOPOWER)
+	if(stat & MACHINE_STAT_NOPOWER)
 		if(working)
 			flick(image(icon, "opening"), src)
 		working = FALSE
@@ -89,7 +89,7 @@
 
 
 /obj/machinery/complant_maker/update_icon()
-	if(stat & NOPOWER)
+	if(stat & MACHINE_STAT_NOPOWER)
 		icon_state = "off"
 	else
 		icon_state = "idle"

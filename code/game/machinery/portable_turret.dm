@@ -188,7 +188,7 @@ var/list/turret_icons
 	underlays.Cut()
 	underlays += turret_icons["open"]
 
-	if(stat & BROKEN)
+	if(stat & MACHINE_BROKEN_GENERIC)
 		icon_state = "destroyed_target_prism"
 	else if(raised || raising)
 		if(powered() && enabled)
@@ -295,11 +295,11 @@ var/list/turret_icons
 
 /obj/machinery/porta_turret/power_change()
 	if(powered())
-		stat &= ~NOPOWER
+		stat &= ~MACHINE_STAT_NOPOWER
 		update_icon()
 	else
 		spawn(rand(0, 15))
-			stat |= NOPOWER
+			stat |= MACHINE_STAT_NOPOWER
 			update_icon()
 
 
@@ -308,7 +308,7 @@ var/list/turret_icons
 	var/obj/item/card/id/ID = I.GetIdCard()
 
 	if (user.a_intent == I_HELP)
-		if(stat & BROKEN)
+		if(stat & MACHINE_BROKEN_GENERIC)
 			if(QUALITY_PRYING in I.tool_qualities)
 				//If the turret is destroyed, you can remove it with a crowbar to
 				//try and salvage its components
@@ -441,7 +441,7 @@ var/list/turret_icons
 						addtimer(CALLBACK(src, /obj/machinery/porta_turret/proc/reset_hackfail), 30 SECOND)
 			return TRUE //No whacking the turret with tools on help intent
 
-	if (!(I.flags & NOBLUDGEON) && I.force && !(stat & BROKEN))
+	if (!(I.flags & NOBLUDGEON) && I.force && !(stat & MACHINE_BROKEN_GENERIC))
 		//if the turret was attacked with the intention of harming it:
 		user.do_attack_animation(src)
 		user.setClickCooldown(DEFAULT_ATTACK_COOLDOWN)
@@ -544,14 +544,14 @@ var/list/turret_icons
 
 /obj/machinery/porta_turret/proc/die()	//called when the turret dies, ie, health <= 0
 	health = 0
-	stat |= BROKEN	//enables the BROKEN bit
+	stat |= MACHINE_BROKEN_GENERIC	//enables the MACHINE_BROKEN_GENERIC bit
 	spark_system.start()	//creates some sparks because they look cool
 	update_icon()
 
 /obj/machinery/porta_turret/Process()
 	//the main machinery process
 
-	if(stat & (NOPOWER|BROKEN))
+	if(stat & (MACHINE_STAT_NOPOWER|MACHINE_BROKEN_GENERIC))
 		//if the turret has no power or is broken, make the turret pop down if it hasn't already
 		popDown()
 		return
@@ -698,7 +698,7 @@ var/list/turret_icons
 		return
 	if(raising || raised)
 		return
-	if(stat & BROKEN)
+	if(stat & MACHINE_BROKEN_GENERIC)
 		return
 	set_raised_raising(raised, 1)
 	update_icon()
@@ -718,7 +718,7 @@ var/list/turret_icons
 		return
 	if(raising || !raised)
 		return
-	if(stat & BROKEN)
+	if(stat & MACHINE_BROKEN_GENERIC)
 		return
 	set_raised_raising(raised, 1)
 	update_icon()

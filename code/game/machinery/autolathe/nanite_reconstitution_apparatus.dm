@@ -148,14 +148,14 @@
 
 /obj/machinery/nanite_reconstitution_apparatus/power_change() //Autolathe had this. Dunno why it's important tbh.
 	..()
-	if(stat & NOPOWER)
+	if(stat & MACHINE_STAT_NOPOWER)
 		working = FALSE
 	update_icon()
 	SSnano.update_uis(src)
 
 
 /obj/machinery/nanite_reconstitution_apparatus/Process()
-	if(stat & NOPOWER)
+	if(stat & MACHINE_STAT_NOPOWER)
 		return
 
 	if(activated)

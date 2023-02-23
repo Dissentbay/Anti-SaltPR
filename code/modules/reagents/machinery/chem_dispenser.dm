@@ -86,7 +86,7 @@
 	cell_charger_additon = capa_rating // theirs only 1 in dispenders min 34 max 120 RnD 60 Greyson 100
 
 /obj/machinery/chemical_dispenser/proc/recharge()
-	if(stat & (BROKEN|NOPOWER)) return
+	if(stat & (MACHINE_BROKEN_GENERIC|MACHINE_STAT_NOPOWER)) return
 	//Calculates the charge rate. 800 battery starts at 48 which is high. So we pull that back a bit.
 	var/addenergy = cell.give(clamp((cell.maxcharge*cell.max_chargerate) / 2 + (cell_charger_additon*20 / 2),0,cell.maxcharge))
 	if(addenergy)
@@ -255,7 +255,7 @@
 			return
 
 /obj/machinery/chemical_dispenser/attack_hand(mob/living/user)
-	if(stat & BROKEN)
+	if(stat & MACHINE_BROKEN_GENERIC)
 		return
 	if(!user.stats?.getPerk(PERK_NERD) && !user.stats?.getPerk(PERK_MEDICAL_EXPERT) && !usr.stat_check(STAT_BIO, STAT_LEVEL_BASIC) && !simple_machinery && !usr.stat_check(STAT_COG, 30)) //Are we missing the perk AND to low on bio? Needs 15 bio so 30 to bypass
 		to_chat(usr, SPAN_WARNING("Your biological understanding isn't enough to use this."))
@@ -310,7 +310,7 @@
 
 /obj/machinery/chemical_dispenser/soda/update_icon()
 	cut_overlays()
-	if(stat & (BROKEN|NOPOWER))
+	if(stat & (MACHINE_BROKEN_GENERIC|MACHINE_STAT_NOPOWER))
 		icon_state = icon_on+"_off"
 	else
 		icon_state = icon_on

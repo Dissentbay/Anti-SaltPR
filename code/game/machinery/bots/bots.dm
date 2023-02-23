@@ -110,13 +110,13 @@
 
 /obj/machinery/bot/emp_act(severity)
 	var/was_on = on
-	stat |= EMPED
+	stat |= MACHINE_STAT_EMPED
 	new /obj/effect/overlay/pulse(loc)
 
 	if(on)
 		turn_off()
 	spawn(severity * 300)
-		stat &= ~EMPED
+		stat &= ~MACHINE_STAT_EMPED
 		if (was_on)
 			turn_on()
 

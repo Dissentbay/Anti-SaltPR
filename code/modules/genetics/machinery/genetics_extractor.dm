@@ -31,7 +31,7 @@
 		return
 	if(default_part_replacement(I, user))
 		return
-	if(stat & (NOPOWER|BROKEN))
+	if(stat & (MACHINE_STAT_NOPOWER|MACHINE_BROKEN_GENERIC))
 		to_chat(user, SPAN_WARNING("The pulper is inactive and blessedly silent."))
 		return
 	if(pulping)
@@ -57,7 +57,7 @@
 		. = ..()
 
 /obj/machinery/genetics/pulper/affect_grab(mob/user, mob/living/target, state)
-	if(stat & (NOPOWER|BROKEN))
+	if(stat & (MACHINE_STAT_NOPOWER|MACHINE_BROKEN_GENERIC))
 		to_chat(user, SPAN_WARNING("The pulper is inactive and blessedly silent."))
 		return
 	if(pulping)
@@ -99,7 +99,7 @@
 		target.loc = src
 
 /obj/machinery/genetics/pulper/attack_hand(mob/user as mob)
-	if(stat & (NOPOWER|BROKEN))
+	if(stat & (MACHINE_STAT_NOPOWER|MACHINE_BROKEN_GENERIC))
 		to_chat(user, SPAN_WARNING("The pulper is inactive and blessedly silent."))
 		return
 	if(!user.stats?.getPerk(PERK_SI_SCI) && !usr.stat_check(STAT_COG, 35) && !user.stats?.getPerk(PERK_NERD) && !usr.stat_check(STAT_BIO, 70)) //So someone that has basic chems or level up can be an assent

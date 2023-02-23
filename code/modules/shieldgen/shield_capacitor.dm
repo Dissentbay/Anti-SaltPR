@@ -69,12 +69,12 @@
 		..()
 
 /obj/machinery/shield_capacitor/attack_hand(mob/user)
-	if(stat & (BROKEN))
+	if(stat & (MACHINE_BROKEN_GENERIC))
 		return
 	interact(user)
 
 /obj/machinery/shield_capacitor/interact(mob/user)
-	if ( (get_dist(src, user) > 1 ) || (stat & (BROKEN)) )
+	if ( (get_dist(src, user) > 1 ) || (stat & (MACHINE_BROKEN_GENERIC)) )
 		if (!issilicon(user))
 			user.unset_machine()
 			user << browse(null, "window=shield_capacitor")
@@ -140,7 +140,7 @@
 	updateDialog()
 
 /obj/machinery/shield_capacitor/power_change()
-	if(stat & BROKEN)
+	if(stat & MACHINE_BROKEN_GENERIC)
 		icon_state = "broke"
 	else
 		..()

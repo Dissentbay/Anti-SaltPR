@@ -22,12 +22,12 @@
 	)
 
 /obj/machinery/holoposter/update_icon()
-	if(stat & NOPOWER)
+	if(stat & MACHINE_STAT_NOPOWER)
 		icon_state = "off"
 		set_light(0)
 		return
 	var/new_color = COLOR_LIGHTING_DEFAULT_BRIGHT
-	if(stat & BROKEN)
+	if(stat & MACHINE_BROKEN_GENERIC)
 		icon_state = "glitch"
 		new_color = COLOR_LIGHTING_SCI_BRIGHT
 	else
@@ -46,18 +46,18 @@
 
 /obj/machinery/holoposter/attackby(obj/item/W as obj, mob/user as mob)
 	src.add_fingerprint(user)
-	if(stat & (NOPOWER))
+	if(stat & (MACHINE_STAT_NOPOWER))
 		return
 	if (istype(W, /obj/item/tool/multitool))
 		playsound(user.loc, 'sound/items/multitool_pulse.ogg', 60, 1)
 		icon_state = input("Available Posters", "Holographic Poster") as null|anything in  postertypes + "random"
 		if(icon_state == "random")
-			stat &= ~BROKEN
+			stat &= ~MACHINE_BROKEN_GENERIC
 			icon_forced = FALSE
 			set_rand_sprite()
 			return
 		icon_forced = TRUE
-		stat &= ~BROKEN
+		stat &= ~MACHINE_BROKEN_GENERIC
 		update_icon()
 		return
 
@@ -65,17 +65,17 @@
 	return attack_hand(user)
 
 /obj/machinery/holoposter/power_change()
-	var/wasUnpowered = stat & NOPOWER
+	var/wasUnpowered = stat & MACHINE_STAT_NOPOWER
 	..()
-	if(wasUnpowered != (stat & NOPOWER))
+	if(wasUnpowered != (stat & MACHINE_STAT_NOPOWER))
 		update_icon()
 
 /obj/machinery/holoposter/emp_act()
-	stat |= BROKEN
+	stat |= MACHINE_BROKEN_GENERIC
 	update_icon()
 
 /obj/machinery/holoposter/Process()
-	if(stat & (NOPOWER|BROKEN))
+	if(stat & (MACHINE_STAT_NOPOWER|MACHINE_BROKEN_GENERIC))
 		return
 	if((world.time > last_launch + 1 MINUTES) && (!icon_forced))
 		set_rand_sprite()

@@ -619,7 +619,7 @@
 	return attack_hand(user)
 
 /obj/machinery/vending/attack_hand(mob/user as mob)
-	if(stat & (BROKEN|NOPOWER))
+	if(stat & (MACHINE_BROKEN_GENERIC|MACHINE_STAT_NOPOWER))
 		return
 
 	if(seconds_electrified != 0)
@@ -693,7 +693,7 @@
 		ui.open()
 
 /obj/machinery/vending/Topic(href, href_list)
-	if(stat & (BROKEN|NOPOWER))
+	if(stat & (MACHINE_BROKEN_GENERIC|MACHINE_STAT_NOPOWER))
 		return
 	if(usr.stat || usr.restrained())
 		return
@@ -847,7 +847,7 @@
 	return
 
 /obj/machinery/vending/Process()
-	if(stat & (BROKEN|NOPOWER))
+	if(stat & (MACHINE_BROKEN_GENERIC|MACHINE_STAT_NOPOWER))
 		return
 
 	if(!active)
@@ -875,7 +875,7 @@
 	return
 
 /obj/machinery/proc/speak(message)
-	if(stat & NOPOWER)
+	if(stat & MACHINE_STAT_NOPOWER)
 		return
 
 	if (!message)
@@ -887,10 +887,10 @@
 
 /obj/machinery/vending/power_change()
 	..()
-	if(stat & BROKEN)
+	if(stat & MACHINE_BROKEN_GENERIC)
 		icon_state = "[icon_type]-broken"
 	else
-		if( !(stat & NOPOWER) )
+		if( !(stat & MACHINE_STAT_NOPOWER) )
 			icon_state = icon_type
 		else
 			spawn(rand(0, 15))
@@ -903,7 +903,7 @@
 			R.get_product(loc)
 		break
 
-	stat |= BROKEN
+	stat |= MACHINE_BROKEN_GENERIC
 	icon_state = "[icon_type]-broken"
 	return
 

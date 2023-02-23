@@ -47,7 +47,7 @@
 		src.attack_hand(user)
 
 /obj/machinery/disease2/incubator/attack_hand(mob/user as mob)
-	if(stat & (NOPOWER|BROKEN)) return
+	if(stat & (MACHINE_STAT_NOPOWER|MACHINE_BROKEN_GENERIC)) return
 	nano_ui_interact(user)
 
 /obj/machinery/disease2/incubator/nano_ui_interact(mob/user, ui_key = "main", var/datum/nanoui/ui = null, var/force_open = NANOUI_FOCUS)

@@ -17,7 +17,7 @@ var/list/doppler_arrays = list()
 	. = ..()
 
 /obj/machinery/doppler_array/proc/sense_explosion(var/x0,var/y0,var/z0,var/devastation_range,var/heavy_impact_range,var/light_impact_range,var/took)
-	if(stat & NOPOWER)	return
+	if(stat & MACHINE_STAT_NOPOWER)	return
 	if(z != z0)			return
 
 	var/dx = abs(x0-x)
@@ -45,10 +45,10 @@ var/list/doppler_arrays = list()
 
 /obj/machinery/doppler_array/power_change()
 	..()
-	if(stat & BROKEN)
+	if(stat & MACHINE_BROKEN_GENERIC)
 		icon_state = "[initial(icon_state)]-broken"
 	else
-		if( !(stat & NOPOWER) )
+		if( !(stat & MACHINE_STAT_NOPOWER) )
 			icon_state = initial(icon_state)
 		else
 			icon_state = "[initial(icon_state)]-off"

@@ -27,7 +27,7 @@
 		fail("Cloner is already cloning.", user, C)
 		return FALSE
 
-	if(pod.stat & NOPOWER)
+	if(pod.stat & MACHINE_STAT_NOPOWER)
 		fail("Cloner is off.", user, C)
 		return FALSE
 
@@ -51,7 +51,7 @@
 		fail("You fail to find a compatible door here.", user, C)
 		return FALSE
 
-	if(door.stat & (BROKEN))
+	if(door.stat & (MACHINE_BROKEN_GENERIC))
 		fail("[door] is off.", user, C)
 		return FALSE
 
@@ -95,7 +95,7 @@
 		consumable.use(REPAIR_DOOR_AMOUNT)
 		var/obj/effect/overlay/nt_construction/effect = new(target_turf, 50)
 		sleep(50)
-		door.stat -= BROKEN
+		door.stat -= MACHINE_BROKEN_GENERIC
 		door.health = door.maxHealth
 		door.unlock()
 		door.close()

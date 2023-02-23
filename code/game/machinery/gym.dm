@@ -33,7 +33,7 @@
 
 /obj/machinery/gym/power_change()
 	..()
-	if(stat & BROKEN || stat & NOPOWER)
+	if(stat & MACHINE_BROKEN_GENERIC || stat & MACHINE_STAT_NOPOWER)
 		update_icon()
 
 /obj/machinery/gym/emag_act(remaining_charges, mob/user, emag_source)
@@ -84,7 +84,7 @@
 	if(!ishuman(user))
 		return
 
-	if(stat & (NOPOWER|BROKEN))
+	if(stat & (MACHINE_STAT_NOPOWER|MACHINE_BROKEN_GENERIC))
 		return
 
 	if(user.stats.getPerk(PERK_COOLDOWN_REASON))
@@ -128,7 +128,7 @@
 
 /obj/machinery/gym/update_icon() // Vigilance animation
 	cut_overlays()
-	icon_state = (stat & (NOPOWER|BROKEN)) ? "vigilance_off" : "vigilance"
+	icon_state = (stat & (MACHINE_STAT_NOPOWER|MACHINE_BROKEN_GENERIC)) ? "vigilance_off" : "vigilance"
 	if(occupant)
 		var/image/occupant_image = image(occupant.icon, loc, occupant.icon_state, 4, NORTH)
 		occupant_image.overlays = occupant.overlays
@@ -137,7 +137,7 @@
 
 /obj/machinery/gym/toughness/update_icon() // Toughness animation
 	cut_overlays()
-	icon_state = (stat & (NOPOWER|BROKEN)) ? "toughness_off" : "toughness"
+	icon_state = (stat & (MACHINE_STAT_NOPOWER|MACHINE_BROKEN_GENERIC)) ? "toughness_off" : "toughness"
 	if(occupant)
 		var/image/occupant_image = image(occupant.icon, loc, occupant.icon_state, 4, NORTH, 0, 8)
 		occupant_image.overlays = occupant.overlays

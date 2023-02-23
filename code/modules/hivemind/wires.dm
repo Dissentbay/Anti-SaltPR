@@ -199,7 +199,7 @@
 		return FALSE
 
 	//if our door isn't broken, we will try to break open. We can do only one action per call
-	if(!(door.stat & BROKEN))
+	if(!(door.stat & MACHINE_BROKEN_GENERIC))
 		anim_shake(door)
 		//first, we open our panel to give our wireweeds access to exposed airlock's electronics
 		if(!door.p_open && !istype(door, /obj/machinery/door/window))

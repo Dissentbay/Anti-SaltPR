@@ -56,7 +56,7 @@
 
 /obj/machinery/computer/station_alert/update_icon()
 	icon_screen = initial(icon_screen)
-	if(!(stat & (BROKEN|NOPOWER)))
+	if(!(stat & (MACHINE_BROKEN_GENERIC|MACHINE_STAT_NOPOWER)))
 		if(alarm_monitor)
 			if(alarm_monitor.has_major_alarms(get_z(src)))
 				icon_screen = "alert:2"

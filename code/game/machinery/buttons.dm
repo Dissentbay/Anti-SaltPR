@@ -49,7 +49,7 @@
 /obj/machinery/button/update_icon()
 	if(active)
 		icon_state = "launcher1"
-	else if(stat & (NOPOWER))
+	else if(stat & (MACHINE_STAT_NOPOWER))
 		icon_state = "launcher-p"
 	else
 		icon_state = "launcher0"

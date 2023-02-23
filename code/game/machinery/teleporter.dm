@@ -148,7 +148,7 @@
 /obj/machinery/computer/teleporter/attackby(I as obj, mob/living/user)
 	if(istype(I, /obj/item/card/data/))
 		var/obj/item/card/data/C = I
-		if(stat & (NOPOWER|BROKEN) & (C.function != "teleporter"))
+		if(stat & (MACHINE_STAT_NOPOWER|MACHINE_BROKEN_GENERIC) & (C.function != "teleporter"))
 			src.attack_hand()
 
 		var/obj/L = null
@@ -252,7 +252,7 @@
 	set src in oview(1)
 	set desc = "ID Tag:"
 
-	if(stat & (NOPOWER|BROKEN) || !isliving(usr))
+	if(stat & (MACHINE_STAT_NOPOWER|MACHINE_BROKEN_GENERIC) || !isliving(usr))
 		return
 	if (t)
 		src.id = t
@@ -329,7 +329,7 @@
 		src.engage()
 
 /obj/machinery/teleport/station/proc/engage()
-	if(stat & (BROKEN|NOPOWER))
+	if(stat & (MACHINE_BROKEN_GENERIC|MACHINE_STAT_NOPOWER))
 		return
 	if (mhub)
 		src.engaged = 1
@@ -344,7 +344,7 @@
 	return
 
 /obj/machinery/teleport/station/proc/disengage()
-	if(stat & (BROKEN|NOPOWER))
+	if(stat & (MACHINE_BROKEN_GENERIC|MACHINE_STAT_NOPOWER))
 		return
 
 	if (mhub)
@@ -364,7 +364,7 @@
 	set category = "Object"
 	set src in oview(1)
 
-	if(stat & (BROKEN|NOPOWER) || !isliving(usr))
+	if(stat & (MACHINE_BROKEN_GENERIC|MACHINE_STAT_NOPOWER) || !isliving(usr))
 		return
 
 	if (mhub && !active)
@@ -382,7 +382,7 @@
 
 /obj/machinery/teleport/station/power_change()
 	..()
-	if(stat & NOPOWER)
+	if(stat & MACHINE_STAT_NOPOWER)
 		icon_state = "controller-p"
 
 		if(mhub)

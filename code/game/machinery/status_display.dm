@@ -59,13 +59,13 @@
 
 // timed process
 /obj/machinery/status_display/Process()
-	if(stat & NOPOWER)
+	if(stat & MACHINE_STAT_NOPOWER)
 		remove_display()
 		return
 	update()
 
 /obj/machinery/status_display/emp_act(severity)
-	if(stat & (BROKEN|NOPOWER))
+	if(stat & (MACHINE_BROKEN_GENERIC|MACHINE_STAT_NOPOWER))
 		..(severity)
 		return
 	set_picture("ai_bsod")

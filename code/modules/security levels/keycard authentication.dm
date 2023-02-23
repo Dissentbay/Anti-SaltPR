@@ -23,7 +23,7 @@
 	return
 
 /obj/machinery/keycard_auth/inoperable(var/additional_flags = 0)
-	return (stat & (BROKEN|additional_flags))
+	return (stat & (MACHINE_BROKEN_GENERIC|additional_flags))
 
 /obj/machinery/keycard_auth/attack_hand(mob/user)
 	. = ..()

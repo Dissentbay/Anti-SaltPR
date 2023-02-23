@@ -80,7 +80,7 @@
 	scanning = initial(scanning) + scanning_rating
 
 /obj/machinery/sleeper/Process()
-	if(stat & (NOPOWER|BROKEN))
+	if(stat & (MACHINE_STAT_NOPOWER|MACHINE_BROKEN_GENERIC))
 		return
 
 	if(filtering > 0)
@@ -127,7 +127,7 @@
 /obj/machinery/sleeper/nano_ui_interact(var/mob/user, var/ui_key = "main", var/datum/nanoui/ui = null, var/force_open = NANOUI_FOCUS, var/datum/nano_topic_state/state =GLOB.outside_state)
 	var/data[0]
 
-	data["power"] = stat & (NOPOWER|BROKEN) ? 0 : 1
+	data["power"] = stat & (MACHINE_STAT_NOPOWER|MACHINE_BROKEN_GENERIC) ? 0 : 1
 
 	var/list/reagents = list()
 	for(var/T in available_chemicals)
@@ -268,7 +268,7 @@
 	if(pump)
 		toggle_pump()
 
-	if(stat & (BROKEN|NOPOWER))
+	if(stat & (MACHINE_BROKEN_GENERIC|MACHINE_STAT_NOPOWER))
 		..(severity)
 		return
 
@@ -291,7 +291,7 @@
 /obj/machinery/sleeper/proc/go_in(var/mob/M, var/mob/user)
 	if(!M)
 		return
-	if(stat & (BROKEN|NOPOWER))
+	if(stat & (MACHINE_BROKEN_GENERIC|MACHINE_STAT_NOPOWER))
 		return
 	M.stop_pulling()
 	if(M.client)
@@ -338,7 +338,7 @@
 		toggle_filter()
 
 /obj/machinery/sleeper/proc/inject_chemical(var/mob/living/user, var/chemical, var/amount)
-	if(stat & (BROKEN|NOPOWER))
+	if(stat & (MACHINE_BROKEN_GENERIC|MACHINE_STAT_NOPOWER))
 		return
 
 	if(occupant && occupant.reagents)

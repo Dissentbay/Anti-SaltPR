@@ -77,8 +77,8 @@
 	return ..()
 
 /obj/machinery/camera/Process()
-	if((stat & EMPED) && world.time >= affected_by_emp_until)
-		stat &= ~EMPED
+	if((stat & MACHINE_STAT_EMPED) && world.time >= affected_by_emp_until)
+		stat &= ~MACHINE_STAT_EMPED
 		cancelCameraAlarm()
 		update_icon()
 		update_coverage()
@@ -92,7 +92,7 @@
 		if(!affected_by_emp_until || (world.time < affected_by_emp_until))
 			affected_by_emp_until = max(affected_by_emp_until, world.time + (90 SECONDS / severity))
 		else
-			stat |= EMPED
+			stat |= MACHINE_STAT_EMPED
 			set_light(0)
 			triggerCameraAlarm()
 			update_icon()
@@ -148,7 +148,7 @@
 	// DECONSTRUCTION
 
 	var/list/usable_qualities = list(QUALITY_SCREW_DRIVING,QUALITY_SEALING)
-	if((wires.CanDeconstruct() || (stat & BROKEN)))
+	if((wires.CanDeconstruct() || (stat & MACHINE_BROKEN_GENERIC)))
 		usable_qualities.Add(QUALITY_WELDING)
 
 	if(panel_open)
@@ -159,7 +159,7 @@
 	switch(tool_type)
 
 		if(QUALITY_WELDING)
-			if((wires.CanDeconstruct() || (stat & BROKEN)))
+			if((wires.CanDeconstruct() || (stat & MACHINE_BROKEN_GENERIC)))
 				if(I.use_tool(user, src, WORKTIME_FAST, tool_type, FAILCHANCE_VERY_EASY, required_stat = STAT_MEC))
 					to_chat(user, SPAN_NOTICE("You weld the assembly securely into place."))
 					if(assembly)
@@ -169,7 +169,7 @@
 						assembly.camera_network = english_list(network, "Exodus", ",", ",")
 						assembly.update_icon()
 						assembly.dir = src.dir
-						if(stat & BROKEN)
+						if(stat & MACHINE_BROKEN_GENERIC)
 							assembly.state = 2
 							to_chat(user, SPAN_NOTICE("You repaired \the [src] frame."))
 						else
@@ -319,7 +319,7 @@
 
 //Used when someone breaks a camera
 /obj/machinery/camera/proc/destroy()
-	stat |= BROKEN
+	stat |= MACHINE_BROKEN_GENERIC
 	wires.RandomCutAll()
 	taped = 0
 
@@ -344,9 +344,9 @@
 	return 0
 
 /obj/machinery/camera/update_icon()
-	if (!status || (stat & BROKEN))
+	if (!status || (stat & MACHINE_BROKEN_GENERIC))
 		icon_state = "[initial(icon_state)]1"
-	else if (stat & EMPED)
+	else if (stat & MACHINE_STAT_EMPED)
 		icon_state = "[initial(icon_state)]emp"
 	else
 		icon_state = initial(icon_state)
@@ -366,7 +366,7 @@
 /obj/machinery/camera/proc/can_use()
 	if(!status)
 		return 0
-	if(stat & (EMPED|BROKEN))
+	if(stat & (MACHINE_STAT_EMPED|MACHINE_BROKEN_GENERIC))
 		return 0
 	return 1
 
@@ -420,7 +420,7 @@
 	if(!panel_open || isAI(user))
 		return
 
-	if(stat & BROKEN)
+	if(stat & MACHINE_BROKEN_GENERIC)
 		to_chat(user, SPAN_WARNING("\The [src] is broken."))
 		return
 
@@ -500,8 +500,8 @@
 /obj/machinery/camera/proc/reset_wires()
 	if(!wires)
 		return
-	if (stat & BROKEN) // Fix the camera
-		stat &= ~BROKEN
+	if (stat & MACHINE_BROKEN_GENERIC) // Fix the camera
+		stat &= ~MACHINE_BROKEN_GENERIC
 	wires.CutAll()
 	wires.MendAll()
 	update_icon()

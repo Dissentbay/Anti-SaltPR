@@ -77,7 +77,7 @@ list(
 	create_reagents(INFINITY)
 
 /obj/machinery/reagentgrinder/advanced/Process()
-	if(stat & (NOPOWER|BROKEN))
+	if(stat & (MACHINE_STAT_NOPOWER|MACHINE_BROKEN_GENERIC))
 		return
 
 	if(!linked_bidon)

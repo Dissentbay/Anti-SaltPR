@@ -42,10 +42,10 @@ var/const/GRAV_NEEDS_WRENCH = 3
 	qdel(src)
 
 /obj/machinery/gravity_generator/proc/set_broken()
-	stat |= BROKEN
+	stat |= MACHINE_BROKEN_GENERIC
 
 /obj/machinery/gravity_generator/proc/set_fix()
-	stat &= ~BROKEN
+	stat &= ~MACHINE_BROKEN_GENERIC
 
 /obj/machinery/gravity_generator/part/Destroy()
 	set_broken()
@@ -71,7 +71,7 @@ var/const/GRAV_NEEDS_WRENCH = 3
 
 /obj/machinery/gravity_generator/part/set_broken()
 	..()
-	if(main_part && !(main_part.stat & BROKEN))
+	if(main_part && !(main_part.stat & MACHINE_BROKEN_GENERIC))
 		main_part.set_broken()
 
 //
@@ -200,7 +200,7 @@ var/const/GRAV_NEEDS_WRENCH = 3
 		return interact(user)
 
 /obj/machinery/gravity_generator/main/interact(mob/user as mob)
-	if(stat & BROKEN)
+	if(stat & MACHINE_BROKEN_GENERIC)
 		return
 	var/dat = "Gravity Generator Breaker: "
 	if(breaker)
@@ -238,11 +238,11 @@ var/const/GRAV_NEEDS_WRENCH = 3
 
 /obj/machinery/gravity_generator/main/power_change()
 	..()
-	investigate_log("has [stat & NOPOWER ? "lost" : "regained"] power.", "gravity")
+	investigate_log("has [stat & MACHINE_STAT_NOPOWER ? "lost" : "regained"] power.", "gravity")
 	set_power()
 
 /obj/machinery/gravity_generator/main/get_status()
-	if(stat & BROKEN)
+	if(stat & MACHINE_BROKEN_GENERIC)
 		return "fix[min(broken_state, 3)]"
 	return on || charging_state != POWER_IDLE ? "on" : "off"
 
@@ -252,7 +252,7 @@ var/const/GRAV_NEEDS_WRENCH = 3
 // Set the charging state based on power/breaker.
 /obj/machinery/gravity_generator/main/proc/set_power()
 	var/new_state = 0
-	if(stat & (NOPOWER|BROKEN) || !breaker)
+	if(stat & (MACHINE_STAT_NOPOWER|MACHINE_BROKEN_GENERIC) || !breaker)
 		new_state = 0
 	else if(breaker)
 		new_state = 1
@@ -311,7 +311,7 @@ var/const/GRAV_NEEDS_WRENCH = 3
 // Charge/Discharge and turn on/off gravity when you reach 0/100 percent.
 // Also emit radiation and handle the overlays.
 /obj/machinery/gravity_generator/main/Process()
-	if(stat & BROKEN)
+	if(stat & MACHINE_BROKEN_GENERIC)
 		return
 	if(charging_state != POWER_IDLE)
 		if(charging_state == POWER_UP && charge_count >= 100)

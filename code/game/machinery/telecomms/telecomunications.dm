@@ -201,7 +201,7 @@ var/global/list/obj/machinery/telecomms/telecomms_list = list()
 /obj/machinery/telecomms/proc/update_power()
 
 	if(toggled)
-		if(stat & (BROKEN|NOPOWER|EMPED) || integrity <= 0) // if powered, on. if not powered, off. if too damaged, off
+		if(stat & (MACHINE_BROKEN_GENERIC|MACHINE_STAT_NOPOWER|MACHINE_STAT_EMPED) || integrity <= 0) // if powered, on. if not powered, off. if too damaged, off
 			on = 0
 		else
 			on = 1
@@ -222,11 +222,11 @@ var/global/list/obj/machinery/telecomms/telecomms_list = list()
 
 /obj/machinery/telecomms/emp_act(severity)
 	if(prob(100/severity))
-		if(!(stat & EMPED))
-			stat |= EMPED
+		if(!(stat & MACHINE_STAT_EMPED))
+			stat |= MACHINE_STAT_EMPED
 			var/duration = (300 * 10)/severity
 			spawn(rand(duration - 20, duration + 20)) // Takes a long time for the machines to reboot.
-				stat &= ~EMPED
+				stat &= ~MACHINE_STAT_EMPED
 	..()
 
 /obj/machinery/telecomms/proc/checkheat()
@@ -261,7 +261,7 @@ var/global/list/obj/machinery/telecomms/telecomms_list = list()
 	if (!use_power)
 		return
 
-	if(!(stat & (NOPOWER|BROKEN)))
+	if(!(stat & (MACHINE_STAT_NOPOWER|MACHINE_BROKEN_GENERIC)))
 		var/turf/simulated/L = loc
 		if(istype(L))
 			var/datum/gas_mixture/env = L.return_air()

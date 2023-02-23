@@ -13,7 +13,7 @@
 	var/stack_amt = 20 // Amount to stack before releassing
 
 /obj/machinery/scrap/stacking_machine/Bumped(atom/movable/AM)
-	if(stat & (BROKEN|NOPOWER))
+	if(stat & (MACHINE_BROKEN_GENERIC|MACHINE_STAT_NOPOWER))
 		return
 	if(istype(AM, /mob/living))
 		return

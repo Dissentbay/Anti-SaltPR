@@ -364,7 +364,7 @@
 	output_attempt = TRUE
 	output_level = 200000
 
-	RCon_tag = "Substation - BROKEN, REPORT THIS"
+	RCon_tag = "Substation - MACHINE_BROKEN_GENERIC, REPORT THIS"
 
 
 // SMESes that power the entire ship

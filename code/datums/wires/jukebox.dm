@@ -29,7 +29,7 @@
 /datum/wires/jukebox/GetInteractWindow(mob/living/user)
 	var/obj/machinery/media/jukebox/A = holder
 	. = ..(user)
-	. += "<br>\n The power light is [A.stat & (BROKEN|NOPOWER) ? "off." : "on."]"
+	. += "<br>\n The power light is [A.stat & (MACHINE_BROKEN_GENERIC|MACHINE_STAT_NOPOWER) ? "off." : "on."]"
 	. += "<br>\n The parental guidance light is [A.hacked ? "off." : "on."]"
 	. += "<br>\n The data light is [IsIndexCut(WIRE_REVERSE) ? "hauntingly dark." : "glowing softly."]"
 

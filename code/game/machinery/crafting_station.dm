@@ -117,7 +117,7 @@
 
 
 /obj/machinery/craftingstation/attack_hand(mob/living/user)
-	if(!istype(user) || is_working || stat & NOPOWER || !in_range(src, user))
+	if(!istype(user) || is_working || stat & MACHINE_STAT_NOPOWER || !in_range(src, user))
 		return
 
 	// Only one user can interact with the machine at the same time
@@ -343,7 +343,7 @@
 
 /obj/machinery/craftingstation/power_change()
 	..()
-	if(stat & NOPOWER)
+	if(stat & MACHINE_STAT_NOPOWER)
 		icon_state = "craft_off"
 	else
 		icon_state = "craft"

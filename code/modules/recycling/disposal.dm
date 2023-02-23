@@ -67,7 +67,7 @@
 
 // attack by item places it in to disposal
 /obj/machinery/disposal/attackby(var/obj/item/I, var/mob/user)
-	if(stat & BROKEN || !I || !user)
+	if(stat & MACHINE_BROKEN_GENERIC || !I || !user)
 		return
 
 	src.add_fingerprint(user)
@@ -252,7 +252,7 @@
 // human interact with machine
 /obj/machinery/disposal/attack_hand(mob/user as mob)
 
-	if(stat & BROKEN)
+	if(stat & MACHINE_BROKEN_GENERIC)
 		return
 
 	if(user && user.loc == src)
@@ -271,7 +271,7 @@
 /obj/machinery/disposal/interact(mob/user, var/ai=0)
 
 	src.add_fingerprint(user)
-	if(stat & BROKEN)
+	if(stat & MACHINE_BROKEN_GENERIC)
 		user.unset_machine()
 		return
 
@@ -314,7 +314,7 @@
 	if(..())
 		return
 
-	if(stat & BROKEN)
+	if(stat & MACHINE_BROKEN_GENERIC)
 		return
 	if(usr.stat || usr.restrained() || src.flushing)
 		return
@@ -357,14 +357,14 @@
 // update the icon & over-lays to reflect mode & status
 /obj/machinery/disposal/proc/update()
 	cut_overlays()
-	if(stat & BROKEN)
+	if(stat & MACHINE_BROKEN_GENERIC)
 		icon_state = "disposal-broken"
 		mode = 0
 		flush = 0
 		return
 
 	// only handle is shown if no power
-	if(stat & NOPOWER || mode == -1)
+	if(stat & MACHINE_STAT_NOPOWER || mode == -1)
 		return
 
 	// charging and ready light
@@ -384,7 +384,7 @@
 // timed process
 // charge the gas reservoir and perform flush if ready
 /obj/machinery/disposal/Process()
-	if(!air_contents || (stat & BROKEN))			// nothing can happen if broken
+	if(!air_contents || (stat & MACHINE_BROKEN_GENERIC))			// nothing can happen if broken
 		update_use_power(0)
 		return
 
@@ -410,7 +410,7 @@
 		src.pressurize() //otherwise charge
 
 /obj/machinery/disposal/proc/pressurize()
-	if(stat & NOPOWER)			// won't charge if no power
+	if(stat & MACHINE_STAT_NOPOWER)			// won't charge if no power
 		update_use_power(0)
 		return
 
@@ -467,7 +467,7 @@
 
 // called when area power changes
 /obj/machinery/disposal/power_change()
-	..()	// do default setting/reset of stat NOPOWER bit
+	..()	// do default setting/reset of stat MACHINE_STAT_NOPOWER bit
 	update()	// update icon
 	return
 

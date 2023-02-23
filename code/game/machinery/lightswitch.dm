@@ -48,7 +48,7 @@
 			set_on(FALSE, FALSE)
 
 /obj/machinery/light_switch/proc/updateicon()
-	if(stat & NOPOWER)
+	if(stat & MACHINE_STAT_NOPOWER)
 		icon_state = "light-p"
 		set_light(0)
 		layer = initial(layer)
@@ -108,14 +108,14 @@
 
 	if(!otherarea)
 		if(powered(STATIC_LIGHT))
-			stat &= ~NOPOWER
+			stat &= ~MACHINE_STAT_NOPOWER
 		else
-			stat |= NOPOWER
+			stat |= MACHINE_STAT_NOPOWER
 
 		updateicon()
 
 /obj/machinery/light_switch/emp_act(severity)
-	if(stat & (BROKEN|NOPOWER))
+	if(stat & (MACHINE_BROKEN_GENERIC|MACHINE_STAT_NOPOWER))
 		..(severity)
 		return
 	power_change()

@@ -80,7 +80,7 @@
 		to_chat(occupant, SPAN_WARNING("[src] beeps: 'ERROR: Failed to locate compatible visor.'"))
 		return FALSE
 
-	if(stat & NOPOWER)
+	if(stat & MACHINE_STAT_NOPOWER)
 		return FALSE
 
 	return TRUE

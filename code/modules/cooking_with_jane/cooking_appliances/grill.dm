@@ -66,7 +66,7 @@
 		else
 			stored_wood -= 1
 
-	if(!(stat & NOPOWER))
+	if(!(stat & MACHINE_STAT_NOPOWER))
 		decide_action()
 
 

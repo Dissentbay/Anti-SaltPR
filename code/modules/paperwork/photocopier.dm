@@ -38,7 +38,7 @@
 
 /obj/machinery/photocopier/Topic(href, href_list)
 	if(href_list["copy"])
-		if(stat & (BROKEN|NOPOWER))
+		if(stat & (MACHINE_BROKEN_GENERIC|MACHINE_STAT_NOPOWER))
 			return
 
 		for(var/i = 0, i < copies, i++)
@@ -78,7 +78,7 @@
 	else if(href_list["aipic"])
 		if(!issilicon(usr))
 			return
-		if(stat & (BROKEN|NOPOWER))
+		if(stat & (MACHINE_BROKEN_GENERIC|MACHINE_STAT_NOPOWER))
 			return
 
 		if(toner >= 1)

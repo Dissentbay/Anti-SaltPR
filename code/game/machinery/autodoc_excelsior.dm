@@ -189,7 +189,7 @@
 	emagged = TRUE
 
 /obj/machinery/excelsior_autodoc/Process()
-	if(stat & (NOPOWER|BROKEN))
+	if(stat & (MACHINE_STAT_NOPOWER|MACHINE_BROKEN_GENERIC))
 		autodoc_processor.stop()
 		update_icon()
 
@@ -249,7 +249,7 @@
 	else
 		screen_state = image(icon, "screen_idle")
 
-	if(stat & (NOPOWER|BROKEN))
+	if(stat & (MACHINE_STAT_NOPOWER|MACHINE_BROKEN_GENERIC))
 		screen_state = image(icon, "screen_off")
 
 	add_overlay(screen_state)

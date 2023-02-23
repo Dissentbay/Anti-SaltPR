@@ -147,7 +147,7 @@ GLOBAL_LIST_EMPTY(rad_collectors)
 	cut_overlays()
 	if(P)
 		add_overlay("ptank")
-	if(stat & (NOPOWER|BROKEN))
+	if(stat & (MACHINE_STAT_NOPOWER|MACHINE_BROKEN_GENERIC))
 		return
 	if(active)
 		add_overlay("on")

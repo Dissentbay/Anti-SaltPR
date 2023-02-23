@@ -64,7 +64,7 @@
 /obj/machinery/power/generator/update_icon()
 	icon_state = anchored ? "teg-assembled" : "teg-unassembled"
 	cut_overlays()
-	if (stat & (NOPOWER|BROKEN) || !anchored)
+	if (stat & (MACHINE_STAT_NOPOWER|MACHINE_BROKEN_GENERIC) || !anchored)
 		return 1
 	else
 		if (lastgenlev != 0)
@@ -81,7 +81,7 @@
 
 
 /obj/machinery/power/generator/Process()
-	if(!circ1 || !circ2 || !anchored || stat & (BROKEN|NOPOWER))
+	if(!circ1 || !circ2 || !anchored || stat & (MACHINE_BROKEN_GENERIC|MACHINE_STAT_NOPOWER))
 		stored_energy = 0
 		return
 
@@ -171,7 +171,7 @@
 
 /obj/machinery/power/generator/attack_hand(mob/user)
 	add_fingerprint(user)
-	if(stat & (BROKEN|NOPOWER) || !anchored) return
+	if(stat & (MACHINE_BROKEN_GENERIC|MACHINE_STAT_NOPOWER) || !anchored) return
 	if(!circ1 || !circ2) //Just incase the middle part of the TEG was not wrenched last.
 		reconnect()
 	nano_ui_interact(user)

@@ -167,7 +167,7 @@
 ///////////////
 
 /obj/machinery/neotheology/cloner/Process()
-	if(stat & NOPOWER)
+	if(stat & MACHINE_STAT_NOPOWER)
 		return
 
 	if(cloning)

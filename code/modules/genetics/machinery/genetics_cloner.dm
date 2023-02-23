@@ -142,7 +142,7 @@ This makes cloning vat is probably the most dangerous tool in Genetics. Because 
 /obj/machinery/genetics/cloner/proc/addLog(var/message)
 	if(reader)
 		reader.addLog(message)
-	
+
 
 /obj/machinery/genetics/cloner/proc/find_reader()
 	//every direction but west and north
@@ -337,7 +337,7 @@ This makes cloning vat is probably the most dangerous tool in Genetics. Because 
 
 /obj/machinery/genetics/cloner/Process()
 	if(cloning)
-		if(stat & NOPOWER)
+		if(stat & MACHINE_STAT_NOPOWER)
 			return
 
 		use_power(power_cost)
@@ -401,7 +401,7 @@ This makes cloning vat is probably the most dangerous tool in Genetics. Because 
 		src.pressurize() //otherwise charge
 
 /obj/machinery/genetics/cloner/proc/pressurize()
-	if(stat & NOPOWER)			// won't charge if no power
+	if(stat & MACHINE_STAT_NOPOWER)			// won't charge if no power
 		update_use_power(0)
 		return
 

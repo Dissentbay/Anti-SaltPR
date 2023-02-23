@@ -31,7 +31,7 @@
 /obj/machinery/computer/power_monitor/update_icon()
 	..()
 
-	if(stat & BROKEN)
+	if(stat & MACHINE_BROKEN_GENERIC)
 		icon_screen = "broken"
 	else if(alerting)
 		icon_screen = "power_monitor_warn"

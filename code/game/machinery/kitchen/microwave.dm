@@ -256,7 +256,7 @@
 ************************************/
 
 /obj/machinery/microwave/proc/cook()
-	if(stat & (NOPOWER|BROKEN))
+	if(stat & (MACHINE_STAT_NOPOWER|MACHINE_BROKEN_GENERIC))
 		return
 	start()
 	if(reagents.total_volume == 0 && !(locate(/obj) in contents)) //dry run
@@ -314,7 +314,7 @@
 
 /obj/machinery/microwave/proc/wzhzhzh(var/seconds as num) // Whoever named this proc is fucking literally Satan. ~ Z
 	for (var/i=1 to seconds)
-		if(stat & (NOPOWER|BROKEN))
+		if(stat & (MACHINE_STAT_NOPOWER|MACHINE_BROKEN_GENERIC))
 			return 0
 		use_power(500)
 		sleep(10)

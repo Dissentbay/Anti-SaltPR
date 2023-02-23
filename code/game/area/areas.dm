@@ -82,7 +82,7 @@
 
 	//Check all the alarms before lowering atmosalm. Raising is perfectly fine.
 	for (var/obj/machinery/alarm/AA in src)
-		if (!(AA.stat & (NOPOWER|BROKEN)) && !AA.shorted && AA.report_danger_level)
+		if (!(AA.stat & (MACHINE_STAT_NOPOWER|MACHINE_BROKEN_GENERIC)) && !AA.shorted && AA.report_danger_level)
 			danger_level = max(danger_level, AA.danger_level)
 
 	if(danger_level != atmosalm)
@@ -200,7 +200,7 @@
 			if(istype(L, /obj/machinery/light/small))
 				continue
 			L.reset_color()
-
+/*
 /area/proc/powered(var/chan)		// return true if the area has power to given channel
 
 	if(!requires_power)
@@ -237,7 +237,7 @@
 		if(STATIC_ENVIRON)
 			used += static_environ + used_environ
 	return used
-
+*/
 /area/proc/addStaticPower(value, powerchannel)
 	switch(powerchannel)
 		if(STATIC_EQUIP)
@@ -249,7 +249,7 @@
 
 /area/proc/removeStaticPower(value, powerchannel)
 	addStaticPower(-value, powerchannel)
-
+/*
 /area/proc/clear_usage()
 	used_equip = 0
 	used_light = 0
@@ -264,7 +264,7 @@
 		if(STATIC_ENVIRON)
 			used_environ += amount
 
-
+*/
 var/list/mob/living/forced_ambiance_list = new
 
 /area/Entered(A)

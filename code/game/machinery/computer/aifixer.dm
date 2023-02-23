@@ -36,7 +36,7 @@
 
 	if(istype(I, /obj/item/device/aicard))
 
-		if(stat & (NOPOWER|BROKEN))
+		if(stat & (MACHINE_STAT_NOPOWER|MACHINE_BROKEN_GENERIC))
 			to_chat(user, "This terminal isn't functioning right now.")
 			return
 
@@ -127,7 +127,7 @@
 
 /obj/machinery/computer/aifixer/update_icon()
 	..()
-	if((stat & BROKEN) || (stat & NOPOWER))
+	if((stat & MACHINE_BROKEN_GENERIC) || (stat & MACHINE_STAT_NOPOWER))
 		return
 
 	if(occupant)

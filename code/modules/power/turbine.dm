@@ -50,9 +50,9 @@
 	spawn(5)
 		turbine = locate() in get_step(src, get_dir(inturf, src))
 		if(!turbine)
-			stat |= BROKEN
+			stat |= MACHINE_BROKEN_GENERIC
 		else
-			turbine.stat &= !BROKEN
+			turbine.stat &= !MACHINE_BROKEN_GENERIC
 			turbine.compressor = src
 
 
@@ -63,10 +63,10 @@
 	if(!starter)
 		return
 	cut_overlays()
-	if(stat & BROKEN)
+	if(stat & MACHINE_BROKEN_GENERIC)
 		return
 	if(!turbine)
-		stat |= BROKEN
+		stat |= MACHINE_BROKEN_GENERIC
 		return
 	rpm = 0.9* rpm + 0.1 * rpmtarget
 	var/datum/gas_mixture/environment = inturf.return_air()
@@ -78,7 +78,7 @@
 	rpm = max(0, rpm - (rpm*rpm)/COMPFRICTION)
 
 
-	if(starter && !(stat & NOPOWER))
+	if(starter && !(stat & MACHINE_STAT_NOPOWER))
 		use_power(2800)
 		if(rpm<1000)
 			rpmtarget = 1000
@@ -107,9 +107,9 @@
 
 		compressor = locate() in get_step(src, get_dir(outturf, src))
 		if(!compressor)
-			stat |= BROKEN
+			stat |= MACHINE_BROKEN_GENERIC
 		else
-			compressor.stat &= !BROKEN
+			compressor.stat &= !MACHINE_BROKEN_GENERIC
 			compressor.turbine = src
 
 
@@ -121,10 +121,10 @@
 	if(!compressor.starter)
 		return
 	cut_overlays()
-	if(stat & BROKEN)
+	if(stat & MACHINE_BROKEN_GENERIC)
 		return
 	if(!compressor)
-		stat |= BROKEN
+		stat |= MACHINE_BROKEN_GENERIC
 		return
 	lastgen = ((compressor.rpm / TURBGENQ)**TURBGENG) *TURBGENQ
 
@@ -151,7 +151,7 @@
 
 /obj/machinery/power/turbine/interact(mob/user)
 
-	if ( (get_dist(src, user) > 1 ) || (stat & (NOPOWER|BROKEN)) && (!isAI(user)) )
+	if ( (get_dist(src, user) > 1 ) || (stat & (MACHINE_STAT_NOPOWER|MACHINE_BROKEN_GENERIC)) && (!isAI(user)) )
 		user.machine = null
 		user << browse(null, "window=turbine")
 		return
@@ -176,7 +176,7 @@
 
 /obj/machinery/power/turbine/Topic(href, href_list)
 	..()
-	if(stat & BROKEN)
+	if(stat & MACHINE_BROKEN_GENERIC)
 		return
 	if(usr.stat || usr.restrained() )
 		return

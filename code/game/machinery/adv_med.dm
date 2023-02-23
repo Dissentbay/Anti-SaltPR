@@ -173,9 +173,9 @@
 /obj/machinery/body_scanconsole/attack_hand(user as mob)
 	if(..())
 		return
-	if(stat & (NOPOWER|BROKEN))
+	if(stat & (MACHINE_STAT_NOPOWER|MACHINE_BROKEN_GENERIC))
 		return
-	if(!connected || (connected.stat & (NOPOWER|BROKEN)))
+	if(!connected || (connected.stat & (MACHINE_STAT_NOPOWER|MACHINE_BROKEN_GENERIC)))
 		to_chat(user, SPAN_WARNING("This console is not connected to a functioning body scanner."))
 		return
 	if(!ishuman(connected.occupant))
@@ -411,7 +411,7 @@
 	return dat
 
 /obj/machinery/bodyscanner/update_icon()
-	if(stat & (NOPOWER|BROKEN))
+	if(stat & (MACHINE_STAT_NOPOWER|MACHINE_BROKEN_GENERIC))
 		icon_state = "scanner_off"
 		set_light(0)
 	else
@@ -435,7 +435,7 @@
 			set_light(0)
 
 /obj/machinery/body_scanconsole/update_icon()
-	if(stat & (NOPOWER|BROKEN))
+	if(stat & (MACHINE_STAT_NOPOWER|MACHINE_BROKEN_GENERIC))
 		icon_state = "scanner_terminal_off"
 		set_light(0)
 	else

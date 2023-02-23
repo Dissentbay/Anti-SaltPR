@@ -61,7 +61,7 @@ var/list/minor_air_alarms = list()
 	return data
 
 /obj/machinery/computer/atmos_alert/update_icon()
-	if(!(stat & (NOPOWER|BROKEN)))
+	if(!(stat & (MACHINE_STAT_NOPOWER|MACHINE_BROKEN_GENERIC)))
 		if(atmosphere_alarm.has_major_alarms(get_z(src)))
 			icon_screen = "alert:2"
 		else if (atmosphere_alarm.has_minor_alarms(get_z(src)))

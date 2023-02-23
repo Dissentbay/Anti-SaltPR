@@ -82,7 +82,7 @@
 /obj/machinery/particle_accelerator/control_box/Topic(href, href_list)
 	..()
 	//Ignore input if we are broken, !silicon guy cant touch us, or nonai controlling from super far away
-	if(stat & (BROKEN|NOPOWER) || (get_dist(src, usr) > 1 && !issilicon(usr)) || (get_dist(src, usr) > 8 && !isAI(usr)))
+	if(stat & (MACHINE_BROKEN_GENERIC|MACHINE_STAT_NOPOWER) || (get_dist(src, usr) > 1 && !issilicon(usr)) || (get_dist(src, usr) > 8 && !isAI(usr)))
 		usr.unset_machine()
 		usr << browse(null, "window=pacontrol")
 		return
@@ -139,7 +139,7 @@
 
 /obj/machinery/particle_accelerator/control_box/power_change()
 	..()
-	if(stat & NOPOWER)
+	if(stat & MACHINE_STAT_NOPOWER)
 		active = 0
 		update_use_power(0)
 	else if(!stat && construction_state == 3)
@@ -231,7 +231,7 @@
 
 
 /obj/machinery/particle_accelerator/control_box/interact(mob/user)
-	if((get_dist(src, user) > 1) || (stat & (BROKEN|NOPOWER)))
+	if((get_dist(src, user) > 1) || (stat & (MACHINE_BROKEN_GENERIC|MACHINE_STAT_NOPOWER)))
 		if(!issilicon(user))
 			user.unset_machine()
 			user << browse(null, "window=pacontrol")

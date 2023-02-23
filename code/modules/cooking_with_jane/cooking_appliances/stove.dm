@@ -53,7 +53,7 @@
 		used_power += power_cost
 	use_power(used_power)
 
-	if(!(stat & NOPOWER))
+	if(!(stat & MACHINE_STAT_NOPOWER))
 		decide_action()
 
 

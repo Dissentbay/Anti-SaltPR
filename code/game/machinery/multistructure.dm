@@ -92,7 +92,7 @@
 
 /datum/multistructure/proc/is_operational()
 	for(var/obj/machinery/multistructure/part in elements)
-		if((part.stat & BROKEN) || (part.stat & EMPED) || (part.stat & NOPOWER))
+		if((part.stat & MACHINE_BROKEN_GENERIC) || (part.stat & MACHINE_STAT_EMPED) || (part.stat & MACHINE_STAT_NOPOWER))
 			return FALSE
 	return TRUE
 

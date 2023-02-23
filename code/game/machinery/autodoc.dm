@@ -82,7 +82,7 @@
 	L.forceMove(src)
 	src.occupant = L
 	src.add_fingerprint(usr)
-	if(stat & (NOPOWER|BROKEN))
+	if(stat & (MACHINE_STAT_NOPOWER|MACHINE_BROKEN_GENERIC))
 		update_icon()
 		return
 	else
@@ -130,7 +130,7 @@
 	return
 
 /obj/machinery/autodoc/Process()
-	if(stat & (NOPOWER|BROKEN))
+	if(stat & (MACHINE_STAT_NOPOWER|MACHINE_BROKEN_GENERIC))
 		autodoc_processor.stop()
 		return
 	if(occupant)
@@ -144,7 +144,7 @@
 	return autodoc_processor.Topic(href, href_list)
 
 /obj/machinery/autodoc/update_icon()
-	if(stat & (NOPOWER|BROKEN) || !occupant)
+	if(stat & (MACHINE_STAT_NOPOWER|MACHINE_BROKEN_GENERIC) || !occupant)
 		icon_state = "powered_off"
 	else
 		icon_state = "powered_on"

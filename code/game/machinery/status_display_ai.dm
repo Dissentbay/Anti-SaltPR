@@ -108,7 +108,7 @@ var/list/ai_status_emotions = list(
 
 /obj/machinery/ai_status_display/power_change()
 	..()
-	if(stat & NOPOWER)
+	if(stat & MACHINE_STAT_NOPOWER)
 		if(overlays.len)
 			cut_overlays()
 	else

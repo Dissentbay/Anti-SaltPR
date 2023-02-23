@@ -293,7 +293,7 @@
 	return
 
 /obj/machinery/atmospherics/unary/cryo_cell/proc/put_mob(mob/living/carbon/M as mob)
-	if (stat & (NOPOWER|BROKEN))
+	if (stat & (MACHINE_STAT_NOPOWER|MACHINE_BROKEN_GENERIC))
 		to_chat(usr, SPAN_WARNING("The cryo cell is not functioning."))
 		return
 	if (!istype(M))

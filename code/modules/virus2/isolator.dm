@@ -16,7 +16,7 @@
 	var/obj/item/reagent_containers/syringe/sample = null
 
 /obj/machinery/disease2/isolator/update_icon()
-	if (stat & (BROKEN|NOPOWER))
+	if (stat & (MACHINE_BROKEN_GENERIC|MACHINE_STAT_NOPOWER))
 		icon_state = "isolator"
 		return
 
@@ -49,7 +49,7 @@
 */
 
 /obj/machinery/disease2/isolator/attack_hand(mob/user as mob)
-	if(stat & (NOPOWER|BROKEN)) return
+	if(stat & (MACHINE_STAT_NOPOWER|MACHINE_BROKEN_GENERIC)) return
 	nano_ui_interact(user)
 
 /obj/machinery/disease2/isolator/nano_ui_interact(mob/user, ui_key = "main", var/datum/nanoui/ui = null, var/force_open = NANOUI_FOCUS)

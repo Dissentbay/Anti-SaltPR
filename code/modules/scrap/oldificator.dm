@@ -375,7 +375,7 @@
 	.=..()
 	if (.)
 		if(prob(60))
-			stat |= BROKEN
+			stat |= MACHINE_BROKEN_GENERIC
 		if(prob(60))
 			emagged = TRUE
 

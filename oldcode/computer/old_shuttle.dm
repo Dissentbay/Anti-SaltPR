@@ -9,7 +9,7 @@
 
 
 	attackby(var/obj/item/card/W as obj, var/mob/user as mob)
-		if(stat & (BROKEN|NOPOWER))	return
+		if(stat & (MACHINE_BROKEN_GENERIC|MACHINE_STAT_NOPOWER))	return
 		if ((!( istype(W, /obj/item/card) ) || !( ticker ) || emergency_shuttle.location() || !( user )))	return
 		if (istype(W, /obj/item/card/id)||istype(W, /obj/item/modular_computer))
 			if (istype(W, /obj/item/modular_computer))

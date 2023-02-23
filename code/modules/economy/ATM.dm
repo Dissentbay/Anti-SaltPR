@@ -41,7 +41,7 @@ log transactions
 	spark_system.attach(src)
 
 /obj/machinery/atm/Process()
-	if(stat & NOPOWER)
+	if(stat & MACHINE_STAT_NOPOWER)
 		update_icon()
 		return
 
@@ -69,7 +69,7 @@ log transactions
 	update_icon()
 
 /obj/machinery/atm/update_icon()
-	if(stat & NOPOWER)
+	if(stat & MACHINE_STAT_NOPOWER)
 		icon_state = "atm_off"
 		return
 	else if (held_card)
@@ -95,7 +95,7 @@ log transactions
 
 /obj/machinery/atm/attackby(obj/item/I as obj, mob/user as mob)
 	if(istype(I, /obj/item/card))
-		if(stat & NOPOWER)
+		if(stat & MACHINE_STAT_NOPOWER)
 			return
 		if(emagged)
 			//prevent inserting id into an emagged ATM
@@ -115,7 +115,7 @@ log transactions
 				authenticated_account = null
 		update_icon()
 	else if(authenticated_account)
-		if(stat & NOPOWER)
+		if(stat & MACHINE_STAT_NOPOWER)
 			return
 		if(istype(I,/obj/item/spacecash))
 			var/obj/item/spacecash/cash = I

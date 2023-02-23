@@ -61,12 +61,12 @@
 	return cell && cell.percent() > 0
 
 /obj/machinery/recharge_station/Process()
-	if(stat & (BROKEN))
+	if(stat & (MACHINE_BROKEN_GENERIC))
 		return
 	if(!cell) // Shouldn't be possible, but sanity check
 		return
 
-	if((stat & NOPOWER) && !has_cell_power()) // No power and cell is dead.
+	if((stat & MACHINE_STAT_NOPOWER) && !has_cell_power()) // No power and cell is dead.
 		if(icon_update_tick)
 			icon_update_tick = 0 //just rebuild the overlay once more only
 			update_icon()
@@ -78,7 +78,7 @@
 
 	//Then, if external power is available, recharge the internal cell
 	var/recharge_amount = 0
-	if(!(stat & NOPOWER))
+	if(!(stat & MACHINE_STAT_NOPOWER))
 		// Calculating amount of power to draw
 		recharge_amount = (occupant ? restore_power_active : restore_power_passive) * CELLRATE
 
@@ -93,9 +93,9 @@
 	if(occupant || recharge_amount)
 		update_icon()
 
-//since the recharge station can still be on even with NOPOWER. Instead it draws from the internal cell.
+//since the recharge station can still be on even with MACHINE_STAT_NOPOWER. Instead it draws from the internal cell.
 /obj/machinery/recharge_station/auto_use_power()
-	if(!(stat & NOPOWER))
+	if(!(stat & MACHINE_STAT_NOPOWER))
 		return ..()
 
 	if(!has_cell_power())
@@ -205,12 +205,12 @@
 
 /obj/machinery/recharge_station/update_icon()
 	..()
-	if(stat & BROKEN)
+	if(stat & MACHINE_BROKEN_GENERIC)
 		icon_state = "borgcharger0"
 		return
 
 	if(occupant)
-		if((stat & NOPOWER) && !has_cell_power())
+		if((stat & MACHINE_STAT_NOPOWER) && !has_cell_power())
 			icon_state = "borgcharger2"
 		else
 			icon_state = "borgcharger1"
@@ -396,7 +396,7 @@
 		stop_repairing()
 
 /obj/machinery/repair_station/proc/start_repairing(var/mob/living/silicon/robot/R)
-	if(stat & (NOPOWER | BROKEN))
+	if(stat & (MACHINE_STAT_NOPOWER | MACHINE_BROKEN_GENERIC))
 		to_chat(R, SPAN_WARNING("Repair system not responding. Terminating."))
 		return
 

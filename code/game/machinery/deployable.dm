@@ -301,7 +301,7 @@ for reference:
 			return
 
 /obj/machinery/deployable/barrier/emp_act(severity)
-	if(stat & (BROKEN|NOPOWER))
+	if(stat & (MACHINE_BROKEN_GENERIC|MACHINE_STAT_NOPOWER))
 		return
 	if(prob(50/severity))
 		locked = !locked

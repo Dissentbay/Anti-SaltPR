@@ -116,7 +116,7 @@
 	var/dat
 	if(..())
 		return
-	if(stat & NOPOWER)
+	if(stat & MACHINE_STAT_NOPOWER)
 		return
 	if(!user.IsAdvancedToolUser())
 		return 0
@@ -352,7 +352,7 @@
 	if(!isopen)
 		to_chat(usr, SPAN_WARNING("The unit's doors are shut."))
 		return
-	if(stat & NOPOWER)
+	if(stat & MACHINE_STAT_NOPOWER)
 		to_chat(usr, SPAN_WARNING("The unit is not operational."))
 		return
 	if(OCCUPANT || HELMET || SUIT)
@@ -383,7 +383,7 @@
 	if(!isopen)
 		to_chat(user, SPAN_WARNING("The unit's doors are shut."))
 		return
-	if(stat & NOPOWER)
+	if(stat & MACHINE_STAT_NOPOWER)
 		to_chat(user, SPAN_WARNING("The unit is not operational."))
 		return
 	if(OCCUPANT || HELMET || SUIT) //Unit needs to be absolutely empty
@@ -443,7 +443,7 @@
 	if(default_deconstruction(I, user))
 		return
 
-	if(stat & NOPOWER)
+	if(stat & MACHINE_STAT_NOPOWER)
 		return
 	else if(istype(I, /obj/item/clothing/suit))
 		load(I, user, LOAD_SLOT_SUIT)

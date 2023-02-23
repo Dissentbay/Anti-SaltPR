@@ -26,7 +26,7 @@
 	update_icon()
 
 /obj/machinery/ai_slipper/update_icon()
-	if (stat & NOPOWER || stat & BROKEN)
+	if (stat & MACHINE_STAT_NOPOWER || stat & MACHINE_BROKEN_GENERIC)
 		icon_state = "motion0"
 	else
 		icon_state = disabled ? "motion0" : "motion3"
@@ -37,7 +37,7 @@
 	src.power_change()
 
 /obj/machinery/ai_slipper/attackby(obj/item/W, mob/user)
-	if(stat & (NOPOWER|BROKEN))
+	if(stat & (MACHINE_STAT_NOPOWER|MACHINE_BROKEN_GENERIC))
 		return
 	if (issilicon(user))
 		return src.attack_hand(user)
@@ -58,7 +58,7 @@
 	return
 
 /obj/machinery/ai_slipper/attack_hand(mob/user as mob)
-	if(stat & (NOPOWER|BROKEN))
+	if(stat & (MACHINE_STAT_NOPOWER|MACHINE_BROKEN_GENERIC))
 		return
 	if ( (get_dist(src, user) > 1 ))
 		if (!issilicon(user))

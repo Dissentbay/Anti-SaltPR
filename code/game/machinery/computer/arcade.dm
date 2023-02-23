@@ -39,7 +39,7 @@
 		prize.loc = src.loc
 
 /obj/machinery/computer/arcade/emp_act(severity)
-	if(stat & (NOPOWER|BROKEN))
+	if(stat & (MACHINE_STAT_NOPOWER|MACHINE_BROKEN_GENERIC))
 		..(severity)
 		return
 	var/empprize = null

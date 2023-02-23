@@ -43,7 +43,7 @@
 		else if(!sensors.powered())
 			data["status"] = "NO POWER"
 		else if(!sensors.in_vacuum())
-			data["status"] = "VACUUM SEAL BROKEN"
+			data["status"] = "VACUUM SEAL MACHINE_BROKEN_GENERIC"
 		else
 			data["status"] = "OK"
 	else

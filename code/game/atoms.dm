@@ -83,15 +83,15 @@
 
 /atom/proc/healthCheck()
 	if (src.health <= 0)
-		if(!(stat & BROKEN))
+		if(!(stat & MACHINE_BROKEN_GENERIC))
 			breakObject()
 		else
 			return
 	return
 
 /atom/proc/breakObject()
-	if(!(stat & BROKEN))
-		stat |= BROKEN
+	if(!(stat & MACHINE_BROKEN_GENERIC))
+		stat |= MACHINE_BROKEN_GENERIC
 
 /**
  * Called when an atom is created in byond (built in engine proc)

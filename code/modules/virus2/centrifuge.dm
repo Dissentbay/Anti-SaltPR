@@ -29,7 +29,7 @@
 
 /obj/machinery/computer/centrifuge/update_icon()
 	..()
-	if(! (stat & (BROKEN|NOPOWER)) && (isolating || curing))
+	if(! (stat & (MACHINE_BROKEN_GENERIC|MACHINE_STAT_NOPOWER)) && (isolating || curing))
 		icon_state = "centrifuge_moving"
 
 /obj/machinery/computer/centrifuge/attack_hand(var/mob/user as mob)
@@ -79,7 +79,7 @@
 
 /obj/machinery/computer/centrifuge/Process()
 	..()
-	if (stat & (NOPOWER|BROKEN)) return
+	if (stat & (MACHINE_STAT_NOPOWER|MACHINE_BROKEN_GENERIC)) return
 
 	if (curing)
 		curing -= 1

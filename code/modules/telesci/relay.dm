@@ -67,7 +67,7 @@
 	. = ..(user)
 	if(stored_crystal)
 		to_chat(user, "<span class='notice'>There is \a [stored_crystal] in \the [src]s crystal slot.</span>")
-		if(!(stat & (BROKEN | NOPOWER)))
+		if(!(stat & (MACHINE_BROKEN_GENERIC | MACHINE_STAT_NOPOWER)))
 			to_chat(user, "<span class='notice'>\The [src]s crystal integrity monitor reads [getCrystalIntegrityPercent()]%.</span>")
 	else
 		to_chat(user, "<span class='notice'>\The [src]s crystal slot is empty.")
@@ -130,7 +130,7 @@
 	if(!stored_crystal)
 		return FALSE
 
-	if((stat & (BROKEN | NOPOWER)))
+	if((stat & (MACHINE_BROKEN_GENERIC | MACHINE_STAT_NOPOWER)))
 		return FALSE
 
 	return TRUE

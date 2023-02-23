@@ -47,7 +47,7 @@
 	if(!istype(user) || user.c_borg || !config.allow_drone_spawn)
 		return
 
-	if(stat & NOPOWER)
+	if(stat & MACHINE_STAT_NOPOWER)
 		to_chat(user, "<span class='warning'>\The [src] is unpowered.</span>")
 		return
 

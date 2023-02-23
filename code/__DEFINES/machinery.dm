@@ -21,11 +21,17 @@ var/global/defer_powernet_rebuild = 0      // True if net rebuild will be called
 #define ACTIVE_POWER_USE 2
 
 // Bitflags for machine stat variable.
-#define BROKEN   0x1
-#define NOPOWER  0x2
-#define POWEROFF 0x4  // TBD.
-#define MAINT    0x8  // Under maintenance.
-#define EMPED    0x10 // Temporary broken by EMP pulse.
+#define MACHINE_STAT_NOPOWER     BITFLAG(0)
+#define MACHINE_STAT_MAINT       BITFLAG(1)  // Under maintenance.
+#define MACHINE_STAT_EMPED       BITFLAG(2)  // Temporary broken by EMP pulse.
+#define MACHINE_STAT_NOSCREEN    BITFLAG(3)  // No UI shown via direct interaction
+#define MACHINE_STAT_NOINPUT     BITFLAG(4)  // No input taken from direct interaction
+
+#define MACHINE_BROKEN_GENERIC  BITFLAG(0)  // Standard legacy brokenness, used on a case-by-case basis
+#define MACHINE_BROKEN_NO_PARTS BITFLAG(1)  // Missing required parts
+#define MACHINE_BROKEN_HEALTH   BITFLAG(2)  // Standardized health state is dead
+
+#define MACHINE_IS_BROKEN(MACHINE) (!!MACHINE.reason_broken)
 
 #define AI_CAMERA_LUMINOSITY 6
 

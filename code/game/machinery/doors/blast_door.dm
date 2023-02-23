@@ -116,7 +116,7 @@
 	src.add_fingerprint(user)
 	if(QUALITY_PRYING in I.tool_qualities)
 		if(I.use_tool(user, src, WORKTIME_NORMAL, QUALITY_PRYING, FAILCHANCE_VERY_EASY,  required_stat = STAT_ROB))
-			if(((stat & NOPOWER) || (stat & BROKEN)) && !( src.operating ))
+			if(((stat & MACHINE_STAT_NOPOWER) || (stat & MACHINE_BROKEN_GENERIC)) && !( src.operating ))
 				force_toggle()
 			else
 				to_chat(usr, SPAN_NOTICE("[src]'s motors resist your effort."))
@@ -146,7 +146,7 @@
 // Parameters: 1 (forced - if true, the checks will be skipped)
 // Description: Opens the door. Does necessary checks. Automatically closes if autoclose is true
 /obj/machinery/door/blast/open(forced = FALSE)
-	if ((operating || (stat & BROKEN || stat & NOPOWER)) && !forced)
+	if ((operating || (stat & MACHINE_BROKEN_GENERIC || stat & MACHINE_STAT_NOPOWER)) && !forced)
 		return
 	force_open()
 	if(autoclose)
@@ -158,7 +158,7 @@
 // Parameters: 1 (forced - if true, the checks will be skipped)
 // Description: Closes the door. Does necessary checks.
 /obj/machinery/door/blast/close(forced = FALSE)
-	if ((operating || (stat & BROKEN || stat & NOPOWER)) && !forced)
+	if ((operating || (stat & MACHINE_BROKEN_GENERIC || stat & MACHINE_STAT_NOPOWER)) && !forced)
 		return
 	force_close()
 	crush()
@@ -169,8 +169,8 @@
 // Description: Fully repairs the blast door.
 /obj/machinery/door/blast/proc/repair()
 	health = maxHealth
-	if(stat & BROKEN)
-		stat &= ~BROKEN
+	if(stat & MACHINE_BROKEN_GENERIC)
+		stat &= ~MACHINE_BROKEN_GENERIC
 
 
 /obj/machinery/door/blast/CanPass(atom/movable/mover, turf/target, height=0, air_group=0)

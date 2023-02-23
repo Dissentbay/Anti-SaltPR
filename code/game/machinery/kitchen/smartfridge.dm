@@ -152,7 +152,7 @@
 
 /obj/machinery/smartfridge/drinks/update_icon()
 	cut_overlays()
-	if(stat & (BROKEN|NOPOWER))
+	if(stat & (MACHINE_BROKEN_GENERIC|MACHINE_STAT_NOPOWER))
 		icon_state = icon_off
 	else
 		icon_state = icon_on
@@ -160,7 +160,7 @@
 	if(panel_open && icon_panel)
 		add_overlay(image(icon, icon_panel))
 
-	if(contents.len && !(stat & NOPOWER))
+	if(contents.len && !(stat & MACHINE_STAT_NOPOWER))
 		add_overlay(image(icon, icon_fill))
 
 /***************************
@@ -261,7 +261,7 @@
 
 
 /obj/machinery/smartfridge/Process()
-	if(stat & (BROKEN|NOPOWER))
+	if(stat & (MACHINE_BROKEN_GENERIC|MACHINE_STAT_NOPOWER))
 		return
 	if(src.seconds_electrified > 0)
 		src.seconds_electrified--
@@ -276,7 +276,7 @@
 
 /obj/machinery/smartfridge/update_icon()
 	cut_overlays()
-	if(stat & (BROKEN|NOPOWER))
+	if(stat & (MACHINE_BROKEN_GENERIC|MACHINE_STAT_NOPOWER))
 		icon_state = icon_off
 	else
 		icon_state = icon_on
@@ -309,7 +309,7 @@
 			attack_hand(user)
 		return
 
-	if(stat & NOPOWER)
+	if(stat & MACHINE_STAT_NOPOWER)
 		to_chat(user, SPAN_NOTICE("\The [src] is unpowered and useless."))
 		return
 
@@ -357,7 +357,7 @@
 		return 1
 
 /obj/machinery/smartfridge/attack_hand(mob/user as mob)
-	if(stat & (NOPOWER|BROKEN))
+	if(stat & (MACHINE_STAT_NOPOWER|MACHINE_BROKEN_GENERIC))
 		return
 	wires.Interact(user)
 	nano_ui_interact(user)
@@ -465,7 +465,7 @@
 *************************/
 
 /obj/machinery/smartfridge/secure/Topic(href, href_list)
-	if(stat & (NOPOWER|BROKEN)) return 0
+	if(stat & (MACHINE_STAT_NOPOWER|MACHINE_BROKEN_GENERIC)) return 0
 	if(usr.contents.Find(src) || (in_range(src, usr) && istype(loc, /turf)))
 		if(!allowed(usr) && !emagged && locked != -1 && href_list["vend"])
 			to_chat(usr, SPAN_WARNING("Access denied."))

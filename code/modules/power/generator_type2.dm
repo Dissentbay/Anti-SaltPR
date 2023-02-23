@@ -19,13 +19,13 @@
 		input1 = locate(/obj/machinery/atmospherics/unary/generator_input) in get_step(src,turn(dir, 90))
 		input2 = locate(/obj/machinery/atmospherics/unary/generator_input) in get_step(src,turn(dir, -90))
 		if(!input1 || !input2)
-			stat |= BROKEN
+			stat |= MACHINE_BROKEN_GENERIC
 		updateicon()
 
 
 /obj/machinery/power/generator_type2/proc/updateicon()
 
-	if(stat & (NOPOWER|BROKEN))
+	if(stat & (MACHINE_STAT_NOPOWER|MACHINE_BROKEN_GENERIC))
 		cut_overlays()
 	else
 		cut_overlays()
@@ -90,7 +90,7 @@
 
 /obj/machinery/power/generator_type2/attack_hand(mob/user)
 	add_fingerprint(user)
-	if(stat & (BROKEN|NOPOWER)) return
+	if(stat & (MACHINE_BROKEN_GENERIC|MACHINE_STAT_NOPOWER)) return
 	interact(user)
 
 

@@ -2,7 +2,7 @@
 /obj/machinery/var/reason_broken = 0
 
 /// Bitflag. The machine will never set stat to these flags.
-/obj/machinery/var/stat_immune = NOPOWER | BROKEN
+/obj/machinery/var/stat_immune = MACHINE_STAT_NOPOWER | MACHINE_BROKEN_GENERIC
 
 
 /**
@@ -57,7 +57,7 @@
 
 
 /**
- * Whether or not the machine is considered 'powered'. By default this translates directly to `!stat_check(NOPOWER)`.
+ * Whether or not the machine is considered 'powered'. By default this translates directly to `!stat_check(MACHINE_STAT_NOPOWER)`.
  *
  * Returns boolean.
  */
@@ -70,6 +70,6 @@
 	return !inoperable()
 
 
-/// Checks whether or not the machine's state variable has the `MACHINE_STAT_BROKEN` or `NOPOWER` flags, or any of the provided `additional_flags`. Returns `TRUE` if any of the flags match.
+/// Checks whether or not the machine's state variable has the `MACHINE_STAT_BROKEN` or `MACHINE_STAT_NOPOWER` flags, or any of the provided `additional_flags`. Returns `TRUE` if any of the flags match.
 /obj/machinery/proc/inoperable(additional_flags = EMPTY_BITFIELD)
 	return (GET_FLAGS(stat, NO_POWER_USE | additional_flags) || reason_broken)
