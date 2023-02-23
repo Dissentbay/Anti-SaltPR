@@ -9,7 +9,7 @@
 	name = "injector"
 	desc = "Passively injects air into its surroundings. Has a valve attached to it that can control flow rate."
 
-	use_power = POWER_USE_OFF
+	use_power = NO_POWER_USE
 	idle_power_usage = 150		//internal circuitry, friction losses and stuff
 	power_rating = 45000	//45000 W ~ 60 HP
 
@@ -45,7 +45,7 @@
 
 /obj/machinery/atmospherics/unary/outlet_injector/on_update_icon()
 	if (!node)
-		update_use_power(POWER_USE_OFF)
+		update_use_power(NO_POWER_USE)
 
 	if(!is_powered())
 		icon_state = "off"
@@ -179,7 +179,7 @@
 		return 0
 
 	if(signal.data["power"])
-		update_use_power(sanitize_integer(text2num(signal.data["power"]), POWER_USE_OFF, POWER_USE_ACTIVE, use_power))
+		update_use_power(sanitize_integer(text2num(signal.data["power"]), NO_POWER_USE, POWER_USE_ACTIVE, use_power))
 		queue_icon_update()
 
 	if(signal.data["power_toggle"] || signal.data["command"] == "valve_toggle") // some atmos buttons use "valve_toggle" as a command

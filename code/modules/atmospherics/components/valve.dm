@@ -216,7 +216,7 @@
 	return null
 
 /obj/machinery/atmospherics/valve/attackby(obj/item/W as obj, mob/user as mob)
-	if (!istype(W, /obj/item/wrench))
+	if (!(QUALITY_BOLT_TURNING in W.tool_qualities))
 		return ..()
 
 /obj/machinery/atmospherics/valve/digital		// can be controlled by AI
@@ -298,7 +298,7 @@
 		return 1
 	playsound(src.loc, 'sound/items/Ratchet.ogg', 50, 1)
 	to_chat(user, SPAN_NOTICE("You begin to unfasten \the [src]..."))
-	if (do_after(user, 4 SECONDS, src, DO_REPAIR_CONSTRUCT))
+	if (do_after(user, 4 SECONDS, src))
 		user.visible_message( \
 			SPAN_NOTICE("\The [user] unfastens \the [src]."), \
 			SPAN_NOTICE("You have unfastened \the [src]."), \

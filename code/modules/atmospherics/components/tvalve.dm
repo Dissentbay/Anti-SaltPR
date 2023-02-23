@@ -265,7 +265,7 @@
 	return null
 
 /obj/machinery/atmospherics/tvalve/attackby(obj/item/W as obj, mob/user as mob)
-	if(!isWrench(W))
+	if(!QUALITY_BOLT_TURNING in W.tool_qualities)
 		return ..()
 	if (istype(src, /obj/machinery/atmospherics/tvalve/digital))
 		to_chat(user, SPAN_WARNING("You cannot unwrench \the [src], it's too complicated."))

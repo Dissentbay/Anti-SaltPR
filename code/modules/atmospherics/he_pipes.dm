@@ -4,7 +4,7 @@
 	icon_state = "intact"
 	pipe_icon = "hepipe"
 	color = "#404040"
-	level = ATOM_LEVEL_OVER_TILE
+	level = ABOVE_PLATING_LEVEL
 	connect_types = CONNECT_TYPE_HE
 	var/initialize_directions_he
 	var/surface = 2	//surface area in m^2
@@ -19,7 +19,7 @@
 	alert_pressure = 360*ONE_ATMOSPHERE
 
 	can_buckle = TRUE
-	buckle_stance = BUCKLE_FORCE_PRONE
+	buckle_stance = TRUE
 
 /obj/machinery/atmospherics/pipe/simple/heat_exchanging/Initialize()
 	. = ..()

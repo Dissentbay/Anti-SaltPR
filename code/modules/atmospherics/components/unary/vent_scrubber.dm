@@ -4,7 +4,7 @@
 
 	name = "Air Scrubber"
 	desc = "Has a valve and pump attached to it."
-	use_power = POWER_USE_OFF
+	use_power = NO_POWER_USE
 	idle_power_usage = 150		//internal circuitry, friction losses and stuff
 	power_rating = 30000			// 30000 W ~ 40 HP
 
@@ -142,7 +142,7 @@
 		return 1
 
 	if (!node)
-		update_use_power(POWER_USE_OFF)
+		update_use_power(NO_POWER_USE)
 	//broadcast_status()
 	if(!use_power || (inoperable()))
 		return 0

@@ -91,6 +91,7 @@ Devices:
 1451 - tracking implant
 1457 - RSD default
 
+
 On the map:
 1311 for prison shuttle console (in fact, it is not used)
 1435 for status displays
@@ -106,6 +107,19 @@ On the map:
 1453 for engineering access
 1455 for AI access
 */
+
+// Device signal frequencies
+var/global/const/ATMOS_ENGINE_FREQ = 1438 // Used by atmos monitoring in the engine.
+var/global/const/PUMP_FREQ         = 1439 // Used by air alarms and their progeny.
+var/global/const/FUEL_FREQ         = 1447 // Used by fuel atmos stuff, and currently default for digital valves
+var/global/const/ATMOS_TANK_FREQ   = 1441 // Used for gas tank sensors and monitoring.
+var/global/const/ATMOS_DIST_FREQ   = 1443 // Alternative atmos frequency.
+var/global/const/BUTTON_FREQ       = 1301 // Used by generic buttons controlling stuff
+var/global/const/BLAST_DOORS_FREQ  = 1303 // Used by blast doors, buttons controlling them, and mass drivers.
+var/global/const/AIRLOCK_FREQ      = 1305 // Used by airlocks and buttons controlling them.
+var/global/const/SHUTTLE_AIR_FREQ  = 1331 // Used by shuttles and shuttle-related atmos systems.
+var/global/const/AIRLOCK_AIR_FREQ  = 1379 // Used by some airlocks for atmos devices.
+var/global/const/EXTERNAL_AIR_FREQ = 1380 // Used by some external airlocks.
 
 var/const/RADIO_LOW_FREQ	= 1200
 var/const/PUBLIC_LOW_FREQ	= 1441

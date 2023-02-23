@@ -169,7 +169,7 @@ Class Procs:
 				if(condense_amt < 1)
 					break
 				air.adjust_gas(g, -condense_amt)
-				flooding.add_fluid(condense_amt, product)
+				//flooding.add_fluid(condense_amt, product) not yet
 
 	// Update atom temperature.
 	if(abs(air.temperature - last_air_temperature) >= ATOM_TEMPERATURE_EQUILIBRIUM_THRESHOLD)

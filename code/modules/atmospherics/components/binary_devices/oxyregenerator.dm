@@ -5,7 +5,7 @@
 	icon_state = "off"
 	level = ATOM_LEVEL_UNDER_TILE
 	density = TRUE
-	use_power = POWER_USE_OFF
+	use_power = NO_POWER_USE
 	idle_power_usage = 200		//internal circuitry, friction losses and stuff
 	power_rating = 10000
 	base_type = /obj/machinery/atmospherics/binary/oxyregenerator

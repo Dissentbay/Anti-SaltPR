@@ -13,7 +13,7 @@ Pipelines + Other Objects -> Pipe network
 	anchored = TRUE
 	idle_power_usage = 0
 	active_power_usage = 0
-	power_channel = ENVIRON
+	power_channel = STATIC_ENVIRON
 
 	var/nodealert = 0
 	var/power_rating //the maximum amount of power the machine can use to do work, affects how powerful the machine is, in Watts
@@ -169,4 +169,4 @@ Pipelines + Other Objects -> Pipe network
 /obj/machinery/proc/set_initial_level()
 	var/turf/T = get_turf(src)
 	if(T)
-		level = (!T.is_plating() ? ATOM_LEVEL_OVER_TILE : ATOM_LEVEL_UNDER_TILE)
+		level = (!T.is_plating() ? ABOVE_PLATING_LEVEL : ATOM_LEVEL_UNDER_TILE)

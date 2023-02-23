@@ -59,7 +59,7 @@
 	return air_contents
 
 /obj/machinery/atmospherics/unary/tank/attackby(obj/item/W as obj, mob/user as mob)
-	if(isWrench(W))
+	if((QUALITY_BOLT_TURNING in W.tool_qualities))
 		if (air_contents.return_pressure() > 2*ONE_ATMOSPHERE)
 			to_chat(user, SPAN_WARNING("You cannot unwrench \the [src], it is too exerted due to internal pressure."))
 			add_fingerprint(user)

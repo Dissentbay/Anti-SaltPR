@@ -69,7 +69,7 @@
 
 
 /obj/machinery/atmospherics/unary/heat_exchanger/attackby(obj/item/W as obj, mob/user as mob)
-	if(!isWrench(W))
+	if(!(QUALITY_BOLT_TURNING in W.tool_qualities))
 		return ..()
 	var/turf/T = src.loc
 	if (level==ATOM_LEVEL_UNDER_TILE && isturf(T) && !T.is_plating())

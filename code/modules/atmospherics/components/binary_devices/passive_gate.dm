@@ -10,7 +10,7 @@
 	name = "pressure regulator"
 	desc = "A one-way air valve that can be used to regulate input or output pressure, and flow rate. Does not require power."
 
-	use_power = POWER_USE_OFF
+	use_power = NO_POWER_USE
 	uncreated_component_parts = null
 	interact_offline = 1
 	var/unlocked = 0	//If 0, then the valve is locked closed, otherwise it is open(-able, it's a one-way valve so it closes if gas would flow backwards).
@@ -246,7 +246,7 @@
 	return
 
 /obj/machinery/atmospherics/binary/passive_gate/attackby(obj/item/W as obj, mob/user as mob)
-	if(!isWrench(W))
+	if(!(QUALITY_BOLT_TURNING in W.tool_qualities))
 		return ..()
 	if (unlocked)
 		to_chat(user, SPAN_WARNING("You cannot unwrench \the [src], turn it off first."))

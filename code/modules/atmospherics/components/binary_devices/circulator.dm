@@ -91,7 +91,7 @@
 	return 1
 
 /obj/machinery/atmospherics/binary/circulator/attackby(obj/item/W as obj, mob/user as mob)
-	if(isWrench(W))
+	if((QUALITY_BOLT_TURNING in W.tool_qualities))
 		playsound(src.loc, 'sound/items/Ratchet.ogg', 75, 1)
 		anchored = !anchored
 		user.visible_message("[user.name] [anchored ? "secures" : "unsecures"] the bolts holding [src.name] to the floor.", \

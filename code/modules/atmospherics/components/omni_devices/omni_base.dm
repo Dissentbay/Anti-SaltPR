@@ -70,14 +70,14 @@
 	last_flow_rate = 0
 
 	if(error_check())
-		update_use_power(POWER_USE_OFF)
+		update_use_power(NO_POWER_USE)
 
 	if((inoperable()) || !use_power)
 		return 0
 	return 1
 
 /obj/machinery/atmospherics/omni/attackby(obj/item/W as obj, mob/user as mob)
-	if(!isWrench(W))
+	if(!(QUALITY_BOLT_TURNING in W.tool_qualities))
 		return ..()
 
 	var/int_pressure = 0

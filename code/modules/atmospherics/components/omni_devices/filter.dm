@@ -196,11 +196,11 @@ GLOBAL_LIST_INIT(filter_mode_to_gas_id, list( \
 			if(!configuring)
 				update_use_power(!use_power)
 			else
-				update_use_power(POWER_USE_OFF)
+				update_use_power(NO_POWER_USE)
 		if("configure")
 			configuring = !configuring
 			if(configuring)
-				update_use_power(POWER_USE_OFF)
+				update_use_power(NO_POWER_USE)
 
 	//only allows config changes when in configuring mode ~otherwise you'll get weird pressure stuff going on
 	if(configuring && !use_power)

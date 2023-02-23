@@ -40,12 +40,17 @@ var/global/image/contamination_overlay = image('icons/effects/contamination.dmi'
 
 /obj/var/contaminated = 0
 
-
+/*	this is bay's version, best for their item code the proc below fits our code better
 /obj/item/proc/can_contaminate()
 	//Clothing can be contaminated, with exceptions for certain items which cannot be washed in washing_machine.dm
 	if (obj_flags & ITEM_FLAG_PHORONGUARD) return 0
 
 	else if (item_flags & ITEM_FLAG_WASHER_ALLOWED) return 1
+*/
+/obj/item/proc/can_contaminate()
+	if(flags & PLASMAGUARD)
+		return FALSE
+	return TRUE
 
 /obj/item/proc/contaminate()
 	//Do a contamination overlay? Temporary measure to keep contamination less deadly than it was.
@@ -114,7 +119,7 @@ var/global/image/contamination_overlay = image('icons/effects/contamination.dmi'
 			to_chat(src, SPAN_DANGER("High levels of toxins cause you to spontaneously mutate!"))
 			domutcheck(src,null)
 
-
+/* nope, not messing with mobcode yet, soj original version below
 /mob/living/carbon/human/proc/burn_eyes()
 	var/obj/item/organ/internal/eyes/E = internal_organs_by_name[BP_EYES]
 	if(E && !E.phoron_guard)
@@ -124,7 +129,23 @@ var/global/image/contamination_overlay = image('icons/effects/contamination.dmi'
 		if (prob(max(0,E.damage - 15) + 1) &&!eye_blind)
 			to_chat(src, SPAN_DANGER("You are blinded!"))
 			eye_blind += 20
+*/
 
+/mob/living/carbon/human/proc/burn_eyes()
+	//The proc that handles eye burning.
+	if (!has_eyes() || species.eyes_are_impermeable)
+		return
+
+	var/obj/item/organ/internal/eyes/E = random_organ_by_process(OP_EYES)
+	if(E)
+		if(prob(20)) to_chat(src, "<span class='danger'>Your eyes burn!</span>")
+		E.damage += 2.5
+		eye_blurry = min(eye_blurry+1.5,50)
+		if (prob(max(0,E.damage - 15) + 1) &&!eye_blind)
+			to_chat(src, "<span class='danger'>You are blinded!</span>")
+			eye_blind += 20
+
+/*  also related to different objects code
 /mob/living/carbon/human/proc/pl_head_protected()
 	//Checks if the head is adequately sealed.
 	if(head)
@@ -149,6 +170,32 @@ var/global/image/contamination_overlay = image('icons/effects/contamination.dmi'
 		return 1
 
 	return BIT_TEST_ALL(coverage, UPPER_TORSO|LOWER_TORSO|LEGS|FEET|ARMS|HANDS)
+*/
+
+/mob/living/carbon/human/proc/pl_head_protected()
+	//Checks if the head is adequately sealed.
+	if(head)
+		if(vsc.plc.PHORONGUARD_ONLY)
+			if(head.flags & PLASMAGUARD)
+				return 1
+		else if(head.body_parts_covered & EYES)
+			return 1
+	return 0
+
+/mob/living/carbon/human/proc/pl_suit_protected()
+	//Checks if the suit is adequately sealed.
+	var/coverage = 0
+	for(var/obj/item/protection in list(wear_suit, gloves, shoes))
+		if(!protection)
+			continue
+		if(vsc.plc.PHORONGUARD_ONLY && !(protection.flags & PLASMAGUARD))
+			return 0
+		coverage |= protection.body_parts_covered
+
+	if(vsc.plc.PHORONGUARD_ONLY)
+		return 1
+
+	return BIT_TEST_ALL(coverage, UPPER_TORSO|LOWER_TORSO|LEGS|ARMS)
 
 /mob/living/carbon/human/proc/suit_contamination()
 	//Runs over the things that can be contaminated and does so.

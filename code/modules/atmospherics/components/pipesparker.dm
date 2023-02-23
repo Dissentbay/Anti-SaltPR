@@ -74,7 +74,7 @@
 	ignite()
 
 /obj/machinery/atmospherics/pipe/cap/sparker/attackby(obj/item/W as obj, mob/user as mob)
-	if (isScrewdriver(W) && !signaler)
+	if ((QUALITY_SCREW_DRIVING in W.tool_qualities) && !signaler)
 		add_fingerprint(user)
 		disabled = !disabled
 		if (disabled)
@@ -109,7 +109,7 @@
 		update_icon()
 		return
 
-	if (isScrewdriver(W) && signaler)
+	if ((QUALITY_SCREW_DRIVING in W.tool_qualities) && signaler)
 		signaler.mholder = null
 		signaler.dropInto(loc)
 		user.visible_message(
@@ -120,7 +120,7 @@
 		update_icon()
 		return
 
-	if (isWrench(W) && (signaler || disabled))
+	if ((QUALITY_BOLT_TURNING in W.tool_qualities) && (signaler || disabled))
 		to_chat(user, SPAN_NOTICE("Remove signalers and check the wiring before unwrenching \the [src]."))
 		return
 	..()

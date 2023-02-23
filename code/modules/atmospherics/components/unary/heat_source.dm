@@ -8,7 +8,7 @@
 	icon_state = "heater_0"
 	density = TRUE
 	anchored = TRUE
-	use_power = POWER_USE_OFF
+	use_power = NO_POWER_USE
 	use_power = NO_POWER_USE
 	idle_power_usage = 5			//5 Watts for thermostat related circuitry
 	base_type = /obj/machinery/atmospherics/unary/heater

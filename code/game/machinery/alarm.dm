@@ -33,7 +33,7 @@
 	anchored = TRUE
 	idle_power_usage = 80
 	active_power_usage = 1000 //For heating/cooling rooms. 1000 joules equates to about 1 degree every 2 seconds for a single tile of air.
-	power_channel = ENVIRON
+	power_channel = STATIC_ENVIRON
 	req_access = list(list(access_atmospherics, access_engine_equip))
 	clicksound = "button"
 	clickvol = 30
@@ -786,7 +786,7 @@
 /obj/machinery/alarm/attackby(obj/item/W as obj, mob/user as mob)
 	switch(buildstage)
 		if(2)
-			if(isScrewdriver(W))  // Opening that Air Alarm up.
+			if((QUALITY_SCREW_DRIVING in W.tool_qualities))  // Opening that Air Alarm up.
 //				to_chat(user, "You pop the Air Alarm's maintence panel open.")
 				wiresexposed = !wiresexposed
 				to_chat(user, "The wires have been [wiresexposed ? "exposed" : "unexposed"]")
@@ -843,7 +843,7 @@
 				update_icon()
 				return
 
-			else if(isWrench(W))
+			else if((QUALITY_BOLT_TURNING in W.tool_qualities))
 				to_chat(user, "You remove the fire alarm assembly from the wall!")
 				new /obj/item/frame/air_alarm(get_turf(user))
 				playsound(src.loc, 'sound/items/Ratchet.ogg', 50, 1)
@@ -885,7 +885,7 @@ FIRE ALARM
 	anchored = TRUE
 	idle_power_usage = 2
 	active_power_usage = 6
-	power_channel = ENVIRON
+	power_channel = STATIC_ENVIRON
 	var/last_process = 0
 	var/wiresexposed = FALSE
 	var/buildstage = 2 // 2 = complete, 1 = no wires,  0 = circuit gone
@@ -964,7 +964,7 @@ FIRE ALARM
 	..()
 
 /obj/machinery/firealarm/attackby(obj/item/W as obj, mob/user as mob)
-	if(isScrewdriver(W) && buildstage == 2)
+	if((QUALITY_SCREW_DRIVING in W.tool_qualities) && buildstage == 2)
 		wiresexposed = !wiresexposed
 		update_icon()
 		return
@@ -1011,7 +1011,7 @@ FIRE ALARM
 					buildstage = 1
 					update_icon()
 
-				else if(isWrench(W))
+				else if((QUALITY_BOLT_TURNING in W.tool_qualities))
 					to_chat(user, "You remove the fire alarm assembly from the wall!")
 					new /obj/item/frame/fire_alarm(get_turf(user))
 					playsound(src.loc, 'sound/items/Ratchet.ogg', 50, 1)

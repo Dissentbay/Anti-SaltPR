@@ -17,6 +17,17 @@
 	var/list/overlay_limit = list()
 	//Flags.
 	var/list/flags = list()
+	//Products created when burned. For fuel only for now (not oxidizers)
+	var/list/burn_product = list()
+	// Reagent created when inhaled by lungs.
+	var/list/breathed_product = list()
+	// Temperature in K that the gas will condense.
+	var/list/condensation_points = list()
+	// Reagent path resulting from condesation.
+	var/list/condensation_products = list()
+	//If it shouldn't autogenerate a codex entry
+	var/list/hidden_from_codex = list()
+
 
 /decl/xgm_gas
 	var/id = ""

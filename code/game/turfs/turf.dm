@@ -36,6 +36,9 @@
 	/// WARNING: Currently to use a density shortcircuiting this does not support dense turfs with special allow through function
 	var/pathing_pass_method = TURF_PATHING_PASS_DENSITY
 
+	/// Reference to the turf fire on the turf
+	var/obj/effect/turf_fire/turf_fire
+
 /turf/New()
 	..()
 	for(var/atom/movable/AM as mob|obj in src)
@@ -308,3 +311,6 @@ var/const/enterloopsanity = 100
 /turf/CtrlClick(mob/user)
 	user.haul_all_objs_proc(src)
 	..()
+
+/turf/proc/IgniteTurf(power, fire_colour)
+	return

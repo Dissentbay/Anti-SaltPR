@@ -81,7 +81,7 @@ Contains helper procs for airflow, handled in /connection_group.
 	if(buckled)
 		return 0
 	var/obj/item/shoes = get_equipped_item(slot_shoes)
-	if(istype(shoes) && (shoes.item_flags & ITEM_FLAG_NOSLIP))
+	if(istype(shoes) && (shoes.item_flags & NOSLIP))
 		return 0
 	return 1
 
@@ -130,11 +130,11 @@ Contains helper procs for airflow, handled in /connection_group.
 		bloody_body(src)
 	var/b_loss = min(airflow_speed, (airborne_acceleration*2)) * vsc.airflow_damage
 
-	apply_damage(b_loss/3, DAMAGE_BRUTE, BP_HEAD, used_weapon = "Airflow")
+	apply_damage(b_loss/3, BRUTE, BP_HEAD, used_weapon = "Airflow")
 
-	apply_damage(b_loss/3, DAMAGE_BRUTE, BP_CHEST, used_weapon =  "Airflow")
+	apply_damage(b_loss/3, BRUTE, BP_CHEST, used_weapon =  "Airflow")
 
-	apply_damage(b_loss/3, DAMAGE_BRUTE, BP_GROIN, used_weapon =  "Airflow")
+	apply_damage(b_loss/3, BRUTE, BP_GROIN, used_weapon =  "Airflow")
 
 	if(airflow_speed > 10)
 		Paralyse(round(airflow_speed * vsc.airflow_stun))

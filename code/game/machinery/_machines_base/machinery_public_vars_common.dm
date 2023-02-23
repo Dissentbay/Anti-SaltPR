@@ -76,7 +76,7 @@ Public vars at /obj/machinery level. Just because they are here does not mean th
 	return machine.use_power
 
 /singleton/public_access/public_variable/use_power/write_var(obj/machinery/machine, new_value)
-	if(!(new_value in list(POWER_USE_OFF, POWER_USE_IDLE, POWER_USE_ACTIVE)))
+	if(!(new_value in list(NO_POWER_USE, POWER_USE_IDLE, POWER_USE_ACTIVE)))
 		return FALSE
 	. = ..()
 	if(.)

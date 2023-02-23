@@ -1425,3 +1425,7 @@ mob/proc/yank_out_object()
 	if(stats)
 		health += src.stats.getStat(STAT_ANA)
 		maxHealth += src.stats.getStat(STAT_ANA)
+
+//bay mobcode+nanoui stuff
+/mob/DefaultTopicState()
+	return GLOB.default_state

@@ -13,7 +13,7 @@
 
 	name = "Air Vent"
 	desc = "Has a valve and pump attached to it."
-	use_power = POWER_USE_OFF
+	use_power = NO_POWER_USE
 	idle_power_usage = 150		//internal circuitry, friction losses and stuff
 	power_rating = 30000			// 30000 W ~ 40 HP
 
@@ -181,7 +181,7 @@
 		return 1
 
 	if (!node)
-		update_use_power(POWER_USE_OFF)
+		update_use_power(NO_POWER_USE)
 	if(!can_pump())
 		return 0
 
@@ -310,7 +310,7 @@
 		to_chat(user, "It seems welded shut.")
 
 /obj/machinery/atmospherics/unary/vent_pump/attackby(obj/item/W as obj, mob/user as mob)
-	if(isWrench(W))
+	if((QUALITY_BOLT_TURNING in W.tool_qualities))
 		if (is_powered() && use_power)
 			to_chat(user, SPAN_WARNING("You cannot unwrench \the [src], turn it off first."))
 			return 1
@@ -553,7 +553,7 @@
 
 /obj/machinery/atmospherics/unary/vent_pump/engine
 	name = "Engine Core Vent"
-	power_channel = ENVIRON
+	power_channel = STATIC_ENVIRON
 	power_rating = 30000
 	controlled = FALSE
 	stock_part_presets = list(

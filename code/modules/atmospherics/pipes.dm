@@ -6,7 +6,7 @@
 	var/datum/pipeline/parent
 	var/volume = 0
 	var/leaking = 0		// Do not set directly, use set_leaking(TRUE/FALSE)
-	use_power = POWER_USE_OFF
+	use_power = NO_POWER_USE
 	uncreated_component_parts = null // No apc connection
 
 	var/maximum_pressure = 210 * ONE_ATMOSPHERE
@@ -33,7 +33,7 @@
 		level = ATOM_LEVEL_UNDER_TILE
 
 /obj/machinery/atmospherics/pipe/hides_under_flooring()
-	return level != ATOM_LEVEL_OVER_TILE
+	return level != ABOVE_PLATING_LEVEL
 
 /obj/machinery/atmospherics/pipe/proc/set_leaking(new_leaking)
 	if(new_leaking && !leaking)
@@ -111,7 +111,7 @@
 	if (istype(src, /obj/machinery/atmospherics/pipe/vent))
 		return ..()
 
-	if(isWrench(W))
+	if((QUALITY_BOLT_TURNING in W.tool_qualities))
 		var/turf/T = src.loc
 		if (level==ATOM_LEVEL_UNDER_TILE && isturf(T) && !T.is_plating())
 			to_chat(user, SPAN_WARNING("You must remove the plating first."))
@@ -336,7 +336,7 @@
 
 /obj/machinery/atmospherics/pipe/simple/visible
 	icon_state = "intact"
-	level = ATOM_LEVEL_OVER_TILE
+	level = ABOVE_PLATING_LEVEL
 
 /obj/machinery/atmospherics/pipe/simple/visible/scrubbers
 	name = "Scrubbers pipe"
@@ -596,7 +596,7 @@
 
 /obj/machinery/atmospherics/pipe/manifold/visible
 	icon_state = "map"
-	level = ATOM_LEVEL_OVER_TILE
+	level = ABOVE_PLATING_LEVEL
 
 /obj/machinery/atmospherics/pipe/manifold/visible/scrubbers
 	name="Scrubbers pipe manifold"
@@ -864,7 +864,7 @@
 
 /obj/machinery/atmospherics/pipe/manifold4w/visible
 	icon_state = "map_4way"
-	level = ATOM_LEVEL_OVER_TILE
+	level = ABOVE_PLATING_LEVEL
 
 /obj/machinery/atmospherics/pipe/manifold4w/visible/scrubbers
 	name="4-way scrubbers pipe manifold"

@@ -1,6 +1,6 @@
 /obj/machinery/portable_atmospherics
 	name = "atmoalter"
-	use_power = POWER_USE_OFF
+	use_power = NO_POWER_USE
 	construct_state = /singleton/machine_construction/default/panel_closed
 
 	var/datum/gas_mixture/air_contents = new
@@ -113,7 +113,7 @@
 		update_icon()
 		return
 
-	else if(isWrench(W))
+	else if((QUALITY_BOLT_TURNING in W.tool_qualities))
 		if(connected_port)
 			disconnect()
 			to_chat(user, SPAN_NOTICE("You disconnect \the [src] from the port."))

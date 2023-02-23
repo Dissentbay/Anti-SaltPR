@@ -146,3 +146,11 @@
 	if (broken || burnt || health < maxHealth)
 		return TRUE
 	return FALSE
+
+//bay code down below
+
+/turf/simulated/IgniteTurf(power, fire_colour)
+	if(turf_fire)
+		turf_fire.AddPower(power)
+		return
+	new /obj/effect/turf_fire(src, power, fire_colour)

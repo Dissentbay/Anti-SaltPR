@@ -15,7 +15,7 @@
 	var/datum/pipe_network/network
 
 	var/on = 0
-	use_power = POWER_USE_OFF
+	use_power = NO_POWER_USE
 	uncreated_component_parts = null
 	level = ATOM_LEVEL_UNDER_TILE
 
@@ -131,7 +131,7 @@
 
 
 /obj/machinery/atmospherics/portables_connector/attackby(obj/item/W as obj, mob/user as mob)
-	if(!isWrench(W))
+	if(!QUALITY_BOLT_TURNING in W.tool_qualities)
 		return ..()
 	if (connected_device)
 		to_chat(user, SPAN_WARNING("You cannot unwrench \the [src], dettach \the [connected_device] first."))
