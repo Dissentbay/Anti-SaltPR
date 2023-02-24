@@ -309,7 +309,7 @@ This makes cloning vat is probably the most dangerous tool in Genetics. Because 
 	//hasmob effects whether the package goes to cargo or its tagged destination.
 	if(clone_ready)
 		if(occupant)
-			holder.has_mob = TRUE
+			holder.hasmob = TRUE
 			occupant.forceMove(holder)
 			occupant = null
 		if (nonliving_occupant)
@@ -329,7 +329,7 @@ This makes cloning vat is probably the most dangerous tool in Genetics. Because 
 	holder.active=TRUE
 	holder.set_dir(DOWN)
 	spawn(1)
-		holder.move()		// spawn off the movement process
+		holder.start()		// spawn off the movement process
 
 /obj/machinery/genetics/cloner/proc/get_progress()
 	return round(progress / cloning_stage_counter)

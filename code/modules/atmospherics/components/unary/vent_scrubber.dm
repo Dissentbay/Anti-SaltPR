@@ -204,9 +204,9 @@
 	return ..()
 
 /obj/machinery/atmospherics/unary/vent_scrubber/attackby(obj/item/W as obj, mob/user as mob)
-	if(istype(W, /obj/item/weldingtool))
+	if(istype(W, /obj/item/tool/weldingtool))
 
-		var/obj/item/weldingtool/WT = W
+		var/obj/item/tool/weldingtool/WT = W
 
 		if(!WT.isOn())
 			to_chat(user, SPAN_NOTICE("The welding tool needs to be on to start this task."))

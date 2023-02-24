@@ -44,7 +44,7 @@
 		var/turf/simulated/W = new N( locate(src.x, src.y, src.z) )
 		T = W
 		if(old_fire)
-			fire = old_fire
+			hotspot = old_fire
 
 		if (istype(W,/turf/simulated/floor))
 			W.RemoveLattice()
@@ -62,7 +62,7 @@
 		T = new N( locate(src.x, src.y, src.z) )
 
 		if(old_fire)
-			old_fire.RemoveFire()
+			old_fire.Destroy()
 
 		if(tell_universe)
 			universe.OnTurfChange(T)

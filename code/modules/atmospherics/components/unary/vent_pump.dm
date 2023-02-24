@@ -265,7 +265,7 @@
 /obj/machinery/atmospherics/unary/vent_pump/attackby(obj/item/W, mob/user)
 	if(isWelder(W))
 
-		var/obj/item/weldingtool/WT = W
+		var/obj/item/tool/weldingtool/WT = W
 
 		if(!WT.isOn())
 			to_chat(user, SPAN_NOTICE("The welding tool needs to be on to start this task."))

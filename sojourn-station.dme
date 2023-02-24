@@ -244,6 +244,7 @@
 #include "code\controllers\subsystems\movement\movement_types.dm"
 #include "code\controllers\subsystems\processing\airflow.dm"
 #include "code\controllers\subsystems\processing\circuit.dm"
+#include "code\controllers\subsystems\processing\disposals.dm"
 #include "code\controllers\subsystems\processing\fastprocess.dm"
 #include "code\controllers\subsystems\processing\icon_updates.dm"
 #include "code\controllers\subsystems\processing\mobs.dm"
@@ -942,6 +943,7 @@
 #include "code\game\objects\items.dm"
 #include "code\game\objects\objs.dm"
 #include "code\game\objects\structures.dm"
+#include "code\game\objects\topic.dm"
 #include "code\game\objects\effects\aliens.dm"
 #include "code\game\objects\effects\bump_teleporter.dm"
 #include "code\game\objects\effects\effect_system.dm"
@@ -3091,6 +3093,8 @@
 #include "code\modules\recycling\conveyor2.dm"
 #include "code\modules\recycling\disposal-construction.dm"
 #include "code\modules\recycling\disposal.dm"
+#include "code\modules\recycling\disposalholder.dm"
+#include "code\modules\recycling\disposalpipe.dm"
 #include "code\modules\recycling\sortingmachinery.dm"
 #include "code\modules\research\debug.dm"
 #include "code\modules\research\designs.dm"
@@ -3440,4 +3444,5 @@
 #include "modular_sojourn\task_master\tasks.dm"
 #include "tgs_dmapi\tgs.dm"
 #include "tgs_dmapi\tgs\includes.dm"
+
 // END_INCLUDE

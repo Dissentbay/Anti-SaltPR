@@ -55,14 +55,8 @@
 	var/id = src.GetIdCard()
 	return O.check_access(id)
 
-/mob/proc/CanUseObjTopic()
-	return 1
-
 /obj/proc/CouldUseTopic(var/mob/user)
 	user.AddTopicPrint(src)
-
-/mob/proc/AddTopicPrint(var/obj/target)
-	target.add_hiddenprint(src)
 
 /mob/living/AddTopicPrint(var/obj/target)
 	if(Adjacent(target))
