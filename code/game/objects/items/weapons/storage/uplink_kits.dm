@@ -149,7 +149,7 @@
 	new /obj/item/stamp/chameleon(src)
 	new /obj/item/pen/chameleon(src)
 	new /obj/item/device/destTagger(src)
-	new /obj/item/packageWrap(src)
+	new /obj/item/stack/package_wrap/twenty_five(src)
 	new /obj/item/hand_labeler(src)
 
 /obj/item/storage/box/syndie_kit/spy

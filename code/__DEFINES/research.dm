@@ -56,3 +56,5 @@
 #define CAT_GUNMODS     "Gun Mods"
 #define CAT_TOOLS       "Tools"
 #define CAT_CLOTHING    "Clothing"
+
+#define T_BOARD(name)	"circuit board (" + (name) + ")"

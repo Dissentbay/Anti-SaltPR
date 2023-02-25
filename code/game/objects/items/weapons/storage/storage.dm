@@ -659,3 +659,12 @@
 
 /obj/item/storage/AllowDrop()
 	return TRUE
+
+//bay stuff
+
+//Run once after using remove_from_storage with NoUpdate = 1
+/obj/item/storage/proc/finish_bulk_removal()
+	//update_ui_after_item_removal()	found on this file a equivalent below
+	refresh_all()
+	update_icon()
+

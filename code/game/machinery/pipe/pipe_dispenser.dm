@@ -10,7 +10,7 @@
 	uncreated_component_parts = null
 
 	idle_power_usage = 500
-	power_channel = EQUIP
+	power_channel = STATIC_EQUIP
 	use_power = NO_POWER_USE
 
 	machine_name = "pipe dispenser"

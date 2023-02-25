@@ -17,6 +17,7 @@
 #define HUMAN_EXPOSED_SURFACE_AREA          5.2 //m^2, surface area of 1.7m (H) x 0.46m (D) cylinder
 
 #define T0C  273.15 //    0.0 degrees celcius
+#define T100C 373.15//	100.0 degrees celcius
 #define T20C 293.15 //   20.0 degrees celcius
 #define TCMB 2.7    // -270.3 degrees celcius
 
@@ -276,6 +277,8 @@ proc/n_ceil(var/num)
 /// Value or the nearest integer in either direction
 #define Round(value) round((value), 1)
 
+/// The percentage of value in max, rounded to places: 1 = nearest 0.1 , 0 = nearest 1 , -1 = nearest 10, etc
+#define Percent(value, max, places) round((value) / (max) * 100, !(places) || 10 ** -(places))
 
 /// Value or the nearest multiple of divisor in either direction
 #define Roundm(value, divisor) round((value), (divisor))

@@ -22,6 +22,8 @@
 	var/static_equip
 	var/static_light = 0
 	var/static_environ
+	/// A lazy list of vent pumps currently in the area
+	var/list/obj/machinery/atmospherics/unary/vent_pump/vent_pumps
 
 /**
  * Called when an area loads

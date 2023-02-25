@@ -543,8 +543,12 @@ its easier to just keep the beam vertical.
 /atom/proc/emag_act(var/remaining_charges, var/mob/user, var/emag_source)
 	return NO_EMAG_ACT
 
-/atom/proc/fire_act()
-	return
+/atom/proc/fire_act(datum/gas_mixture/air, exposed_temperature, exposed_volume)
+	var/melting_point = get_material_melting_point()
+	if (get_max_health() && exposed_temperature > melting_point)
+		// No hitsound here to avoid noise spam.
+		// 1 point of damage for every 100 kelvin above 300 (~27 C), minimum of 1.
+		damage_health(max(round((exposed_temperature - melting_point) / 100), 1), DAMAGE_FIRE)
 
 /atom/proc/melt()
 	return
@@ -1022,3 +1026,9 @@ its easier to just keep the beam vertical.
 
 /atom/movable/onDropInto(atom/movable/AM)
 	return loc
+
+/**
+ * Handler for setting the atom's color.
+ */
+/atom/proc/set_color(color)
+	src.color = color

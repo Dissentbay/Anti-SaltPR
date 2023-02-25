@@ -263,32 +263,11 @@
 	toggle_input_toggle()
 
 /obj/machinery/atmospherics/unary/vent_pump/attackby(obj/item/W, mob/user)
-	if(isWelder(W))
+	if(W.tool_qualities == QUALITY_WELDING)
 
 		var/obj/item/tool/weldingtool/WT = W
 
-		if(!WT.isOn())
-			to_chat(user, SPAN_NOTICE("The welding tool needs to be on to start this task."))
-			return 1
-
-		if(!WT.remove_fuel(0,user))
-			to_chat(user, SPAN_WARNING("You need more welding fuel to complete this task."))
-			return 1
-
-		to_chat(user, SPAN_NOTICE("Now welding \the [src]."))
-		playsound(src, 'sound/items/Welder.ogg', 50, 1)
-
-		if(!do_after(user, 2 SECONDS, src, DO_REPAIR_CONSTRUCT))
-			to_chat(user, SPAN_NOTICE("You must remain close to finish this task."))
-			return 1
-
-		if(!src)
-			return 1
-
-		if(!WT.isOn())
-			to_chat(user, SPAN_NOTICE("The welding tool needs to be on to finish this task."))
-			return 1
-
+		if(WT.use_tool(user, src, WORKTIME_FAST, WT.tool_qualities, FAILCHANCE_VERY_EASY))
 		welded = !welded
 		update_icon()
 		playsound(src, 'sound/items/Welder2.ogg', 50, 1)

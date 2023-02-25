@@ -493,7 +493,7 @@
 			user.drop_item()
 			I.forceMove(src)
 			return
-	else if(istype(I, /obj/item/packageWrap))
+	else if(istype(I, /obj/item/stack/package_wrap))
 		return
 	else if(istype(I,/obj/item/card/id))
 		src.togglelock(user)

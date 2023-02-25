@@ -74,7 +74,7 @@
 				/obj/item/device/scanner/gas = 2,
 				/obj/item/stack/cable_coil = 5,
 				/obj/item/weldpack/canister = 2,
-				/obj/item/packageWrap = 1,
+				/obj/item/stack/package_wrap/twenty_five = 1,
 				/obj/item/device/flash = 2,
 				/obj/item/mop = 5,
 				/obj/item/inflatable_dispenser = 3,

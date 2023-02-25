@@ -832,3 +832,18 @@ var/list/name_to_material
 	icon_colour = "B7410E"
 	sheet_singular_name = "piece"
 	sheet_plural_name = "pieces"
+
+//bay stuff, hoping to not have to port it's whole materials system
+
+/**
+ * Returns the material's melting point, or `T100C` if there is no material. Overrideable for special cases, such as
+ * atoms that allow material reinforcement or that by nature should have a higher or lower melting point.
+ */
+/atom/proc/get_material_melting_point()
+	return T100C
+
+/obj/get_material_melting_point()
+	. = ..()
+	var/material/material = get_material()
+	if (material)
+		. = material.melting_point

@@ -61,9 +61,10 @@ GLOBAL_LIST_EMPTY(diversion_junctions)
 	if(MACHINE_IS_BROKEN(src) || !I || !user)
 		return
 
+	var/list/tool_type = I.tool_qualities
 	add_fingerprint(user, 0, I)
-	if(mode<=0) // It's off
-		if(isScrewdriver(I))
+	switch(tool_type)
+		if(QUALITY_SCREW_DRIVING)
 			if(length(contents) > LAZYLEN(component_parts))
 				to_chat(user, "Eject the items first!")
 				return
@@ -77,7 +78,7 @@ GLOBAL_LIST_EMPTY(diversion_junctions)
 				playsound(src.loc, 'sound/items/Screwdriver.ogg', 50, 1)
 				to_chat(user, "You attach the screws around the power connection.")
 				return
-		else if(isWelder(I) && mode==-1)
+		if(QUALITY_WELDING)
 			if(length(contents) > LAZYLEN(component_parts))
 				to_chat(user, "Eject the items first!")
 				return
@@ -626,24 +627,23 @@ GLOBAL_LIST_EMPTY(diversion_junctions)
 	if(!I || !user)
 		return
 	src.add_fingerprint(user, 0, I)
-	if(isScrewdriver(I))
-		if(mode==0)
-			mode=1
-			playsound(src.loc, 'sound/items/Screwdriver.ogg', 50, 1)
-			to_chat(user, "You remove the screws around the power connection.")
-			return
-		else if(mode==1)
-			mode=0
-			playsound(src.loc, 'sound/items/Screwdriver.ogg', 50, 1)
-			to_chat(user, "You attach the screws around the power connection.")
-			return
-	else if(istype(I,/obj/item/weldingtool) && mode==1)
-		var/obj/item/weldingtool/W = I
-		if(W.remove_fuel(0,user))
+	var/list/tool_type = I.tool_qualities
+	switch(tool_type)
+		if(QUALITY_SCREW_DRIVING)
+			if(mode==0)
+				mode=1
+				playsound(src.loc, 'sound/items/Screwdriver.ogg', 50, 1)
+				to_chat(user, "You remove the screws around the power connection.")
+				return
+			else if(mode==1)
+				mode=0
+				playsound(src.loc, 'sound/items/Screwdriver.ogg', 50, 1)
+				to_chat(user, "You attach the screws around the power connection.")
+				return
+		if(QUALITY_WELDING)
 			playsound(src.loc, 'sound/items/Welder2.ogg', 100, 1)
 			to_chat(user, "You start slicing the floorweld off the disposal outlet.")
-			if(do_after(user, 2 SECONDS, src, DO_REPAIR_CONSTRUCT))
-				if(!src || !W.isOn()) return
+			if(I.use_tool(user, src, WORKTIME_FAST, tool_type, FAILCHANCE_VERY_EASY))
 				to_chat(user, "You sliced the floorweld off the disposal outlet.")
 				var/obj/structure/disposalconstruct/machine/outlet/C = new (loc, src)
 				src.transfer_fingerprints_to(C)
@@ -652,9 +652,9 @@ GLOBAL_LIST_EMPTY(diversion_junctions)
 				C.update()
 				qdel(src)
 				return
-		else
-			to_chat(user, "You need more welding fuel to complete this task.")
-			return
+			else
+				to_chat(user, "You need more welding fuel to complete this task.")
+				return
 
 /obj/structure/disposaloutlet/forceMove()//updates this when shuttle moves. So you can YEET things out the airlock
 	. = ..()
