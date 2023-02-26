@@ -12,21 +12,15 @@
 			try_change_state(machine, /singleton/machine_construction/frame/wrenched)
 
 /singleton/machine_construction/frame/unwrenched/attackby(obj/item/I, mob/user, obj/machinery/machine)
-	if(isWrench(I))
+	if(QUALITY_BOLT_TURNING in I.tool_qualities)
 		playsound(machine.loc, 'sound/items/Ratchet.ogg', 50, 1)
-		if(do_after(user, 2 SECONDS, machine, DO_REPAIR_CONSTRUCT))
+		if(I.use_tool(user, src, WORKTIME_FAST, I.tool_qualities, FAILCHANCE_VERY_EASY))
 			TRANSFER_STATE(/singleton/machine_construction/frame/wrenched)
 			to_chat(user, SPAN_NOTICE("You wrench \the [machine] into place."))
 			machine.anchored = TRUE
-	if(isWelder(I))
-		var/obj/item/weldingtool/WT = I
-		if(!WT.remove_fuel(0, user))
-			to_chat(user, "The welding tool must be on to complete this task.")
-			return TRUE
-		playsound(machine.loc, 'sound/items/Welder.ogg', 50, 1)
-		if(do_after(user, 2 SECONDS, machine, DO_REPAIR_CONSTRUCT))
-			if(!WT.isOn())
-				return TRUE
+	if(QUALITY_WELDING in I.tool_qualities)
+		if(I.use_tool(user, src, WORKTIME_FAST, I.tool_qualities, FAILCHANCE_VERY_EASY))
+			playsound(machine.loc, 'sound/items/Welder.ogg', 50, 1)
 			TRANSFER_STATE(/singleton/machine_construction/default/deconstructed)
 			to_chat(user, SPAN_NOTICE("You deconstruct \the [machine]."))
 			machine.dismantle()

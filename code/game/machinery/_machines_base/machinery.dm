@@ -8,9 +8,9 @@
 /obj/machinery
 	name = "machinery"
 	icon = 'icons/obj/stationobjs.dmi'
-	w_class = ITEM_SIZE_NO_CONTAINER
+	w_class = ITEM_SIZE_TITANIC
 	layer = STRUCTURE_LAYER // Layer under items
-	init_flags = INIT_MACHINERY_PROCESS_SELF
+	flags = INIT_MACHINERY_PROCESS_SELF
 
 	health_resistances = DAMAGE_RESIST_ELECTRICAL
 
@@ -19,7 +19,7 @@
 	/// Boolean. Whether or not the machine has been upgrade by a malfunctioning AI.
 	var/malf_upgraded = FALSE
 	/// Wire datum, if any. If you place a type path, it will be autoinitialized.
-	//var/datum/wires/wires
+	var/datum/wires/wires_bay
 	/// One of `POWER_USE_*`. The power usage state of the machine. Use `update_use_power()` to modify this during runtime.
 	var/use_power = IDLE_POWER_USE
 	/// Power usage for idle machinery. Used if `use_power` is set to `IDLE_POWER_USE`. Use `change_power_consumption()` to modify this during runtime.
@@ -79,18 +79,18 @@
 	. = ..()
 	if(d)
 		set_dir(d)
-	if (init_flags & INIT_MACHINERY_PROCESS_ALL)
-		START_PROCESSING_MACHINE(src, init_flags & INIT_MACHINERY_PROCESS_ALL)
+	if (flags & INIT_MACHINERY_PROCESS_ALL)
+		START_PROCESSING_MACHINE(src, flags & INIT_MACHINERY_PROCESS_ALL)
 	SSmachines.machinery += src // All machines should remain in this list, always.
-	if(ispath(wires))
-		wires = new wires(src)
+	if(ispath(wires_bay))
+		wires_bay = new wires_bay(src)
 	populate_parts(populate_parts)
 	RefreshParts()
 	power_change()
 
 /obj/machinery/Destroy()
-	if(istype(wires))
-		QDEL_NULL(wires)
+	if(istype(wires_bay))
+		QDEL_NULL(wires_bay)
 	SSmachines.machinery -= src
 	QDEL_NULL_LIST(component_parts) // Further handling is done via destroyed events.
 	STOP_PROCESSING_MACHINE(src, MACHINERY_PROCESS_ALL)
@@ -133,13 +133,13 @@
 
 		QDEL_IN(pulse2, 1 SECOND)
 
-		if (prob(100 / severity) && istype(wires))
+		if (prob(100 / severity) && istype(wires_bay))
 			if (prob(20))
-				wires.RandomCut()
+				wires_bay.RandomCut()
 				visible_message(SPAN_DANGER("A shower of sparks sprays out of \the [src]'s wiring panel!"))
 				sparks(3, 0, get_turf(src))
 			else
-				wires.RandomPulse()
+				wires_bay.RandomPulse()
 				visible_message(SPAN_WARNING("Something sparks inside \the [src]'s wiring panel!"))
 				new /obj/effect/sparks(get_turf(src))
 
@@ -237,10 +237,10 @@
 /obj/machinery/attack_hand(mob/user)
 	if((. = ..())) // Buckling, climbers; unlikely to return true.
 		return
-	if(MUTATION_FERAL in user.mutations)
-		user.setClickCooldown(DEFAULT_ATTACK_COOLDOWN*2)
-		attack_generic(user, 10, "smashes")
-		return TRUE
+	//if(MUTATION_FERAL in user.mutations) we don't use their genetics
+	//	user.setClickCooldown(DEFAULT_ATTACK_COOLDOWN*2)
+	//	attack_generic(user, 10, "smashes")
+	//	return TRUE
 	if(!CanPhysicallyInteract(user))
 		return FALSE // The interactions below all assume physical access to the machine. If this is not the case, we let the machine take further action.
 	if(!user.IsAdvancedToolUser())
@@ -256,7 +256,7 @@
 			return TRUE
 	if((. = component_attack_hand(user)))
 		return
-	if(wires && (. = wires.Interact(user)))
+	if(wires_bay && (. = wires_bay.Interact(user)))
 		return
 	if((. = physical_attack_hand(user)))
 		return
@@ -447,13 +447,13 @@
 		var/singleton/hierarchy/skill/core_skill_singleton = core_skill
 		. += "<p>It utilizes the [initial(core_skill_singleton.name)] skill.</p>"
 
-	var/wire_mechanics = wires?.get_mechanics_info()
+	var/wire_mechanics = wires_bay?.get_mechanics_info()
 	if (wire_mechanics)
 		. += "<hr><h5>Wiring</h5>[wire_mechanics]"
 
 /obj/machinery/get_interactions_info()
 	. = ..()
-	var/wire_interactions = wires?.get_interactions_info()
+	var/wire_interactions = wires_bay?.get_interactions_info()
 	if (wire_interactions)
 		for (var/key in wire_interactions)
 			.["[key]"] += "[wire_interactions[key]]"

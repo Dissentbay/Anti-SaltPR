@@ -260,9 +260,9 @@
 
 
 //lazy text span classes defines.
-#define SPAN_NOTICE(text)  "<span class='notice'>[text]</span>"
-#define SPAN_WARNING(text) "<span class='warning'>[text]</span>"
-#define SPAN_DANGER(text)  "<span class='danger'>[text]</span>"
+//#define SPAN_NOTICE(text)  "<span class='notice'>[text]</span>"
+//#define SPAN_WARNING(text) "<span class='warning'>[text]</span>"
+//#define SPAN_DANGER(text)  "<span class='danger'>[text]</span>"
 #define SPAN_PSION(text)   "<b><font color='purple'>[text]</b></font>"
 // the thing below allow using SPANning in datum definition, the above can't.
 #define SPAN(class, X) "<span class='" + ##class + "'>" + ##X + "</span>"
@@ -409,3 +409,10 @@
 // Atom layering/visibility levels on turfs. See `/atom/var/level`.
 #define ATOM_LEVEL_UNDER_TILE 1 // Hidden under floor tiles, visible on plating
 #define ATOM_LEVEL_OVER_TILE 2 // Visible on all turf tiles
+
+//-- Masks for /atom/var/init_flags --
+//- machinery
+#define INIT_MACHINERY_PROCESS_SELF       FLAG(0)
+#define INIT_MACHINERY_PROCESS_COMPONENTS FLAG(1)
+#define INIT_MACHINERY_PROCESS_ALL ( INIT_MACHINERY_PROCESS_SELF | INIT_MACHINERY_PROCESS_COMPONENTS )
+//--

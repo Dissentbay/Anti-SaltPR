@@ -3,7 +3,7 @@
 	desc = "A self-contained battery backup system, using replaceable cells to provide backup power."
 	icon_state = "battery0"
 	var/obj/item/cell/cell
-	var/charge_channel = ENVIRON  // The channel it attempts to charge from.
+	var/charge_channel = STAT_ENVIRON  // The channel it attempts to charge from.
 	var/charge_rate = 1           // This is in battery units, per tick.
 	var/can_charge = TRUE
 	var/charge_wait_counter = 10  // How many ticks we wait until we start charging after charging becomes an option.
