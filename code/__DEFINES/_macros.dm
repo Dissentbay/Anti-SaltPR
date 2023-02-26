@@ -38,9 +38,6 @@
 
 #define JOINTEXT(X) jointext(X, null)
 
-// Insert an object A into a sorted list using cmp_proc (/code/_helpers/cmp.dm) for comparison.
-#define ADD_SORTED(list, A, cmp_proc) if(!list.len) {list.Add(A)} else {list.Insert(FindElementIndex(A, list, cmp_proc), A)}
-
 #define isopenturf(target) istype(target, /turf/simulated/open)
 
 /// Test any bits of MASK are set in FIELD
@@ -172,3 +169,10 @@
 
 /// Flip bit at index BIT in FIELD
 #define FLIP_BIT(FIELD, BIT) ((FIELD) ^= FLAG(BIT))
+
+#define isstack(A) istype(A, /obj/item/stack)
+
+// Insert an object A into a sorted list using cmp_proc (/code/_helpers/cmp.dm) for comparison.
+#define ADD_SORTED(list, A, cmp_proc) if(!length(list)) {list.Add(A)} else {list.Insert(FindElementIndex(A, list, cmp_proc), A)}
+
+#define ismachinerestricted(A) (issilicon(A) && A.machine_restriction)

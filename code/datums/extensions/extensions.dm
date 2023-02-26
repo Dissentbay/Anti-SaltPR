@@ -78,3 +78,16 @@
 //Fast way to check if it has an extension, also doesn't trigger instantiation of lazy loaded extensions
 /proc/has_extension(var/datum/source, var/base_type)
 	return (source.extensions && source.extensions[base_type])
+
+//bay further codes into it
+
+/proc/construct_extension_instance(extension_type, datum/source, list/arguments)
+	arguments = list(source) + arguments
+	return new extension_type(arglist(arguments))
+
+/proc/remove_extension(datum/source, base_type)
+	if(!source.extensions || !source.extensions[base_type])
+		return
+	if(!islist(source.extensions[base_type]))
+		qdel(source.extensions[base_type])
+	LAZYREMOVE(source.extensions, base_type)

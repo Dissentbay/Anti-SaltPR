@@ -131,7 +131,7 @@
 
 
 /obj/machinery/atmospherics/portables_connector/attackby(obj/item/W as obj, mob/user as mob)
-	if(!QUALITY_BOLT_TURNING in W.tool_qualities)
+	if(!(QUALITY_BOLT_TURNING in W.tool_qualities))
 		return ..()
 	if (connected_device)
 		to_chat(user, SPAN_WARNING("You cannot unwrench \the [src], dettach \the [connected_device] first."))

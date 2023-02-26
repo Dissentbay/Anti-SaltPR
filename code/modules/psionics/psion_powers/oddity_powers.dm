@@ -23,7 +23,7 @@
 
 			playsound(usr.loc, pick('sound/mecha/lowpower.ogg','sound/effects/magic/Blind.ogg','sound/effects/phasein.ogg'), 50, 1, -3)
 			var/turf/T = get_turf(usr)
-			do_sparks(8, 0, T)
+			sparks(8, 0, T)
 			cultweaponchoice = new cultweaponchoice(T)
 			usr.visible_message(
 				SPAN_DANGER("[usr] molds and twists the [active] like clay, transforming it into [cultweaponchoice]!"),
@@ -60,7 +60,7 @@
 
 			playsound(usr.loc, pick('sound/mecha/lowpower.ogg','sound/effects/magic/Blind.ogg','sound/effects/phasein.ogg'), 50, 1, -3)
 			var/turf/T = get_turf(usr)
-			do_sparks(8, 0, T)
+			sparks(8, 0, T)
 			cultweaponchoice = new cultweaponchoice(T)
 			usr.visible_message(
 				SPAN_DANGER("[usr] molds and twists the [active] like clay, transforming it into [cultweaponchoice]!"),
@@ -95,7 +95,7 @@
 
 			playsound(usr.loc, pick('sound/mecha/lowpower.ogg','sound/effects/magic/Blind.ogg','sound/effects/phasein.ogg'), 50, 1, -3)
 			var/turf/T = get_turf(usr)
-			do_sparks(8, 0, T)
+			sparks(8, 0, T)
 			cultweaponchoice = new cultweaponchoice(T)
 			usr.visible_message(
 				SPAN_DANGER("[usr] molds and twists the [active] like clay, transforming it into a [cultweaponchoice]!"),

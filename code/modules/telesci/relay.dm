@@ -100,7 +100,7 @@
 	if(!stored_crystal)
 		return
 	src.visible_message("<span class='warning'>\The [stored_crystal] in \the [src] collapses into dust.")
-	do_sparks(6, FALSE, get_turf(src))
+	sparks(6, FALSE, get_turf(src))
 	qdel(stored_crystal)
 	stored_crystal = null
 	bluespace_entropy(4, get_turf(src), TRUE)
@@ -138,7 +138,7 @@
 /obj/machinery/telesci_relay/proc/chanceExplode()
 	if(prob(30)) //30% chance to just straight up explode.
 		src.visible_message(SPAN_DANGER("\The [src] begins to vibrate, its crystal glowing brightly!"))
-		do_sparks(6, FALSE, get_turf(src))
+		sparks(6, FALSE, get_turf(src))
 		addtimer(CALLBACK(src, /obj/machinery/telesci_relay/proc/explode), 1 SECOND)
 
 /obj/machinery/telesci_relay/proc/explode()

@@ -29,11 +29,11 @@
 						validtargets += T					//Add them to the list
 			target = pick(validtargets)						//Now we pick a target
 
-			do_sparks(1, 0, owner.loc)							//Visual feedback before the teleport
+			sparks(1, 0, owner.loc)							//Visual feedback before the teleport
 			owner.forceMove(target)							//Moves the caster
 			if(L)											//If we have a grabbed target
-				do_sparks(1, 0, target.loc)						//Visual feeback before the teleport
+				sparks(1, 0, target.loc)						//Visual feeback before the teleport
 				L.forceMove(target)							//Moves the target
-				do_sparks(1, 0, target.loc)						//Visual feedback after the teleport
-			do_sparks(1, 0, owner.loc)							//Visual feedback after the teleport
+				sparks(1, 0, target.loc)						//Visual feedback after the teleport
+			sparks(1, 0, owner.loc)							//Visual feedback after the teleport
 			owner.weakened += 10								//Moving like this is stressful and stuns you for a time.

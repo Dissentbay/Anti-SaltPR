@@ -166,14 +166,14 @@
 	if(!interact_offline && (!is_powered()))
 		return STATUS_CLOSE
 
-	if(user.direct_machine_interface(src))
-		var/mob/living/silicon/silicon = user
-		if (silicon_restriction && ismachinerestricted(silicon))
-			if (silicon_restriction == STATUS_CLOSE)
-				to_chat(user, SPAN_WARNING("Remote AI systems detected. Firewall protections forbid remote AI access."))
-			return silicon_restriction
-
-		return ..()
+	//if(user.direct_machine_interface(src))
+	//	var/mob/living/silicon/silicon = user
+	//	if (silicon_restriction && ismachinerestricted(silicon))
+	//		if (silicon_restriction == STATUS_CLOSE)
+	//			to_chat(user, SPAN_WARNING("Remote AI systems detected. Firewall protections forbid remote AI access."))
+	//		return silicon_restriction
+	//
+	//	return ..()		we don't do bay's permissions
 
 	if(GET_FLAGS(stat, MACHINE_STAT_NOSCREEN))
 		return STATUS_CLOSE
@@ -280,82 +280,82 @@
 	return FALSE
 
 /// Refreshes the machines parts-related `stat` flags, and calls `on_refresh()` on each component.
-/obj/machinery/proc/RefreshParts()
-	set_stat(MACHINE_STAT_NOINPUT, TRUE)
-	set_stat(MACHINE_STAT_NOSCREEN, TRUE)
-	for(var/thing in component_parts)
-		var/obj/item/stock_parts/part = thing
-		part.on_refresh(src)
-	var/list/missing = missing_parts()
-	set_broken(!!missing, MACHINE_BROKEN_NO_PARTS)
+///obj/machinery/proc/RefreshParts()
+//	set_stat(MACHINE_STAT_NOINPUT, TRUE)
+//	set_stat(MACHINE_STAT_NOSCREEN, TRUE)
+//	for(var/thing in component_parts)
+//		var/obj/item/stock_parts/part = thing
+//		part.on_refresh(src)
+//	var/list/missing = missing_parts()
+//	set_broken(!!missing, MACHINE_BROKEN_NO_PARTS)
 
 /// Displays a message for mobs in range.
-/obj/machinery/proc/state(msg)
-	for(var/mob/O in hearers(src, null))
-		O.show_message("[icon2html(src, O)] " + SPAN_NOTICE(msg), AUDIBLE_MESSAGE)
+///obj/machinery/proc/state(msg)
+//	for(var/mob/O in hearers(src, null))
+//		O.show_message("[icon2html(src, O)] " + SPAN_NOTICE(msg), AUDIBLE_MESSAGE)
 
 /// Displays a ping message and sound effect.
-/obj/machinery/proc/ping(text)
-	if (!text)
-		text = "\The [src] pings."
-
-	state(text)
-	playsound(loc, 'sound/machines/ping.ogg', 50, 0)
+///obj/machinery/proc/ping(text)
+//	if (!text)
+//		text = "\The [src] pings."
+//
+//	state(text)
+//	playsound(loc, 'sound/machines/ping.ogg', 50, 0)
 
 /// Electrocutes the mob `user` based on probability `prb`, if the machine is in a state capable of doing so. Returns `TRUE` if the user was shocked.
-/obj/machinery/proc/shock(mob/user, prb)
-	if (!user)
-		return FALSE
-	if(inoperable())
-		return FALSE
-	if(!prob(prb))
-		return FALSE
-	var/datum/effect/effect/system/spark_spread/s = new /datum/effect/effect/system/spark_spread
-	s.set_up(5, 1, src)
-	s.start()
-	if(electrocute_mob(user, get_area(src), src, 0.7))
-		var/area/temp_area = get_area(src)
-		if(temp_area)
-			var/obj/machinery/power/apc/temp_apc = temp_area.get_apc()
-			var/obj/machinery/power/terminal/terminal = temp_apc && temp_apc.terminal()
-
-			if(terminal && terminal.powernet)
-				terminal.powernet.trigger_warning()
-		if(user.stunned)
-			return TRUE
-	return FALSE
+///obj/machinery/proc/shock(mob/user, prb)
+//	if (!user)
+//		return FALSE
+//	if(inoperable())
+//		return FALSE
+//	if(!prob(prb))
+//		return FALSE
+//	var/datum/effect/effect/system/spark_spread/s = new /datum/effect/effect/system/spark_spread
+//	s.set_up(5, 1, src)
+//	s.start()
+//	if(electrocute_mob(user, get_area(src), src, 0.7))
+//		var/area/temp_area = get_area(src)
+//		if(temp_area)
+//			var/obj/machinery/power/apc/temp_apc = temp_area.get_apc()
+//			var/obj/machinery/power/terminal/terminal = temp_apc && temp_apc.terminal()
+//
+//			if(terminal && terminal.powernet)
+//				terminal.powernet.trigger_warning()
+//		if(user.stunned)
+//			return TRUE
+//	return FALSE
 
 /// Deconstructs the machine into its base frame and ejects all of its components. Returns boolean.
-/obj/machinery/proc/dismantle()
-	playsound(loc, 'sound/items/Crowbar.ogg', 50, 1)
-	var/obj/item/circuitboard//circuit = get_component_of_type(/obj/item/circuitboard/)
-	if(circuit)
-		circuit.deconstruct(src)
-	if(ispath(frame_type, /obj/item/pipe))
-		new frame_type(get_turf(src), src)
-	else
-		new frame_type(get_turf(src), dir)
-	for(var/I in component_parts)
-		uninstall_component(I, refresh_parts = FALSE)
-	while(LAZYLEN(uncreated_component_parts))
-		var/path = uncreated_component_parts[1]
-		uninstall_component(path, refresh_parts = FALSE)
-	for(var/obj/O in src)
-		O.dropInto(loc)
-
-	qdel(src)
-	return TRUE
+///obj/machinery/proc/dismantle()
+//	playsound(loc, 'sound/items/Crowbar.ogg', 50, 1)
+//	var/obj/item/circuitboard//circuit = get_component_of_type(/obj/item/circuitboard/)
+//	if(circuit)
+//		circuit.deconstruct(src)
+//	if(ispath(frame_type, /obj/item/pipe))
+//		new frame_type(get_turf(src), src)
+//	else
+//		new frame_type(get_turf(src), dir)
+//	for(var/I in component_parts)
+//		uninstall_component(I, refresh_parts = FALSE)
+//	while(LAZYLEN(uncreated_component_parts))
+//		var/path = uncreated_component_parts[1]
+//		uninstall_component(path, refresh_parts = FALSE)
+//	for(var/obj/O in src)
+//		O.dropInto(loc)
+//
+//	qdel(src)
+//	return TRUE
 
 /obj/machinery/InsertedContents()
 	return (contents - component_parts)
 
 /// Applies visual overlays relating to viewing through a specific datum, i.e. cameras.
-/datum/proc/apply_visual(mob/M)
-	return
+///datum/proc/apply_visual(mob/M)
+//	return
 
 /// Removes visual overlays relating to viewing through a specific datum, i.e. cameras.
-/datum/proc/remove_visual(mob/M)
-	return
+///datum/proc/remove_visual(mob/M)
+//	return
 
 /// Handles updgrading the machine for a malfunctioning AI. Return `TRUE` if the machine was successfully upgraded.
 /obj/machinery/proc/malf_upgrade(mob/living/silicon/ai/user)
@@ -364,7 +364,7 @@
 /obj/machinery/CouldUseTopic(mob/user)
 	..()
 	if(clicksound && world.time > next_clicksound && istype(user, /mob/living/carbon))
-		next_clicksound = world.time + CLICKSOUND_INTERVAL
+		next_clicksound = world.time + 5 SECONDS
 		playsound(src, clicksound, clickvol)
 
 /// Displays all components in the machine to the user.
@@ -380,8 +380,8 @@
 	. = ..()
 	if (panel_open)
 		to_chat(user, SPAN_NOTICE("The service panel is open."))
-	if(component_parts && hasHUD(user, HUD_SCIENCE))
-		display_parts(user)
+	//if(component_parts && hasHUD(user, HUD_SCIENCE)) we don't have that
+	//	display_parts(user)
 	if(GET_FLAGS(stat, MACHINE_STAT_NOSCREEN))
 		to_chat(user, SPAN_WARNING("It is missing a screen, making it hard to interact with."))
 	else if(GET_FLAGS(stat, MACHINE_STAT_NOINPUT))
@@ -397,77 +397,77 @@
 			var/obj/item/fake_thing = type
 			parts += "[num2text(missing[type])] [initial(fake_thing.name)]"
 		to_chat(user, SPAN_WARNING("\The [src] is missing [english_list(parts)], rendering it inoperable."))
-	if (user.skill_check(SKILL_CONSTRUCTION, SKILL_BASIC) || isobserver(user))
+	if (user.stats.getStat(STAT_MEC) < 5 || isobserver(user))
 		to_chat(user, SPAN_NOTICE(machine_desc))
 
-/obj/machinery/get_mechanics_info()
-	. = ..()
-	if (maximum_component_parts)
-		var/component_parts_list
-		for (var/atom/item as anything in maximum_component_parts)
-			var/count = maximum_component_parts[item]
-			if (isnull(count))
-				component_parts_list += "<li>Infinite [initial(item.name)]</li>"
-			else
-				component_parts_list += "<li>[count] [initial(item.name)]\s</li>"
-		. += {"
-			<p>It can hold the following component types:</p>
-			<ul>
-				[component_parts_list]
-			</ul>
-		"}
+///obj/machinery/get_mechanics_info()  Dissent: need to check if this is useful now
+//	. = ..()
+//	if (maximum_component_parts)
+//		var/component_parts_list
+//		for (var/atom/item as anything in maximum_component_parts)
+//			var/count = maximum_component_parts[item]
+//			if (isnull(count))
+//				component_parts_list += "<li>Infinite [initial(item.name)]</li>"
+//			else
+//				component_parts_list += "<li>[count] [initial(item.name)]\s</li>"
+//		. += {"
+//			<p>It can hold the following component types:</p>
+//			<ul>
+//				[component_parts_list]
+//			</ul>
+//		"}
 
-	if (silicon_restriction)
-		switch (silicon_restriction)
-			if (STATUS_UPDATE)
-				. += "<p>Silicons are blocked from controlling it.</p>"
-			if (STATUS_DISABLED, STATUS_CLOSE)
-				. += "<p>Silicons are blocked from viewing or controlling it.</p>"
+//	if (silicon_restriction)
+//		switch (silicon_restriction)
+//			if (STATUS_UPDATE)
+//				. += "<p>Silicons are blocked from controlling it.</p>"
+//			if (STATUS_DISABLED, STATUS_CLOSE)
+//				. += "<p>Silicons are blocked from viewing or controlling it.</p>"
+//
+//	var/power_channel_name
+//	switch (initial(power_channel))
+//		if (STATIC_EQUIP)
+//			power_channel_name = "Equipment"
+//		if (STATIC_LIGHT)
+//			power_channel_name = "Lighting"
+//		if (STATIC_ENVIRON)
+//			power_channel_name = "Environment"
+//		if (LOCAL)
+//			power_channel_name = "Local"
+//	. += "<p>By default, it draws power from the [power_channel_name] channel.</p>"
+//
+//	if (idle_power_usage && active_power_usage)
+//		. += "<p>It draws [idle_power_usage] watts while idle, and [active_power_usage] watts while active."
+//	else if (idle_power_usage)
+//		. += "<p>It draws [idle_power_usage] watts while idle.</p>"
+//	else if (active_power_usage)
+//		. += "<p>It draws [active_power_usage] watts while active.</p>"
+//
+//	if (core_skill)
+//		var/singleton/hierarchy/skill/core_skill_singleton = core_skill
+//		. += "<p>It utilizes the [initial(core_skill_singleton.name)] skill.</p>"
+//
+//	var/wire_mechanics = wires_bay?.get_mechanics_info()
+//	if (wire_mechanics)
+//		. += "<hr><h5>Wiring</h5>[wire_mechanics]"
 
-	var/power_channel_name
-	switch (initial(power_channel))
-		if (STATIC_EQUIP)
-			power_channel_name = "Equipment"
-		if (LIGHT)
-			power_channel_name = "Lighting"
-		if (ENVIRON)
-			power_channel_name = "Environment"
-		if (LOCAL)
-			power_channel_name = "Local"
-	. += "<p>By default, it draws power from the [power_channel_name] channel.</p>"
-
-	if (idle_power_usage && active_power_usage)
-		. += "<p>It draws [idle_power_usage] watts while idle, and [active_power_usage] watts while active."
-	else if (idle_power_usage)
-		. += "<p>It draws [idle_power_usage] watts while idle.</p>"
-	else if (active_power_usage)
-		. += "<p>It draws [active_power_usage] watts while active.</p>"
-
-	if (core_skill)
-		var/singleton/hierarchy/skill/core_skill_singleton = core_skill
-		. += "<p>It utilizes the [initial(core_skill_singleton.name)] skill.</p>"
-
-	var/wire_mechanics = wires_bay?.get_mechanics_info()
-	if (wire_mechanics)
-		. += "<hr><h5>Wiring</h5>[wire_mechanics]"
-
-/obj/machinery/get_interactions_info()
-	. = ..()
-	var/wire_interactions = wires_bay?.get_interactions_info()
-	if (wire_interactions)
-		for (var/key in wire_interactions)
-			.["[key]"] += "[wire_interactions[key]]"
+///obj/machinery/get_interactions_info()
+//	. = ..()
+//	var/wire_interactions = wires_bay?.get_interactions_info()
+//	if (wire_interactions)
+//		for (var/key in wire_interactions)
+//			.["[key]"] += "[wire_interactions[key]]"
 
 // This is really pretty crap and should be overridden for specific machines.
-/obj/machinery/water_act(depth)
-	..()
-	if(operable() && !waterproof && (depth > FLUID_DEEP))
-		ex_act(EX_ACT_LIGHT)
+///obj/machinery/water_act(depth)
+//	..()
+//	if(operable() && !waterproof && (depth > FLUID_DEEP))
+//		ex_act(EX_ACT_LIGHT)
 
 /obj/machinery/Move()
 	. = ..()
-	if(. && !CanFluidPass())
-		fluid_update()
+	//if(. && !CanFluidPass()) no fluids here, yet
+	//	fluid_update()
 
 /obj/machinery/get_cell()
 	var/obj/item/stock_parts/power/battery/battery = get_component_of_type(/obj/item/stock_parts/power/battery)

@@ -416,3 +416,10 @@
 #define INIT_MACHINERY_PROCESS_COMPONENTS FLAG(1)
 #define INIT_MACHINERY_PROCESS_ALL ( INIT_MACHINERY_PROCESS_SELF | INIT_MACHINERY_PROCESS_COMPONENTS )
 //--
+
+// Severities for ex_act()
+#define EX_ACT_DEVASTATING 1 // Within devastation range - Destructive/deadly, unlikely to survive.
+#define EX_ACT_HEAVY 2 // Within heavy range - Heavy damage, very dangerous
+#define EX_ACT_LIGHT 3 // Within light range - Minor damage.
+
+#define EX_ACT_TO_STRING(X) (X == EX_ACT_DEVASTATING ? "Devastating" : X == EX_ACT_HEAVY ? "Heavy" : "Light")

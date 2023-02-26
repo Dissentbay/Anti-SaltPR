@@ -32,7 +32,7 @@
 
 /mob/living/carbon/superior_animal/human/Initialize(mapload)
 	. = ..()
-	do_sparks(3, 0, src.loc)
+	sparks(3, 0, src.loc)
 
 /mob/living/carbon/superior_animal/human/stranger/death()
 	. = ..()
@@ -50,7 +50,7 @@
 	animation.icon =  'icons/mob/mob.dmi'
 	animation.master = src
 	flick("dust2-h", animation)
-	do_sparks(3, 0, src.loc)
+	sparks(3, 0, src.loc)
 	qdel(src)
 	qdel(animation)
 
@@ -64,7 +64,7 @@
 		if(targetted_mob)
 			source = targetted_mob
 		var/turf/T = get_random_secure_turf_in_range(source, 4, 2)
-		do_sparks(3, 0, src.loc)
+		sparks(3, 0, src.loc)
 		do_teleport(src, T)
 		return FALSE
 	. = ..()
@@ -77,7 +77,7 @@
 		if(targetted_mob)
 			source = targetted_mob
 		var/turf/T = get_random_secure_turf_in_range(source, 4, 2)
-		do_sparks(3, 0, src.loc)
+		sparks(3, 0, src.loc)
 		do_teleport(src, T)
 		return FALSE
 	. = ..()
@@ -90,7 +90,7 @@
 		if(targetted_mob)
 			source = targetted_mob
 		var/turf/T = get_random_secure_turf_in_range(source, 4, 2)
-		do_sparks(3, 0, src.loc)
+		sparks(3, 0, src.loc)
 		do_teleport(src, T)
 		return FALSE
 	. = ..()
@@ -104,7 +104,7 @@
 			if(targetted_mob)
 				source = targetted_mob
 			var/turf/T = get_random_secure_turf_in_range(source, 4, 2)
-			do_sparks(3, 0, src.loc)
+			sparks(3, 0, src.loc)
 			do_teleport(src, T)
 			return FALSE
 	. = ..()
@@ -118,7 +118,7 @@
 		if(targetted_mob)
 			source = targetted_mob
 		var/turf/T = get_random_secure_turf_in_range(source, 4, 2)
-		do_sparks(3, 0, src.loc)
+		sparks(3, 0, src.loc)
 		do_teleport(src, T)
 
 /obj/item/gun/energy/plasma/stranger

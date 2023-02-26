@@ -85,3 +85,40 @@ GLOBAL_VAR_INIT(cmp_field, "name")
 /proc/cmp_rcon_bbox(obj/machinery/power/breakerbox/BR1, obj/machinery/power/breakerbox/BR2)
 	return sorttext(BR2.RCon_tag, BR1.RCon_tag)
 
+//bay stuff
+
+/proc/cmp_camera_ctag_asc(obj/machinery/camera/a, obj/machinery/camera/b)
+	return sorttext(b.c_tag, a.c_tag)
+
+/proc/cmp_camera_ctag_dsc(obj/machinery/camera/a, obj/machinery/camera/b)
+	return sorttext(a.c_tag, b.c_tag)
+
+/proc/cmp_numeric_dsc(a,b)
+	return b - a
+
+/proc/cmp_power_component_priority(obj/item/stock_parts/power/A, obj/item/stock_parts/power/B)
+	return B.priority - A.priority
+
+/proc/cmp_program(datum/computer_file/program/A, datum/computer_file/program/B)
+	return cmp_text_asc(A.filedesc, B.filedesc)
+
+/proc/cmp_emails_asc(datum/computer_file/data/email_account/A, datum/computer_file/data/email_account/B)
+	return cmp_text_asc(A.login,B.login)
+
+/proc/cmp_planelayer(atom/A, atom/B)
+	return (B.plane - A.plane) || (B.layer - A.layer)
+
+/proc/cmp_mob_key(mob/A, mob/B)
+	if (!A && !B)
+		return 0
+
+	if (!A && B)
+		return -1
+
+	if (A && !B)
+		return 1
+
+	return sorttext(B.key, A.key)
+
+/proc/cmp_marking_order(list/A, list/B)
+	return A[1] - B[1][1]

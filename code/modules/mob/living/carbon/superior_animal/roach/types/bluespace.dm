@@ -24,7 +24,7 @@
 
 /mob/living/carbon/superior_animal/roach/bluespace/Initialize(mapload)
 	. = ..()
-	do_sparks(3, 0, src.loc)
+	sparks(3, 0, src.loc)
 
 /mob/living/carbon/superior_animal/roach/bluespace/handle_ai()
 	..()
@@ -40,7 +40,7 @@
 		target = get_random_secure_turf_in_range(src, 7, 1)
 	if(target)
 		playsound(src, 'sound/voice/insect_battle_screeching.ogg', 30, 1, -3)
-		do_sparks(3, 0, src.loc)
+		sparks(3, 0, src.loc)
 		do_teleport(src, target, 1)
 		playsound(src, 'sound/voice/insect_battle_screeching.ogg', 30, 1, -3)
 
@@ -52,7 +52,7 @@
 		if(targetted_mob)
 			source = targetted_mob
 		var/turf/T = get_random_secure_turf_in_range(source, 2, 1)
-		do_sparks(3, 0, src.loc)
+		sparks(3, 0, src.loc)
 		do_teleport(src, T)
 		return FALSE
 	. = ..()
@@ -65,7 +65,7 @@
 		if(targetted_mob)
 			source = targetted_mob
 		var/turf/T = get_random_secure_turf_in_range(source, 2, 1)
-		do_sparks(3, 0, src.loc)
+		sparks(3, 0, src.loc)
 		do_teleport(src, T)
 		return FALSE
 	. = ..()
@@ -79,7 +79,7 @@
 			if(targetted_mob)
 				source = targetted_mob
 			var/turf/T = get_random_secure_turf_in_range(source, 2, 1)
-			do_sparks(3, 0, src.loc)
+			sparks(3, 0, src.loc)
 			do_teleport(src, T)
 			return FALSE
 	. = ..()
@@ -94,7 +94,7 @@
 		if(targetted_mob)
 			source = targetted_mob
 		var/turf/T = get_random_secure_turf_in_range(source, 2, 1)
-		do_sparks(3, 0, src.loc)
+		sparks(3, 0, src.loc)
 		do_teleport(src, T)
 		return FALSE
 	. = ..()

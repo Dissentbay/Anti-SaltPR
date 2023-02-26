@@ -223,3 +223,9 @@ var/list/restricted_camera_networks = list(NETWORK_MERCENARY, "Secret")
 #define PART_FLAG_LAZY_INIT      FLAG(0)  // Will defer init on stock parts until machine is destroyed or parts are otherwise queried.
 #define PART_FLAG_QDEL           FLAG(1)  // Will delete on uninstall
 #define PART_FLAG_HAND_REMOVE    FLAG(2)  // Can be removed by hand
+
+// obj/item/stock_parts status flags
+#define PART_STAT_INSTALLED     FLAG(0)
+#define PART_STAT_PROCESSING    FLAG(1)
+#define PART_STAT_ACTIVE        FLAG(2)
+#define PART_STAT_CONNECTED     FLAG(3)

@@ -61,7 +61,7 @@
 //Sparks that are not seeable by players are valueless
 //	if(stat)
 //		if(prob(2))
-//			do_sparks(1, TRUE, src)
+//			sparks(1, TRUE, src)
 //		return
 
 	if(health <= 0)
@@ -261,7 +261,7 @@
 		stat |= MACHINE_BROKEN_GENERIC
 		update_icon()
 	else if(prob(50))
-		do_sparks(1, 0, loc)
+		sparks(1, 0, loc)
 	return amount
 
 /obj/machinery/power/os_turret/proc/try_shoot(target)

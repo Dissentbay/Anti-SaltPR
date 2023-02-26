@@ -9,6 +9,7 @@
 	density = TRUE
 	anchored = TRUE
 	blue_ink_tk_blocker = TRUE //Removes bugs with teleportion and shadow items
+	var/expected_machine_type	//bay var
 
 /obj/machinery/constructable_frame/machine_frame //Made into a seperate type to make future revisions easier.
 	name = "machine frame"

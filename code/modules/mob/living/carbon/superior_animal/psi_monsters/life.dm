@@ -23,7 +23,7 @@
 					validtargets += T
 		target = pick(validtargets)
 
-		do_sparks(1, 0, src.loc)
+		sparks(1, 0, src.loc)
 		new /obj/effect/gibspawner/human(src.loc)
 		new /obj/effect/gibspawner/human(src.loc)
 		src.visible_message(SPAN_DANGER(first_teleport_callout))
@@ -33,7 +33,7 @@
 
 		src.forceMove(target)
 
-		do_sparks(1, 0, src.loc)
+		sparks(1, 0, src.loc)
 		new /obj/effect/gibspawner/human(src.loc)
 		new /obj/effect/gibspawner/human(src.loc)
 		if(dreaming_king)
@@ -66,7 +66,7 @@
 					validtargets += T
 		target = pick(validtargets)
 
-		do_sparks(1, 0, src.loc)
+		sparks(1, 0, src.loc)
 		new /obj/effect/gibspawner/human(src.loc)
 		new /obj/effect/gibspawner/human(src.loc)
 		src.visible_message(SPAN_DANGER(second_teleport_callout))
@@ -76,7 +76,7 @@
 
 		src.forceMove(target)
 
-		do_sparks(1, 0, src.loc)
+		sparks(1, 0, src.loc)
 		new /obj/effect/gibspawner/human(src.loc)
 		new /obj/effect/gibspawner/human(src.loc)
 		if(dreaming_king)

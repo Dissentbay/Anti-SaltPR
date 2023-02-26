@@ -81,7 +81,7 @@
 
 /singleton/machine_construction/frame/awaiting_circuit/attackby(obj/item/I, mob/user, obj/machinery/constructable_frame/machine)
 	if(istype(I, /obj/item/circuitboard/))
-		var/obj/item/circuitboard//circuit = I
+		var/obj/item/circuitboard/circuit = I
 		if(circuit.board_type == machine.expected_machine_type)
 			if(!user.canUnEquip(I))
 				return FALSE

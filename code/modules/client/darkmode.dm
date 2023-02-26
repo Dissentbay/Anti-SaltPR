@@ -16,10 +16,6 @@ Thanks to spacemaniac and mcdonald for help with the JS side of this.
 
 */
 
-#define COLOR_DARKMODE_BACKGROUND "#202020"
-#define COLOR_DARKMODE_DARKBACKGROUND "#171717"
-#define COLOR_DARKMODE_TEXT "#a4bad6"
-
 /client/proc/force_white_theme() //There's no way round it. We're essentially changing the skin by hand. It's painful but it works, and is the way Lummox suggested.
 	//Main windows
 	winset(src, "rpane", "background-color = [COLOR_DARKMODE_DARKBACKGROUND];background-color = none")

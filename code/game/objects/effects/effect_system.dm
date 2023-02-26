@@ -103,22 +103,13 @@ steam.start() -- spawns the effect
 // will always spawn at the items location.
 /////////////////////////////////////////////
 
-/proc/do_sparks(n, c, source)
-	// n - number of sparks
-	// c - cardinals, bool, do the sparks only move in cardinal directions?
-	// source - source of the sparks.
-
-	var/datum/effect/effect/system/spark_spread/sparks = new
-	sparks.set_up(n, c, source)
-	sparks.start()
-
 /obj/effect/sparks
 	name = "sparks"
-	icon = 'icons/effects/effects.dmi'
 	icon_state = "sparks"
-	anchored = 1.0
+	icon = 'icons/effects/effects.dmi'
+	var/amount = 6.0
+	anchored = TRUE
 	mouse_opacity = 0
-	var/amount = 6
 
 /obj/effect/sparks/New()
 	..()
@@ -129,7 +120,7 @@ steam.start() -- spawns the effect
 
 /obj/effect/sparks/Initialize()
 	. = ..()
-	QDEL_IN(src, 10 SECONDS)
+	QDEL_IN(src, 5 SECONDS)
 
 /obj/effect/sparks/Destroy()
 	var/turf/T = src.loc
@@ -137,47 +128,49 @@ steam.start() -- spawns the effect
 		T.hotspot_expose(1000,100)
 	return ..()
 
-/obj/effect/sparks/Move(NewLoc, Dir = 0, step_x = 0, step_y = 0, var/glide_size_override = 0)
-	. = ..()
+/obj/effect/sparks/Move()
+	..()
 	var/turf/T = src.loc
 	if (istype(T, /turf))
 		T.hotspot_expose(1000,100)
 
 /datum/effect/effect/system/spark_spread
-	var/total_sparks = 0 // To stop it being spammed and lagging!
 
-	set_up(n = 3, c = 0, loca)
-		if(n > 10)
-			n = 10
-		number = n
-		cardinals = c
-		if(istype(loca, /turf/))
-			location = loca
-		else
-			location = get_turf(loca)
+/datum/effect/effect/system/spark_spread/set_up(n = 3, c = 0, loca)
+	if(n > 10)
+		n = 10
+	number = n
+	cardinals = c
+	if(isturf(loca))
+		location = loca
+	else
+		location = get_turf(loca)
 
-	start()
-		var/i = 0
-		for(i=0, i<src.number, i++)
-			if(src.total_sparks > 20)
-				return
-			spawn(0)
-				if(holder)
-					src.location = get_turf(holder)
-				var/obj/effect/sparks/sparks = new(location)
-				src.total_sparks++
-				var/direction
-				if(src.cardinals)
-					direction = pick(cardinal)
-				else
-					direction = pick(alldirs)
-				for(i=0, i<pick(1,2,3), i++)
-					sleep(rand(1,5))
-					step(sparks,direction)
-				spawn(20)
-					if(sparks)
-						qdel(sparks)
-					src.total_sparks--
+/datum/effect/effect/system/spark_spread/start()
+	var/i = 0
+	for(i=0, i<src.number, i++)
+		addtimer(new Callback(src, /datum/effect/effect/system/proc/spread, i), 0)
+
+/datum/effect/effect/system/spark_spread/spread(i)
+	set waitfor = 0
+	if(holder)
+		src.location = get_turf(holder)
+	var/obj/effect/sparks/sparks = new /obj/effect/sparks(location)
+	var/direction
+	if(src.cardinals)
+		direction = pick(GLOB.cardinal)
+	else
+		direction = pick(GLOB.alldirs)
+	for(i=0, i<pick(1,2,3), i++)
+		sleep(5)
+		step(sparks,direction)
+
+//and to shortcut all that
+/proc/sparks(n = 3, c = 0, loca)
+	var/datum/effect/effect/system/spark_spread/S = new
+	S.set_up(n, c, loca)
+	S.start()
+	return S
 
 
 

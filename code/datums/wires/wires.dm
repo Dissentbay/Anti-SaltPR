@@ -351,3 +351,8 @@ var/const/POWER = 8
 /datum/wires/proc/Shuffle()
 	wires_status = 0
 	GenerateWires()
+
+//bay stuff
+/datum/wires/proc/RandomPulse()
+	var/index = rand(1, length(wires))
+	PulseColour(wires[index])

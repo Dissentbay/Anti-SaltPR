@@ -107,7 +107,7 @@ GLOBAL_VAR_INIT(bluespace_distotion_cooldown, 10 MINUTES)
 			Ttarget = get_random_secure_turf_in_range(Ttarget, 4)
 			if(Ttarget)
 				new /obj/structure/bs_crystal_structure(Ttarget)
-				do_sparks(3, 0, Ttarget)
+				sparks(3, 0, Ttarget)
 
 /proc/bluespace_gift(turf/T, minor_distortion)
 	var/second_gift = rand(2,10)
@@ -124,14 +124,14 @@ GLOBAL_VAR_INIT(bluespace_distotion_cooldown, 10 MINUTES)
 		return
 	if(GLOB.bluespace_gift <= 0 && !minor_distortion)
 		new /obj/item/oddity/broken_necklace(T)
-		do_sparks(3, 0, T)
+		sparks(3, 0, T)
 		log_and_message_admins("Bluespace gift spawned: [jumplink(T)]") //unique item
 	else
 		second_gift *= 10
 /*	if(prob(second_gift))
 		var/obj/O = pickweight(RANDOM_RARE_ITEM - /obj/item/stash_spawner)
 		new O(T)
-		do_sparks(3, 0, T)
+		sparks(3, 0, T)
 */
 /proc/bluespace_stranger(turf/T, minor_distortion)
 	var/area/A = get_area(T)
@@ -191,7 +191,7 @@ GLOBAL_VAR_INIT(bluespace_distotion_cooldown, 10 MINUTES)
 			Ttarget = get_random_secure_turf_in_range(Ttarget, 5)
 			if(Ttarget)
 				new /obj/random/lowkeyrandom(Ttarget)
-				do_sparks(3, 0, Ttarget)
+				sparks(3, 0, Ttarget)
 
 
 /proc/bluespace_leak(turf/T, minor_distortion)
@@ -215,4 +215,4 @@ GLOBAL_VAR_INIT(bluespace_distotion_cooldown, 10 MINUTES)
 			Ttarget = get_random_secure_turf_in_range(Ttarget, 5)
 			if(Ttarget)
 				new /obj/item/bluespace_leak(Ttarget)
-				do_sparks(3, 0, Ttarget)
+				sparks(3, 0, Ttarget)

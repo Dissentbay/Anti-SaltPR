@@ -16,7 +16,7 @@
 
 /obj/machinery/trade_beacon/proc/activate()
 	flick("[icon_state]_active", src)
-	do_sparks(5, 0, loc)
+	sparks(5, 0, loc)
 	//bluespace_entropy(entropy_value, get_turf(src)) - Todo re-add this one day
 	playsound(loc, "sparks", 50, 1)
 

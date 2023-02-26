@@ -23,7 +23,7 @@
 
 /obj/entity_spawner/greyson/disassemble()
 
-	do_sparks(1, FALSE, src)
+	sparks(1, FALSE, src)
 
 	. = ..()
 

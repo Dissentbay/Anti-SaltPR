@@ -5,13 +5,13 @@ GLOBAL_LIST_INIT(machine_path_to_circuit_type, cache_circuits_by_build_path())
 /proc/cache_circuits_by_build_path()
 	. = list()
 	for(var/board_path in subtypesof(/obj/item/circuitboard/))
-		var/obj/item/circuitboard//board = board_path //fake type
-		if(initial(board.buildtype_select))
-			board = new board_path()
-			for(var/path in board.get_buildable_types())
-				.[path] = board_path
+		var/obj/item/circuitboard/boards = board_path //fake type
+		if(initial(boards.buildtype_select))
+			boards = new board_path()
+//			for(var/path in boards.get_buildable_types())  we don't have that at all
+//				.[path] = board_path
 			continue
-		.[initial(board.build_path)] = board_path
+		.[initial(boards.build_path)] = board_path
 
 // Code concerning machinery interaction with components/stock parts.
 /**
@@ -23,11 +23,13 @@ GLOBAL_LIST_INIT(machine_path_to_circuit_type, cache_circuits_by_build_path())
 		var/path_to_check = base_type || type
 		var/board_path = GLOB.machine_path_to_circuit_type[path_to_check]
 		if(board_path)
-			var/obj/item/circuitboard//board = install_component(board_path, refresh_parts = FALSE)
-			var/list/req_components = board.spawn_components || board.req_components
+			var/obj/item/circuitboard/boards = install_component(board_path, refresh_parts = FALSE)
+
+			var/list/req_components = boards.spawn_components || boards.req_components
+
 			req_components = req_components.Copy()
-			if(board.additional_spawn_components)
-				req_components += board.additional_spawn_components
+			if(boards.additional_spawn_components)
+				req_components += boards.additional_spawn_components
 			if(LAZYLEN(req_components))
 				LAZYINITLIST(uncreated_component_parts)
 				for(var/type in req_components)
@@ -303,7 +305,7 @@ Standard helpers for users interacting with machinery parts.
 	if(isstack(part))
 		var/obj/item/stack/stack = part
 		if (!stack.can_use(number))
-			to_chat(user, SPAN_WARNING("You need at least [number] [stack.plural_name] to install into \the [src]."))
+			to_chat(user, SPAN_WARNING("You need at least [number] [stack.singular_name] to install into \the [src]."))
 			return FALSE
 		install_component(stack.split(number, TRUE))
 	else

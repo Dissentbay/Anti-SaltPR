@@ -65,7 +65,7 @@
 			var/datum/effect/effect/system/smoke_spread/smoke = new
 			smoke.set_up(1, 0, loc, 0)
 			smoke.start()
-			do_sparks(2, 0, loc)
+			sparks(2, 0, loc)
 			is_circuit_fried = TRUE
 			active = FALSE
 		return

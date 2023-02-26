@@ -136,7 +136,7 @@ Please contact me on #coderbus IRC. ~Carn x
 #define LEGCUFF_LAYER			28
 #define L_HAND_LAYER			29
 #define R_HAND_LAYER			30
-#define FIRE_LAYER				31		//If you're on fire
+#define FIRE_LAYER_MOB			31		//If you're on fire
 #define TOTAL_LAYERS			31
 //////////////////////////////////
 
@@ -1357,9 +1357,9 @@ mob/living/carbon/human/proc/get_wings_image()
 
 
 /mob/living/carbon/human/update_fire(var/update_icons=1)
-	overlays_standing[FIRE_LAYER] = null
+	overlays_standing[FIRE_LAYER_MOB] = null
 	if(on_fire)
-		overlays_standing[FIRE_LAYER] = image("icon"='icons/mob/OnFire.dmi', "icon_state"="Standing", "layer"=FIRE_LAYER)
+		overlays_standing[FIRE_LAYER_MOB] = image("icon"='icons/mob/OnFire.dmi', "icon_state"="Standing", "layer"=FIRE_LAYER_MOB)
 
 	if(update_icons)   update_icons()
 
@@ -1488,6 +1488,6 @@ mob/living/carbon/human/proc/get_wings_image()
 #undef LEGCUFF_LAYER
 #undef L_HAND_LAYER
 #undef R_HAND_LAYER
-#undef FIRE_LAYER
+#undef FIRE_LAYER_MOB
 #undef CUSTOM_TAIL_LAYER_ALT
 #undef TOTAL_LAYERS
