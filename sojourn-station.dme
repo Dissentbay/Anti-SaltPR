@@ -810,7 +810,6 @@
 #include "code\game\machinery\autolathe\mechfab.dm"
 #include "code\game\machinery\autolathe\nanite_reconstitution_apparatus.dm"
 #include "code\game\machinery\bots\bots.dm"
-#include "code\game\machinery\bots\mulebot.dm"
 #include "code\game\machinery\camera\camera.dm"
 #include "code\game\machinery\camera\camera_assembly.dm"
 #include "code\game\machinery\camera\motion.dm"
